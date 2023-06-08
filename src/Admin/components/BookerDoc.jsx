@@ -1,4 +1,5 @@
 import React from "react";
+import emailjs from "emailjs-com";
 import { useState, useEffect } from "react";
 import { db, storage } from "../../firebase-config";
 import { getDownloadURL, listAll, ref } from "firebase/storage";
@@ -114,6 +115,29 @@ export default function Booker() {
 		}
 	};
 
+	// Initialize Email.js
+	useEffect(() => {
+		emailjs.init("RJYPtCeKGZ9btOiV7");
+	}, []);
+
+	// Function to send the email
+	const sendEmail = () => {
+		const templateParams = {
+			to_email: "ezzathariz27@gmail.com", // Replace with the recipient's email address
+			from_name: "Hafizuddin", // Replace with your name
+			message: "Hello, this is the email content.", // Replace with the email message
+		};
+
+		emailjs.send("service_96cl52c", "template_7mg6uhn", templateParams).then(
+			(result) => {
+				console.log(result.text);
+			},
+			(error) => {
+				console.log(error.text);
+			}
+		);
+	};
+
 	return (
 		<>
 			<thead>
@@ -176,7 +200,7 @@ export default function Booker() {
 									</svg>
 								</button>
 								<div
-									class="modal fade"
+									className="modal fade"
 									id={`exampleModal-${book.id}`}
 									tabindex="-1"
 									aria-labelledby={`exampleModalLabel-${book.id}`}
@@ -268,6 +292,13 @@ export default function Booker() {
 											d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z"
 										/>
 									</svg>
+								</button>
+								<button
+									type="button"
+									class="btn btn-danger"
+									onClick={sendEmail}
+								>
+									Send Email
 								</button>
 							</td>
 						</tr>
