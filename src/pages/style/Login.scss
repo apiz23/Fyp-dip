@@ -1,0 +1,110 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
+
+$color_1: #fff;
+$color_2: #008080;
+$color_3: #6edfdf;
+$background-color_1: #008080;
+$background-color_2: #fff;
+$background-color_3: #0a0a0a;
+$border-bottom-color_1: #008080;
+
+.main-content {
+	width: 55%;
+	border-radius: 20px;
+	box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
+	margin: 10rem 0px;
+	display: flex;
+}
+.company__info {
+	background-color: $background-color_1;
+	border-radius: 20px;
+	border-bottom-left-radius: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	color: $color_1;
+}
+.fa-android {
+	font-size: 3em;
+}
+.row {
+	> h2 {
+		color: $color_2;
+	}
+	.btnSubmit {
+		margin: 10px;
+	}
+}
+.login_form {
+	background-color: $background-color_2;
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+	border-top: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+}
+.form__input {
+	width: 100%;
+	border: 0px solid transparent;
+	border-radius: 0;
+	border-bottom: 1px solid #aaa;
+	padding: 1em 0.5em 0.5em;
+	padding-left: 2em;
+	outline: none;
+	margin: 1.5em auto;
+	transition: all 0.5s ease;
+	&:focus {
+		border-bottom-color: $border-bottom-color_1;
+		box-shadow: 0 0 5px rgba(0, 80, 80, 0.4);
+		border-radius: 4px;
+	}
+}
+.btnSubmit {
+	transition: all 0.5s ease;
+	border-radius: 30px;
+	width: 10rem;
+	font-weight: 600;
+	margin-top: 1.5em;
+	margin-bottom: 1em;
+	&:hover {
+		background-color: $background-color_3;
+		color: $color_1;
+	}
+	&:focus {
+		background-color: $background-color_3;
+		color: $color_1;
+	}
+}
+#remember_me {
+	margin: 0 10px;
+}
+.container {
+	.row-input {
+		.row {
+			margin: 20px;
+		}
+	}
+}
+.row-title {
+	margin: 30px;
+}
+a {
+	text-decoration: none;
+	color: $color_3;
+}
+@media screen and (max-width: 640px) {
+	.main-content {
+		width: 90%;
+	}
+	.company__info {
+		display: none;
+	}
+	.login_form {
+		border-top-left-radius: 20px;
+		border-bottom-left-radius: 20px;
+	}
+}
+@media screen and (min-width: 642px) and (max-width: 800px) {
+	.main-content {
+		width: 70%;
+	}
+}

@@ -1,0 +1,33 @@
+$background-color_1: rgb(173, 173, 173);
+
+#card {
+	width: 80%;
+}
+.row {
+	.btn {
+		margin: 20px;
+		width: max-content;
+	}
+}
+.btn {
+	min-width: 10%;
+}
+.modal-content {
+	width: 100%;
+}
+.modal-footer {
+	button {
+		width: max-content;
+	}
+}
+.modal-dialog {
+	max-width: 800px;
+}
+.radios {
+	width: fit-content;
+	margin: 10px;
+	background-color: $background-color_1;
+}
+.form-check {
+	margin: 30px;
+}

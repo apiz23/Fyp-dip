@@ -1,0 +1,25 @@
+$color_1: white;
+$background-color_1: rgb(53, 206, 117);
+$background-color_2: rgb(255, 253, 253);
+
+.title {
+	text-align: center;
+}
+.card {
+	width: 100%;
+	height: auto;
+	margin: 10px 0px;
+}
+.card-body {
+	button {
+		color: $color_1;
+		background-color: $background-color_1;
+		&:hover {
+			background-color: $background-color_2;
+			border: 1px solid;
+		}
+	}
+}
+#svgLogOut {
+	margin: 10px;
+}
