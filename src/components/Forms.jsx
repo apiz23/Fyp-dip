@@ -4,14 +4,18 @@ import { db, storage } from "../firebase-config";
 import "./style/Forms.scss";
 
 export default function Forms() {
-	const [minDate, setMinDate] = useState("");
 	const [fileUpload, setFileUpload] = useState(null);
 	const [fileList, setFileList] = useState([]);
 	const fileUploadRef = ref(storage, "files");
 
+	const [selectedDate, setSelectedDate] = useState("");
+	const [minDate, setMinDate] = useState("");
+
 	useEffect(() => {
-		const today = new Date().toISOString().split("T")[0];
-		setMinDate(today);
+		const today = new Date();
+		today.setDate(today.getDate() + 4);
+		const minDateValue = today.toISOString().split("T")[0];
+		setMinDate(minDateValue);
 	}, []);
 
 	const handleChange = (event) => {
@@ -94,7 +98,7 @@ export default function Forms() {
 				<div className="date">
 					<p className="h3 my-3">Date Start</p>
 					<div classNameName="dateStart mb-6 d-flex">
-						<label for="exampleInputPassword1" className="form-label">
+						<label for="dateStart" className="form-label">
 							Date
 						</label>
 						<input
@@ -102,10 +106,11 @@ export default function Forms() {
 							className="form-control"
 							id="date"
 							name="dateStart"
+							value={selectedDate}
 							min={minDate}
-							onChange={(event) => handleChange(event)}
+							onChange={(e) => setSelectedDate(e.target.value)}
 						/>
-						<label for="exampleInputPassword1" className="form-label">
+						<label for="timeStart" className="form-label">
 							Time
 						</label>
 						<input
@@ -118,7 +123,7 @@ export default function Forms() {
 					</div>
 					<p className="h3 my-3">Date End</p>
 					<div classNameName="dateEnd mb-6 d-flex">
-						<label for="exampleInputPassword1" className="form-label">
+						<label for="dateEnd" className="form-label">
 							Date
 						</label>
 						<input
@@ -129,7 +134,7 @@ export default function Forms() {
 							min={minDate}
 							onChange={(event) => handleChange(event)}
 						/>
-						<label for="exampleInputPassword1" className="form-label">
+						<label for="timeEnd" className="form-label">
 							Time
 						</label>
 						<input
