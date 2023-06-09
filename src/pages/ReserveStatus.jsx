@@ -9,6 +9,7 @@ import { useState } from "react";
 export default function ReserveStatus() {
 	const [booker, setBooker] = useState([]);
 	const bookingCollectionRef = collection(db, "booking-users");
+	const id = sessionStorage.getItem("username");
 
 	useEffect(() => {
 		const getBooker = async () => {
@@ -22,6 +23,8 @@ export default function ReserveStatus() {
 		};
 		getBooker();
 	}, []);
+
+	const filteredBooker = booker.filter((book) => book.id === id);
 
 	return (
 		<>
@@ -37,24 +40,18 @@ export default function ReserveStatus() {
 								<th scope="col">Status</th>
 							</tr>
 						</thead>
-						{booker.map((book, index) => {
-							return (
-								<>
-									<tbody>
-										<tr>
-											<th scope="row">{index + 1}</th>
-											<td>{book.id}</td>
-											<td>
-												{book.radioBtn == "option1"
-													? "Space & Equipment"
-													: "Equipment"}
-											</td>
-											<td>{book.status == 1 ? "Approved" : "Pending"}</td>
-										</tr>
-									</tbody>
-								</>
-							);
-						})}
+						{filteredBooker.map((book, index) => (
+							<tr key={index}>
+								<th scope="row">{index + 1}</th>
+								<td>{book.id}</td>
+								<td>
+									{book.radioBtn === "option1"
+										? "Space & Equipment"
+										: "Equipment"}
+								</td>
+								<td>{book.status === 1 ? "Approved" : "Pending"}</td>
+							</tr>
+						))}
 					</table>
 				</div>
 			</div>

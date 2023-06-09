@@ -34,6 +34,13 @@ export default function Booker() {
 		window.location.reload();
 	};
 
+	const updateStatus = async (id) => {
+		const equipDoc = doc(db, "booking-users", id);
+		const newField = { status: 1 };
+		await updateDoc(equipDoc, newField);
+		window.location.reload();
+	}
+
 	const checkSpaceOptionField = async (documentId) => {
 		const document = booker.find((book) => book.id === documentId);
 		const hasSpaceOption = document && document.spaceOption;
@@ -81,6 +88,7 @@ export default function Booker() {
 	const wrapperFX = (id) => {
 		checkSpaceOptionField(id);
 		updateBookerEquipment(id);
+		updateStatus(id)
 	};
 
 	const [selectedBookId, setSelectedBookId] = useState(null);

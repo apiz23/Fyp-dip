@@ -1,19 +1,29 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import { db } from "../firebase-config";
+import { collection, getDocs } from "firebase/firestore";
 import "./style/Login.scss";
 
 export default function Login() {
 	const navigate = useNavigate();
-
-	const [values, setValues] = useState({
-		username: "",
-		password: "",
-	});
-
+	const [login, setLogin] = useState([]);
 	const [radioCheck, setRadioCheck] = useState("stdStaff");
-
 	const [errors, setErrors] = useState({});
+	const [values, setValues] = useState({ username: "", password: "" });
+
+	useEffect(() => {
+		const getLogin = async () => {
+			const data = await getDocs(collection(db, "login"));
+			setLogin(
+				data.docs.map((docs) => ({
+					...docs.data(),
+					id: docs.id,
+				}))
+			);
+		};
+		getLogin();
+	}, []);
 
 	const validate = (values) => {
 		return {
@@ -37,7 +47,32 @@ export default function Login() {
 		setErrors(errors);
 
 		if (Object.keys(errors).length === 0) {
-			navigate(radioCheck === "stdStaff" ? "/home" : "/mainAdmin");
+			const adminUser = "BC7712";
+			const adminPass = "12345";
+
+			const matchedUser = login.find(
+				(user) =>
+					user.username === values.username && user.password === values.password
+			);
+
+			if (
+				radioCheck === "admin" &&
+				values.username === adminUser &&
+				values.password === adminPass
+			) {
+				navigate("/mainAdmin");
+			} else if (
+				matchedUser &&
+				radioCheck === "stdStaff" &&
+				values.username !== adminUser &&
+				values.password !== adminPass
+			) {
+				sessionStorage.setItem("username", values.username);
+				navigate("/home");
+			} else {
+				const loginError = { username: "Invalid username or password" };
+				setErrors((prevErrors) => ({ ...prevErrors, ...loginError }));
+			}
 		}
 	};
 

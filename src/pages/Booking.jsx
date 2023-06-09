@@ -22,7 +22,7 @@ export default function Booking() {
 		setFormPage(page);
 	};
 	const getAllLocalStorageData = () => {
-		var localStorageDataObj = {};
+		var localStorageDataObj = {status : 0};
 
 		for (var i = 0; i < localStorage.length; i++) {
 			var key = localStorage.key(i);
@@ -36,7 +36,8 @@ export default function Booking() {
 	async function createReservation() {
 		try {
 			const arr = getAllLocalStorageData();
-			const ref = doc(bookingCollectionRef);
+			const id = sessionStorage.getItem('username');
+			const ref = doc(bookingCollectionRef,id);
 			await setDoc(ref, arr);
 		} catch (error) {
 			console.error(error);
