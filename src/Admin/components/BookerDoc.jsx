@@ -39,7 +39,7 @@ export default function Booker() {
 		const newField = { status: 1 };
 		await updateDoc(equipDoc, newField);
 		window.location.reload();
-	}
+	};
 
 	const checkSpaceOptionField = async (documentId) => {
 		const document = booker.find((book) => book.id === documentId);
@@ -88,7 +88,7 @@ export default function Booker() {
 	const wrapperFX = (id) => {
 		checkSpaceOptionField(id);
 		updateBookerEquipment(id);
-		updateStatus(id)
+		updateStatus(id);
 	};
 
 	const [selectedBookId, setSelectedBookId] = useState(null);
@@ -97,29 +97,34 @@ export default function Booker() {
 		setSelectedBookId(bookId);
 	};
 
-	const [fileList, setFileList] = useState([]);
-	const fileUploadRef = ref(storage, "files");
+	// const [fileList, setFileList] = useState([]);
 
-	useEffect(() => {
-		listAll(fileUploadRef).then((response) => {
-			response.items.forEach((item) => {
-				getDownloadURL(item).then((url) => {
-					setFileList((prev) => [...prev, { name: item.name, url }]);
-				});
-			});
-		});
-	}, []);
+	// const fileUploadRef = ref(storage, "files");
 
-	const handleDownload = async (index) => {
+	// useEffect(() => {
+	// 	listAll(fileUploadRef).then((response) => {
+	// 		response.items.forEach((item) => {
+	// 			getDownloadURL(item).then((url) => {
+	// 				setFileList((prev) => [...prev, { name: item.name, url }]);
+	// 			});
+	// 		});
+	// 	});
+	// }, []);
+
+	const handleDownload = async (bookId) => {
 		try {
-			const file = fileList[index];
-			if (file) {
-				window.open(file.url, "_blank");
+			const storageRef = ref(storage, `${bookId}`);
+			const fileList = await listAll(storageRef);
+
+			if (fileList.items.length > 0) {
+				const fileRef = fileList.items[0];
+				const url = await getDownloadURL(fileRef);
+				window.open(url, "_blank");
 			} else {
-				console.error("Invalid file index");
+				console.error("No files found in the folder");
 			}
 		} catch (error) {
-			console.error("Error opening file:", error);
+			console.error("Error downloading file:", error);
 		}
 	};
 
@@ -252,9 +257,6 @@ export default function Booker() {
 												>
 													Close
 												</button>
-												<button type="button" class="btn btn-primary">
-													Save changes
-												</button>
 											</div>
 										</div>
 									</div>
@@ -264,7 +266,7 @@ export default function Booker() {
 									type="button"
 									class="btn btn-warning"
 									onClick={() => {
-										handleDownload(1);
+										handleDownload(book.id);
 									}}
 								>
 									<svg

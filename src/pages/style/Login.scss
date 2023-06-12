@@ -8,6 +8,11 @@ $background-color_2: #fff;
 $background-color_3: #0a0a0a;
 $border-bottom-color_1: #008080;
 
+.loginSec {
+	background-color: rgba(140, 245, 247, 0.781);
+	animation: fadeCenter 1s ease-in 0s 1 normal forwards;
+}
+
 .main-content {
 	width: 55%;
 	border-radius: 20px;
@@ -15,7 +20,8 @@ $border-bottom-color_1: #008080;
 	margin: 10rem 0px;
 	display: flex;
 }
-.company__info {
+
+.website__info {
 	background-color: $background-color_1;
 	border-radius: 20px;
 	border-bottom-left-radius: 20px;
@@ -24,9 +30,7 @@ $border-bottom-color_1: #008080;
 	justify-content: center;
 	color: $color_1;
 }
-.fa-android {
-	font-size: 3em;
-}
+
 .row {
 	> h2 {
 		color: $color_2;
@@ -35,6 +39,11 @@ $border-bottom-color_1: #008080;
 		margin: 10px;
 	}
 }
+
+.card {
+	border-radius: 15px;
+}
+
 .login_form {
 	background-color: $background-color_2;
 	border-top-right-radius: 20px;
@@ -45,35 +54,62 @@ $border-bottom-color_1: #008080;
 .form__input {
 	width: 100%;
 	border: 0px solid transparent;
-	border-radius: 0;
-	border-bottom: 1px solid #aaa;
+	border-radius: 10px;
+	border: 1px solid #aaa;
 	padding: 1em 0.5em 0.5em;
 	padding-left: 2em;
 	outline: none;
 	margin: 1.5em auto;
 	transition: all 0.5s ease;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
+		rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
 	&:focus {
 		border-bottom-color: $border-bottom-color_1;
 		box-shadow: 0 0 5px rgba(0, 80, 80, 0.4);
 		border-radius: 4px;
 	}
 }
+
+$color_1: #111827;
+$color_2: #eff2f7;
+$font-family_1: "Inter var", ui-sans-serif, system-ui, -apple-system, system-ui,
+	"Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+	"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+$background-color_1: #ffffff;
+$background-color_2: rgb(73, 174, 147);
+
 .btnSubmit {
-	transition: all 0.5s ease;
-	border-radius: 30px;
-	width: 10rem;
+	background-color: $background-color_1;
+	border: 1px solid rgb(209, 213, 219);
+	border-radius: 0.7rem;
+	box-sizing: border-box;
+	color: $color_1;
+	font-family: $font-family_1;
+	font-size: 1.2rem;
 	font-weight: 600;
-	margin-top: 1.5em;
-	margin-bottom: 1em;
+	line-height: 1.25rem;
+	padding: 0.75rem 1.5rem;
+	text-align: center;
+	text-decoration: none #d1d5db solid;
+	text-decoration-thickness: auto;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+	cursor: pointer;
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
 	&:hover {
-		background-color: $background-color_3;
-		color: $color_1;
+		background-color: $background-color_2;
+		color: $color_2;
 	}
 	&:focus {
-		background-color: $background-color_3;
-		color: $color_1;
+		outline: 2px solid transparent;
+		outline-offset: 2px;
+	}
+	&:focus-visible {
+		box-shadow: none;
 	}
 }
+
 #remember_me {
 	margin: 0 10px;
 }
@@ -92,19 +128,34 @@ a {
 	color: $color_3;
 }
 @media screen and (max-width: 640px) {
-	.main-content {
-		width: 90%;
-	}
-	.company__info {
-		display: none;
-	}
-	.login_form {
-		border-top-left-radius: 20px;
-		border-bottom-left-radius: 20px;
+	.card {
+		font-size: 80%;
 	}
 }
-@media screen and (min-width: 642px) and (max-width: 800px) {
-	.main-content {
-		width: 70%;
+
+@media screen and (min-width: 642px) {
+	.card {
+		font-size: 100%;
+	}
+	.container {
+		height: 120vh;
+	}
+}
+
+@media screen and (min-width: 370px) {
+	.container {
+		height: 130vh;
+	}
+}
+
+@keyframes fadeCenter {
+	0% {
+		opacity: 0;
+		transform: translateX(-50px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateX(0);
 	}
 }

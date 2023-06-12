@@ -3,7 +3,7 @@ import Login from "../pages/Login";
 import logo from "../Assets/uthm-favicon/favicon.ico";
 import { Link } from "react-router-dom";
 import "./style/Navbar.scss";
-import ReserveStatus from "../pages/ReserveStatus";
+import ReserveStatus from "./ReserveStatus";
 
 export default function Navbar() {
 	const home =
@@ -17,6 +17,7 @@ export default function Navbar() {
 
 	const handleClearLocalStorage = () => {
 		localStorage.clear();
+		sessionStorage.removeItem("loggedIn");
 	};
 	return (
 		<>
@@ -27,7 +28,7 @@ export default function Navbar() {
 							src={logo}
 							width="30"
 							height="30"
-							className="d-inline-block align-top"
+							className="d-inline-block align-top mx-3"
 							alt=""
 						/>
 						<Link to="/home">Space & Equipment</Link>
@@ -62,31 +63,7 @@ export default function Navbar() {
 							</li>
 						</ul>
 						<ul className="navbar-nav nav-justified ms-auto mb-2 mb-lg-0">
-							<div className="row d-flex">
-								<li className="nav-item">
-									<a className={Login} onClick={handleClearLocalStorage}>
-										<Link to="/">
-											<svg
-												id="svgLogOut"
-												xmlns="http://www.w3.org/2000/svg"
-												width="30"
-												height="25"
-												fill="currentColor"
-												class="bi bi-box-arrow-in-right"
-												viewBox="0 0 16 16"
-											>
-												<path
-													fill-rule="evenodd"
-													d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"
-												/>
-												<path
-													fill-rule="evenodd"
-													d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
-												/>
-											</svg>
-										</Link>
-									</a>
-								</li>
+							<div className="row">
 								<li className="nav-item">
 									<a className={bookingProce}>
 										<Link to="/bookingProce">
@@ -107,18 +84,26 @@ export default function Navbar() {
 										</Link>
 									</a>
 								</li>
-								<li className="nav-item mt-2">
-									<a className={ReserveStatus}>
-										<Link to="/reserveStatus">
+								<li className="nav-item">
+									<a className={Login} onClick={handleClearLocalStorage}>
+										<Link to="/">
 											<svg
+												id="svgLogOut"
 												xmlns="http://www.w3.org/2000/svg"
 												width="30"
 												height="25"
 												fill="currentColor"
-												class="bi bi-suit-spade-fill"
+												class="bi bi-box-arrow-in-right"
 												viewBox="0 0 16 16"
 											>
-												<path d="M7.184 11.246A3.5 3.5 0 0 1 1 9c0-1.602 1.14-2.633 2.66-4.008C4.986 3.792 6.602 2.33 8 0c1.398 2.33 3.014 3.792 4.34 4.992C13.86 6.367 15 7.398 15 9a3.5 3.5 0 0 1-6.184 2.246 19.92 19.92 0 0 0 1.582 2.907c.231.35-.02.847-.438.847H6.04c-.419 0-.67-.497-.438-.847a19.919 19.919 0 0 0 1.582-2.907z" />
+												<path
+													fill-rule="evenodd"
+													d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"
+												/>
+												<path
+													fill-rule="evenodd"
+													d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
+												/>
 											</svg>
 										</Link>
 									</a>

@@ -1,33 +1,51 @@
 $background-color_1: rgb(173, 173, 173);
 
+.bookingSection{
+	background-color: black;
+	color: white;
+}
+
 #card {
 	width: 80%;
+	background-color: lightsteelblue;
 }
 .row {
 	.btn {
 		margin: 20px;
 		width: max-content;
+		font-size: larger;
 	}
 }
-.btn {
-	min-width: 10%;
-}
+
 .modal-content {
 	width: 100%;
 }
+
 .modal-footer {
 	button {
 		width: max-content;
 	}
 }
+
 .modal-dialog {
 	max-width: 800px;
 }
+
 .radios {
 	width: fit-content;
-	margin: 10px;
-	background-color: $background-color_1;
 }
+
 .form-check {
 	margin: 30px;
+}
+
+#btnSubmit{
+	font-size: larger;
+}
+
+#btnBack{
+	color: white;
+	:hover{
+		color: greenyellow;
+	}
 }

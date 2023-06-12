@@ -1,6 +1,6 @@
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import React, { useState, useEffect } from "react";
-import { db, storage } from "../firebase-config";
+import { storage } from "../firebase-config";
 import "./style/Forms.scss";
 
 export default function Forms() {
@@ -26,7 +26,8 @@ export default function Forms() {
 
 	const uploadFile = () => {
 		if (fileUpload == null) return;
-		const fileRef = ref(storage, `files/${fileUpload.name}`);
+		const id = sessionStorage.getItem("username");
+		const fileRef = ref(storage, `${id}/${fileUpload.name}`);
 		uploadBytes(fileRef, fileUpload).then((snapshot) => {
 			getDownloadURL(snapshot.ref).then((url) => {
 				setFileList((prev) => [...prev, url]);
@@ -68,9 +69,6 @@ export default function Forms() {
 						onChange={(event) => handleChange(event)}
 					/>
 					<label for="floatingPurpose">Purpose of Booking</label>
-					{/* <div id="emailHelp" className="form-text">
-						We'll never share your email with anyone else.
-					</div> */}
 				</div>
 				<div className="form-floating mb-3">
 					<input
@@ -106,9 +104,8 @@ export default function Forms() {
 							className="form-control"
 							id="date"
 							name="dateStart"
-							value={selectedDate}
 							min={minDate}
-							onChange={(e) => setSelectedDate(e.target.value)}
+							onChange={(event) => handleChange(event)}
 						/>
 						<label for="timeStart" className="form-label">
 							Time

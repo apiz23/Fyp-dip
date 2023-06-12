@@ -1,5 +1,5 @@
 import React from "react";
-import "./NavbarAd.scss";
+import "./style/NavbarAd.scss";
 
 export default function NavbarAd() {
 	return (
@@ -33,7 +33,7 @@ export default function NavbarAd() {
 								</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="/login">
+								<a class="nav-link" href="/">
 									Exit
 								</a>
 							</li>

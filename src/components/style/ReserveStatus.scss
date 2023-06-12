@@ -1,0 +1,19 @@
+.table {
+  border-radius: 5px;
+	outline: 1px solid white;
+	color: white;
+
+  thead tr th{
+    padding: 10px;
+  }
+
+  td{
+    padding: 10px;
+    .modal-dialog{
+      width: max-content;
+    }
+    p{
+      font-size: large;
+    }
+  }
+}

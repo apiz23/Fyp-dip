@@ -7,26 +7,11 @@ $background-color_1: rgb(14, 81, 112);
 img {
 	height: 10%;
 	color: $color_1;
-	margin: 0px 10px;
-}
-.right-item {
-	float: right;
 }
 
 a {
 	color: $color_2;
-	position: relative;
 	&:hover {
 		color: rgb(93, 212, 152);
 	}
-}
-
-#navbarNav {
-	span {
-		float: right;
-	}
-}
-
-#navbarNav .nav-item{
-	
 }
