@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { db } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 import "./style/Forms_Space.scss";
@@ -43,12 +43,42 @@ export default function FormsSpace() {
 	]);
 
 	const [space, setSpace] = useState([]);
+	const [booker, setBooker] = useState([]);
 
 	const handleChange = (event) => {
 		const name = event.target.name;
 		const value = event.target.value;
 		localStorage.setItem(name, value);
 	};
+
+	const [sessionData, setSessionData] = useState({});
+
+	useEffect(() => {
+		const sessionStorageKeys = Object.keys(sessionStorage);
+		const selectedKeys = ["dateStart", "dateEnd", "timeStart", "timeEnd"];
+
+		const sessionDataObject = {};
+		selectedKeys.forEach((key) => {
+			if (sessionStorageKeys.includes(key)) {
+				sessionDataObject[key] = sessionStorage.getItem(key);
+			}
+		});
+
+		setSessionData(sessionDataObject);
+	}, []);
+
+	useEffect(() => {
+		const getBooker = async () => {
+			const data = await getDocs(collection(db, "booking-users"));
+			setBooker(
+				data.docs.map((docs) => ({
+					...docs.data(),
+					id: docs.id,
+				}))
+			);
+		};
+		getBooker();
+	}, []);
 
 	useEffect(() => {
 		const getSpaces = async () => {
@@ -66,14 +96,74 @@ export default function FormsSpace() {
 					} else {
 						updatedData[key] = space[key];
 					}
-				}return updatedData;
+				}
+				return updatedData;
 			});
 			setSpace(updatedSpace);
 		};
 		getSpaces();
 	}, []);
 
-	console.log(space);
+	const checkTime = (
+		enteredDateStart,
+		enteredDateEnd,
+		enteredTimeStart,
+		enteredTimeEnd,
+		restrictedStartDate,
+		restrictedEndDate,
+		restrictedStartTime,
+		restrictedEndTime
+	) => {
+		const enteredDateTime = calculateDurationHours(
+			enteredDateStart,
+			enteredTimeStart,
+			enteredDateEnd,
+			enteredTimeEnd
+		);
+		const comparedDateTime = calculateDurationHours(
+			restrictedStartDate,
+			restrictedStartTime,
+			restrictedEndDate,
+			restrictedEndTime
+		);
+	};
+
+	const calculateDurationHours = (startDate, startTime, endDate, endTime) => {
+		const startDateTime = new Date(`${startDate}T${startTime}`);
+		const endDateTime = new Date(`${endDate}T${endTime}`);
+
+		const durationInMilliseconds = endDateTime - startDateTime;
+		const durationInHours = durationInMilliseconds / (1000 * 60 * 60);
+
+		return durationInHours;
+	};
+
+	const compareDateTime = (
+		startDate,
+		endDate,
+		startTime,
+		endTime,
+		enteredDateStart,
+		enteredDateEnd,
+		enteredTimeStart,
+		enteredTimeEnd
+	) => {
+		const dataStartDate = new Date(`${startDate}T${startTime}:00`);
+		const dataEndDate = new Date(`${endDate}T${endTime}:00`);
+		const inputStartDate = new Date(
+			`${enteredDateStart}T${enteredTimeStart}:00`
+		);
+		const inputEndDate = new Date(`${enteredDateEnd}T${enteredTimeEnd}:00`);
+		if (
+			inputStartDate >= dataStartDate &&
+			inputEndDate <= dataEndDate &&
+			inputStartDate <= inputEndDate
+		) {
+			return "inside";
+		} else {
+			return "outside";
+		}
+	};
 
 	return (
 		<>
@@ -105,11 +195,20 @@ export default function FormsSpace() {
 													id="radio1"
 													value={room.title}
 													onChange={handleChange}
-													disabled={space.some(
-														(item) =>
-															item.id ===
-																room.title.toLowerCase().replace(/\s/g, "-") &&
-															item.availability === "no"
+													disabled={booker.some((book) =>
+														room.title === book.spaceOption &&
+														compareDateTime(
+															book.dateStart,
+															book.dateEnd,
+															book.timeStart,
+															book.timeEnd,
+															sessionData.dateStart,
+															sessionData.dateEnd,
+															sessionData.timeStart,
+															sessionData.timeEnd
+														) === "inside"
+															? true
+															: false
 													)}
 												/>
 												<label class="form-check-label" for="radio1">
@@ -141,13 +240,20 @@ export default function FormsSpace() {
 														id={`radio${index + 1}`}
 														value={rooms[index + 1].title}
 														onChange={handleChange}
-														disabled={space.some(
-															(item) =>
-																item.id ===
-																	rooms[index + 1].title
-																		.toLowerCase()
-																		.replace(/\s/g, "-") &&
-																item.availability === "no"
+														disabled={booker.some((book) =>
+															rooms[index + 1].title === book.spaceOption &&
+															compareDateTime(
+																book.dateStart,
+																book.dateEnd,
+																book.timeStart,
+																book.timeEnd,
+																sessionData.dateStart,
+																sessionData.dateEnd,
+																sessionData.timeStart,
+																sessionData.timeEnd
+															) === "inside"
+																? true
+																: false
 														)}
 													/>
 													<label

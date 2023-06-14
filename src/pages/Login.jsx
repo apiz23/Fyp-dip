@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { db } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 import "./style/Login.scss";
+import logo from "../Assets/uthm-favicon/android-chrome-192x192.png";
 
 export default function Login() {
 	const navigate = useNavigate();
@@ -59,7 +60,7 @@ export default function Login() {
 				values.username === adminUser &&
 				values.password === adminPass
 			) {
-				sessionStorage.setItem('loggedIn', 'true');
+				sessionStorage.setItem("loggedIn", "true");
 				navigate("/homeAd");
 			} else if (
 				matchedUser &&
@@ -67,7 +68,7 @@ export default function Login() {
 				values.username !== adminUser &&
 				values.password !== adminPass
 			) {
-				sessionStorage.setItem('loggedIn', 'true');
+				sessionStorage.setItem("loggedIn", "true");
 				sessionStorage.setItem("username", values.username);
 				navigate("/home");
 			} else {
@@ -80,13 +81,14 @@ export default function Login() {
 	return (
 		<section className="loginSec">
 			<div className="container py-5 h-100">
-				<div className="row d-flex justify-content-center align-items-center h-100">
+				<div className="row d-flex justify-content-center align-items-center">
 					<div className="col-12 col-md-8 col-lg-6 col-xl-5">
 						<div className="card">
 							<div className="card-body p-5 text-center">
-								<h3 className="my-4">Space & Equipment</h3>
+								<img src={logo} width={70} />
+								<h3 className="mt-4">Space & Equipment</h3>
 								<form onSubmit={handleSubmit}>
-									<div className="form-outline mb-4">
+									<div className="form-outline my-3">
 										<input
 											type="text"
 											id="username"
@@ -102,17 +104,11 @@ export default function Login() {
 												role="alert"
 											>
 												<span>{errors.username}</span>
-												<button
-													type="button"
-													className="btn-close"
-													data-bs-dismiss="alert"
-													aria-label="Close"
-												></button>
 											</div>
 										)}
 									</div>
 
-									<div className="form-outline mb-4">
+									<div className="form-outline">
 										<input
 											type="password"
 											name="password"
@@ -128,16 +124,10 @@ export default function Login() {
 												role="alert"
 											>
 												<span>{errors.password}</span>
-												<button
-													type="button"
-													className="btn-close"
-													data-bs-dismiss="alert"
-													aria-label="Close"
-												></button>
 											</div>
 										)}
 									</div>
-									<div className="radio-row m-3">
+									<div className="radio-row">
 										<div className="form-check form-check-inline">
 											<input
 												className="form-check-input"
@@ -168,9 +158,9 @@ export default function Login() {
 										</div>
 									</div>
 
-									<hr className="my-4" />
+									<hr className="my-2" />
 
-									<div className="row justify-content-center">
+									<div className="row d-flex justify-content-center">
 										<div className="col-lg">
 											<input
 												type="submit"

@@ -1,9 +1,11 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import Login from "../pages/Login";
 import logo from "../Assets/uthm-favicon/favicon.ico";
 import { Link } from "react-router-dom";
 import "./style/Navbar.scss";
-import ReserveStatus from "./ReserveStatus";
+import pic from "../Assets/pic.jpeg";
+import { db } from "../firebase-config";
+import { collection, getDocs } from "firebase/firestore";
 
 export default function Navbar() {
 	const home =
@@ -19,9 +21,36 @@ export default function Navbar() {
 		localStorage.clear();
 		sessionStorage.removeItem("loggedIn");
 	};
+
+	const [user, setUser] = useState([]);
+	const username = sessionStorage.getItem("username");
+
+	useEffect(() => {
+		const getUser = async () => {
+			const data = await getDocs(collection(db, "login"));
+			setUser(
+				data.docs.map((docs) => ({
+					...docs.data(),
+					id: docs.id,
+				}))
+			);
+		};
+		getUser();
+	}, []);
+
+	const [showOffcanvas, setShowOffcanvas] = useState(false);
+
+	const handleButtonClick = () => {
+		setShowOffcanvas(true);
+	};
+
+	const handleCloseOffcanvas = () => {
+		setShowOffcanvas(false);
+	};
+
 	return (
 		<>
-			<nav className="navbar sticky-top navbar-expand-md bg-dark">
+			<nav className="navbar sticky-top navbar-expand-md">
 				<div className="container-fluid">
 					<a className="navbar-brand" href="/home">
 						<img
@@ -62,26 +91,24 @@ export default function Navbar() {
 								</a>
 							</li>
 						</ul>
-						<ul className="navbar-nav nav-justified ms-auto mb-2 mb-lg-0">
+						<ul className="navbar-nav nav-justified ms-auto mb-lg-0">
 							<div className="row">
 								<li className="nav-item">
-									<a className={bookingProce}>
-										<Link to="/bookingProce">
-											<svg
-												xmlns="http://www.w3.org/2000/svg"
-												width="30"
-												height="25"
-												fill="currentColor"
-												class="bi bi-person-circle"
-												viewBox="0 0 16 16"
-											>
-												<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-												<path
-													fill-rule="evenodd"
-													d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
-												/>
-											</svg>
-										</Link>
+									<a className="mt-2" type="button" onClick={handleButtonClick}>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="30"
+											height="30"
+											fill="white"
+											class="bi bi-person-circle"
+											viewBox="0 0 16 16"
+										>
+											<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+											<path
+												fill-rule="evenodd"
+												d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+											/>
+										</svg>
 									</a>
 								</li>
 								<li className="nav-item">
@@ -91,7 +118,7 @@ export default function Navbar() {
 												id="svgLogOut"
 												xmlns="http://www.w3.org/2000/svg"
 												width="30"
-												height="25"
+												height="30"
 												fill="currentColor"
 												class="bi bi-box-arrow-in-right"
 												viewBox="0 0 16 16"
@@ -113,6 +140,57 @@ export default function Navbar() {
 					</div>
 				</div>
 			</nav>
+			<div
+				className={`offcanvas offcanvas-start ${
+					showOffcanvas ? "show" : ""
+				} bg-dark text-white`}
+				tabIndex="-1"
+				id="offcanvasExample"
+				aria-labelledby="offcanvasExampleLabel"
+			>
+				<div className="offcanvas-header">
+					<h3 className="offcanvas-title" id="offcanvasExampleLabel">
+						Profile
+					</h3>
+					<button
+						type="button"
+						className="btn-close bg-danger"
+						onClick={handleCloseOffcanvas}
+						aria-label="Close"
+					></button>
+				</div>
+				<div className="offcanvas-body">
+					<div>
+						<div className="row my-3">
+							<div className="col-md d-flex justify-content-center">
+								<img
+									src={pic}
+									class="img-fluid rounded"
+									height={100}
+									width={250}
+								/>
+							</div>
+						</div>
+						<div className="detailsRow p-4">
+							<div className="col col-md p-3 bg-warning text-dark">
+								{user.map((u) => {
+									return u.username == username ? (
+										<>
+											<label>Name:</label>
+											<br />
+											<strong>{username}</strong>
+											<br />
+											<label className="mt-3">Email:</label>
+											<br />
+											<strong>{username}@student.uthm.edu.my</strong>
+										</>
+									) : null;
+								})}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</>
 	);
 }

@@ -59,6 +59,7 @@ export default function Booker() {
 			"multipurpose-table",
 			"plastic-chairs",
 			"rostrum",
+			"platform",
 			"round-table",
 			"seminar-table",
 		];
@@ -97,20 +98,6 @@ export default function Booker() {
 		setSelectedBookId(bookId);
 	};
 
-	// const [fileList, setFileList] = useState([]);
-
-	// const fileUploadRef = ref(storage, "files");
-
-	// useEffect(() => {
-	// 	listAll(fileUploadRef).then((response) => {
-	// 		response.items.forEach((item) => {
-	// 			getDownloadURL(item).then((url) => {
-	// 				setFileList((prev) => [...prev, { name: item.name, url }]);
-	// 			});
-	// 		});
-	// 	});
-	// }, []);
-
 	const handleDownload = async (bookId) => {
 		try {
 			const storageRef = ref(storage, `${bookId}`);
@@ -136,7 +123,7 @@ export default function Booker() {
 	// Function to send the email
 	const sendEmail = () => {
 		const templateParams = {
-			to_email: "ezzathariz27@gmail.com", // Replace with the recipient's email address
+			to_email: "fariez4600@gmail.com", // Replace with the recipient's email address
 			from_name: "Hafizuddin", // Replace with your name
 			message: "Hello, this is the email content.", // Replace with the email message
 		};

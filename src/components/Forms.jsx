@@ -22,6 +22,7 @@ export default function Forms() {
 		const name = event.target.name;
 		const value = event.target.value;
 		localStorage.setItem(name, value);
+		sessionStorage.setItem(name, value);
 	};
 
 	const uploadFile = () => {

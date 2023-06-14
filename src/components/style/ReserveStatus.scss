@@ -1,19 +1,27 @@
 .table {
-  border-radius: 5px;
-	outline: 1px solid white;
-	color: white;
+	thead tr th {
+		padding: 10px;
+	}
 
-  thead tr th{
-    padding: 10px;
-  }
+	td {
+		padding: 10px;
+		p {
+			font-size: large;
+		}
+	}
 
-  td{
-    padding: 10px;
-    .modal-dialog{
-      width: max-content;
-    }
-    p{
-      font-size: large;
-    }
-  }
+	#viewBtn {
+		background-color: blue;
+		&:hover {
+			background-color: rgb(51, 51, 255);
+		}
+	}
+}
+#cardStatus {
+	box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+		rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+	.card-body {
+		border-radius: 10px;
+		background-color: aliceblue;
+	}
 }

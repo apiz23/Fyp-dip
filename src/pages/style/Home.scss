@@ -1,13 +1,27 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab|Rubik|Inter|Open+Sans:400italic,700italic,400,700);
+
+$roboto-slab: "Roboto Slab", serif;
+$open-sans: "Open Sans", sans-serif;
+$inter: "Inter", sans-serif;
+$rubik: "Rubik", serif;
+
 $color_1: white;
 $background-color_1: rgb(53, 206, 117);
 $background-color_2: rgb(255, 253, 253);
 
-.homeSec{
-	background-color: black;
+.homeSec {
+	height: fit-content;
+	background: linear-gradient(
+		45deg,
+		rgba(193, 220, 247, 1) 0%,
+		rgba(21, 37, 88, 1) 100%
+	);
 }
 
 .title {
+	font-family: $rubik;
 	text-align: center;
+	text-transform: uppercase;
 	color: white;
 }
 

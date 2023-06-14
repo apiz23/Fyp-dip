@@ -1,4 +1,8 @@
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab|Inter|Open+Sans:400italic,700italic,400,700);
+
+$roboto-slab: "Roboto Slab", serif;
+$open-sans: "Open Sans", sans-serif;
+$inter: "inter", sans-serif;
 
 $color_1: #fff;
 $color_2: #008080;
@@ -9,7 +13,12 @@ $background-color_3: #0a0a0a;
 $border-bottom-color_1: #008080;
 
 .loginSec {
-	background-color: rgba(140, 245, 247, 0.781);
+	background: rgb(63, 144, 241);
+	background: linear-gradient(
+		90deg,
+		rgba(63, 144, 241, 1) 0%,
+		rgba(72, 66, 205, 1) 100%
+	);
 	animation: fadeCenter 1s ease-in 0s 1 normal forwards;
 }
 
@@ -41,7 +50,14 @@ $border-bottom-color_1: #008080;
 }
 
 .card {
+	font-family: $inter;
 	border-radius: 15px;
+	box-shadow: rgba(50, 50, 93, 1.25) 0px 6px 12px -2px,
+		rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+	h3 {
+		font-family: $roboto-slab;
+		text-transform: uppercase;
+	}
 }
 
 .login_form {
@@ -92,13 +108,14 @@ $background-color_2: rgb(73, 174, 147);
 	text-align: center;
 	text-decoration: none #d1d5db solid;
 	text-decoration-thickness: auto;
-	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+	box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em,
+		rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
 	cursor: pointer;
 	user-select: none;
 	-webkit-user-select: none;
 	touch-action: manipulation;
 	&:hover {
-		background-color: $background-color_2;
+		background-color: rgb(30, 131, 255);
 		color: $color_2;
 	}
 	&:focus {

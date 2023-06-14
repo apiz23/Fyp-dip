@@ -6,6 +6,7 @@ import Booking from "./Booking";
 import BookingProce from "./BookingProce";
 import ReserveStatus from "../components/ReserveStatus";
 import "./style/Home.scss";
+import pic from "../Assets/pic.jpeg";
 
 export default function Home() {
 	<Router>
@@ -25,49 +26,59 @@ export default function Home() {
 
 	return (
 		<>
-			<section className="homeSec">
+			<section className="homeSec w-100">
 				<Navbar />
 				<div className="title">
-					<h1 class="display-1 mt-3">Welcome</h1>
+					<h1 class="display-1 mt-5">Welcome</h1>
 				</div>
-				<div className="container mt-5 col-md-8">
+				<div className="container mt-5 col-md-10">
 					<div className="row">
-						<div className="col col-md d-flex justify-content-center">
+						<div className="col col-md">
 							<ReserveStatus />
 						</div>
 					</div>
-					<div className="row p-3 ">
-						<div className="col col-md-6 px-3">
-							<div className="card">
-								<div className="card-header">Featured</div>
-								<div className="card-body">
-									<h5 className="card-title">Special title treatment</h5>
-									<p className="card-text">
-										With supporting text below as a natural lead-in to
-										additional content.
-									</p>
-									<Link to="/booking">
-										<button type="button" class="btn btn-primary">
-											Button
-										</button>
-									</Link>
+					<div className="row my-3 d-flex justify-content-center">
+						<div className="col col-md-10">
+							<div class="card mb-3">
+								<div class="row g-0">
+									<div class="col-md-8">
+										<div class="card-body">
+											<h5 class="card-title">Card title</h5>
+											<p class="card-text">
+												This is a wider card with supporting text below as a
+												natural lead-in to additional content. This content is a
+												little bit longer.
+											</p>
+											<p class="card-text">
+												<small class="text-body-secondary">
+													Last updated 3 mins ago
+												</small>
+											</p>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
-						<div className="col col-md-6 px-3">
-							<div className="card">
-								<div className="card-header">Featured</div>
-								<div className="card-body">
-									<h5 className="card-title">Special title treatment</h5>
-									<p className="card-text">
-										With supporting text below as a natural lead-in to
-										additional content.
-									</p>
-									<Link to="/booking">
-										<button type="button" class="btn btn-primary">
-											Button
-										</button>
-									</Link>
+					</div>
+					<div className="row my-3 d-flex justify-content-center">
+						<div className="col col-lg-10">
+							<div className="card mb-3">
+								<div className="row g-0">
+									<div className="col-md-8">
+										<div className="card-body">
+											<h5 className="card-title">Card title</h5>
+											<p className="card-text">
+												This is a wider card with supporting text below as a
+												natural lead-in to additional content. This content is a
+												little bit longer.
+											</p>
+											<p className="card-text">
+												<small className="text-body-secondary">
+													Last updated 3 mins ago
+												</small>
+											</p>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>

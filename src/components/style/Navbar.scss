@@ -1,8 +1,18 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab|Inter|Open+Sans:400italic,700italic,400,700);
+
+$roboto-slab: "Roboto Slab", serif;
+$open-sans: "Open Sans", sans-serif;
+$inter: "inter", sans-serif;
+
 $color_1: black;
 $color_2: rgb(253, 251, 251);
 $color_3: rgb(3, 3, 3);
 $color_4: rgb(255, 0, 0);
 $background-color_1: rgb(14, 81, 112);
+
+nav {
+	background-color: rgb(54, 70, 103);
+}
 
 img {
 	height: 10%;
@@ -10,8 +20,22 @@ img {
 }
 
 a {
-	color: $color_2;
+	font-family: $inter;
+	color: rgb(255, 255, 255);
+	font-size: large;
 	&:hover {
-		color: rgb(93, 212, 152);
+		color: rgb(188, 231, 255);
+	}
+	&:hover svg{
+		color: rgb(165, 200, 253);
+	}
+}
+
+.offcanvas-body {
+	img {
+		outline: 1px rgb(255, 255, 255) solid;
+	}
+	.col {
+		border-radius: 10px;
 	}
 }
