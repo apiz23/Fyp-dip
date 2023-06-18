@@ -1,8 +1,8 @@
 import React from "react";
-import { useEffect } from "react";
-import { db } from "../firebase-config";
+import { useEffect, useState } from "react";
+import { db, storage } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
-import { useState } from "react";
+import { getDownloadURL, listAll, ref } from "firebase/storage";
 import "./style/ReserveStatus.scss";
 
 export default function ReserveStatus() {
@@ -25,6 +25,23 @@ export default function ReserveStatus() {
 
 	const filteredBooker = booker.filter((book) => book.id === id);
 
+	const handleDownload = async (bookId) => {
+		try {
+			const storageRef = ref(storage, `${bookId}`);
+			const fileList = await listAll(storageRef);
+
+			if (fileList.items.length > 0) {
+				const fileRef = fileList.items[0];
+				const url = await getDownloadURL(fileRef);
+				window.open(url, "_blank");
+			} else {
+				console.error("No files found in the folder");
+			}
+		} catch (error) {
+			console.error("Error downloading file:", error);
+		}
+	};
+
 	return (
 		<>
 			<div className="row">
@@ -36,7 +53,6 @@ export default function ReserveStatus() {
 								<table class="table table-hover mt-3 text-dark">
 									<thead>
 										<tr>
-
 											<th scope="col">Booking ID</th>
 											<th scope="col">Category</th>
 											<th scope="col">Status</th>
@@ -123,7 +139,13 @@ export default function ReserveStatus() {
 														</div>
 													</div>
 												</div>
-												<button class="btn" id="fileBtn">
+												<button
+													class="btn"
+													id="fileBtn"
+													onClick={() => {
+														handleDownload(book.id);
+													}}
+												>
 													<svg
 														xmlns="http://www.w3.org/2000/svg"
 														width="25"

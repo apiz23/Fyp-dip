@@ -43,6 +43,9 @@ $background-color_1: rgb(173, 173, 173);
 
 .radios {
 	width: fit-content;
+	label{
+		font-size: larger;
+	}
 }
 
 .form-check {

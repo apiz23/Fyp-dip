@@ -44,6 +44,19 @@ export default function Booking() {
 			console.error(error);
 		}
 	}
+
+	const username = sessionStorage.getItem("username");
+
+	const [showAlert, setShowAlert] = useState(false);
+
+	const handleButtonClick = () => {
+		setShowAlert(true);
+	};
+
+	const wrapperFunction = () => {
+		handleButtonClick();
+		// createReservation();
+	};
 	return (
 		<>
 			<section className="bookingSection">
@@ -88,13 +101,13 @@ export default function Booking() {
 													></button>
 												</div>
 												<div className="modal-body">
-													<ul class="list-group list-group-flush">
-														<li class="list-group-item">
+													<ul className="list-group list-group-flush">
+														<li className="list-group-item">
 															Borang ini adalah sah untuk tempahan penggunaan
 															ruang dan peralatan di bawah penyeliaan Pejabat
 															Pentadbiran Kampus Pagoh
 														</li>
-														<li class="list-group-item">
+														<li className="list-group-item">
 															Pemohon hanya perlu mengisi BAHAGIAN (A) sahaja
 														</li>
 													</ul>
@@ -112,8 +125,8 @@ export default function Booking() {
 										</div>
 									</div>
 								</div>
-								<div class="row d-flex justify-content-center">
-									<div class="col-md-10">
+								<div className="row d-flex justify-content-center">
+									<div className="col-md-10">
 										<div className="card mx-auto" id="card">
 											<div className="card-header bg-dark text-center">
 												<strong>Section A</strong>
@@ -131,7 +144,7 @@ export default function Booking() {
 														handleChangeFormPage(1);
 													}}
 												>
-													Next Page
+													Next Section
 												</button>
 											</div>
 										</div>
@@ -158,16 +171,16 @@ export default function Booking() {
 										width="30"
 										height="30"
 										fill="currentColor"
-										class="bi bi-arrow-left-circle-fill"
+										className="bi bi-arrow-left-circle-fill"
 										viewBox="0 0 16 16"
 									>
 										<path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
 									</svg>
 								</button>
 								<div className="radios mt-3 text-dark">
-									<div class="form-check form-check-inline">
+									<div className="form-check form-check-inline">
 										<input
-											class="form-check-input"
+											className="form-check-input"
 											type="radio"
 											name="radioBtn"
 											id="rdb1"
@@ -175,13 +188,16 @@ export default function Booking() {
 											checked={radioValue === "option1"}
 											onChange={handleRadioChange}
 										/>
-										<label class="form-check-label" for="inlineRadio1">
+										<label
+											className="form-check-label text-light"
+											for="inlineRadio1"
+										>
 											Space & Equipment
 										</label>
 									</div>
-									<div class="form-check form-check-inline">
+									<div className="form-check form-check-inline">
 										<input
-											class="form-check-input"
+											className="form-check-input"
 											type="radio"
 											name="radioBtn"
 											id="rdb2"
@@ -189,7 +205,10 @@ export default function Booking() {
 											checked={radioValue === "option2"}
 											onChange={handleRadioChange}
 										/>
-										<label class="form-check-label" for="inlineRadio2">
+										<label
+											className="form-check-label text-light"
+											for="inlineRadio2"
+										>
 											Equipment Only
 										</label>
 									</div>
@@ -198,30 +217,48 @@ export default function Booking() {
 							{radioValue === "option1" ? (
 								<>
 									<div className="row mx-1 d-flex justify-content-center">
-										<div class="col-md-8">
+										<div className="col-md-8">
 											<FormsSpace />
 										</div>
 									</div>
 									<div className="row mx-1 d-flex justify-content-center">
-										<div class="col-md-8">
+										<div className="col-md-8">
 											<FormsEquipment />
 										</div>
 									</div>
 								</>
 							) : (
-								<div className="row my-3 mx-1 d-flex justify-content-center">
+								<div className="row my-3 mx-1 d-flex justify-content-center ">
 									<div class="col-md-8">
 										<FormsEquipment />
 									</div>
 								</div>
 							)}
 							<div className="row">
-								<div className="col d-flex justify-content-center">
+								<div className="col d-flex justify-content-center flex-column align-items-center">
+									{showAlert && (
+										<>
+											<div class="alert alert-info" role="alert">
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													width="20"
+													height="20"
+													fill="currentColor"
+													className="bi bi-check-circle me-3"
+													viewBox="0 0 16 16"
+												>
+													<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+													<path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+												</svg>
+												Your Booking have been placed and have been Email
+											</div>
+										</>
+									)}
 									<button
 										className="btn btn-danger p-3"
 										id="btnSubmit"
 										onClick={() => {
-											createReservation();
+											wrapperFunction();
 										}}
 									>
 										<span className="me-3">Submit</span>

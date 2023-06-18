@@ -4,8 +4,9 @@ import logo from "../Assets/uthm-favicon/favicon.ico";
 import { Link } from "react-router-dom";
 import "./style/Navbar.scss";
 import pic from "../Assets/pic.jpeg";
-import { db } from "../firebase-config";
+import { db, storage } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
+import { ref, listAll, getDownloadURL } from "firebase/storage";
 
 export default function Navbar() {
 	const home =
@@ -47,6 +48,35 @@ export default function Navbar() {
 	const handleCloseOffcanvas = () => {
 		setShowOffcanvas(false);
 	};
+
+	const [image, setImage] = useState("");
+
+	useEffect(() => {
+		const fetchImage = async () => {
+			try {
+				const storageRef = ref(storage, "Picture");
+				const fileList = await listAll(storageRef);
+
+				const matchingFile = fileList.items.find(
+					(file) =>
+						file.name === `${username}.jpeg` ||
+						file.name === `${username}.png` ||
+						file.name === `${username}.jpg`
+				);
+
+				if (matchingFile) {
+					const url = await getDownloadURL(matchingFile);
+					setImage(url);
+				} else {
+					console.error("No matching file found");
+				}
+			} catch (error) {
+				console.error("Error fetching image:", error);
+			}
+		};
+
+		fetchImage();
+	}, [username]);
 
 	return (
 		<>
@@ -176,12 +206,17 @@ export default function Navbar() {
 					<div>
 						<div className="row my-3">
 							<div className="col-md d-flex justify-content-center">
-								<img
-									src={pic}
-									class="img-fluid rounded"
-									height={100}
-									width={250}
-								/>
+								{image ? (
+									<img
+										src={image}
+										alt="Image"
+										className="img-fluid rounded"
+										height={100}
+										width={250}
+									/>
+								) : (
+									<p>Loading image...</p>
+								)}
 							</div>
 						</div>
 						<div className="detailsRow p-4">

@@ -104,40 +104,6 @@ export default function FormsSpace() {
 		getSpaces();
 	}, []);
 
-	const checkTime = (
-		enteredDateStart,
-		enteredDateEnd,
-		enteredTimeStart,
-		enteredTimeEnd,
-		restrictedStartDate,
-		restrictedEndDate,
-		restrictedStartTime,
-		restrictedEndTime
-	) => {
-		const enteredDateTime = calculateDurationHours(
-			enteredDateStart,
-			enteredTimeStart,
-			enteredDateEnd,
-			enteredTimeEnd
-		);
-		const comparedDateTime = calculateDurationHours(
-			restrictedStartDate,
-			restrictedStartTime,
-			restrictedEndDate,
-			restrictedEndTime
-		);
-	};
-
-	const calculateDurationHours = (startDate, startTime, endDate, endTime) => {
-		const startDateTime = new Date(`${startDate}T${startTime}`);
-		const endDateTime = new Date(`${endDate}T${endTime}`);
-
-		const durationInMilliseconds = endDateTime - startDateTime;
-		const durationInHours = durationInMilliseconds / (1000 * 60 * 60);
-
-		return durationInHours;
-	};
-
 	const compareDateTime = (
 		startDate,
 		endDate,
@@ -155,9 +121,11 @@ export default function FormsSpace() {
 		);
 		const inputEndDate = new Date(`${enteredDateEnd}T${enteredTimeEnd}:00`);
 		if (
-			inputStartDate >= dataStartDate &&
-			inputEndDate <= dataEndDate &&
-			inputStartDate <= inputEndDate
+			(inputStartDate >= dataStartDate &&
+				inputEndDate <= dataEndDate &&
+				inputStartDate <= inputEndDate) ||
+			(inputStartDate >= dataStartDate && inputStartDate <= dataEndDate) ||
+			(inputEndDate >= dataStartDate && inputEndDate <= dataEndDate)
 		) {
 			return "inside";
 		} else {

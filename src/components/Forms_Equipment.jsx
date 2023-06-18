@@ -116,9 +116,11 @@ export default function Forms_Equipment() {
 		);
 		const inputEndDate = new Date(`${enteredDateEnd}T${enteredTimeEnd}:00`);
 		if (
-			inputStartDate >= dataStartDate &&
-			inputEndDate <= dataEndDate &&
-			inputStartDate <= inputEndDate
+			(inputStartDate >= dataStartDate &&
+				inputEndDate <= dataEndDate &&
+				inputStartDate <= inputEndDate) ||
+			(inputStartDate >= dataStartDate && inputStartDate <= dataEndDate) ||
+			(inputEndDate >= dataStartDate && inputEndDate <= dataEndDate)
 		) {
 			return "inside";
 		} else {
@@ -129,7 +131,9 @@ export default function Forms_Equipment() {
 	return (
 		<>
 			<div className="card bg-dark rounded" id="card-equipment">
-				<div className="card-header bg-dark text-center text-light">Equipment</div>
+				<div className="card-header bg-dark text-center text-light">
+					Equipment
+				</div>
 				<div className="card-body" id="card-body-equipment">
 					{items.map((item, index) => {
 						if (index % 2 === 0) {
