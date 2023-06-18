@@ -1,0 +1,17 @@
+.bookingProceSec {
+	height: 100vh;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-image: url("../../Assets/stackedPeakBg.svg");
+	// background-color: rgb(217, 217, 217);
+	.title {
+		p {
+			text-transform: capitalize;
+			color: white;
+			span a {
+				font-size: larger;
+				color: rgb(67, 122, 251);
+			}
+		}
+	}
+}

@@ -8,6 +8,7 @@ import BookingProce from "./pages/BookingProce";
 import ReserveStatus from "./components/ReserveStatus";
 import ProtectedRoute from "./Routes/ProtectedRoute";
 import HomeAd from "./Admin/Pages/Home";
+import Team from "./pages/Team";
 
 export default function App() {
 	return (
@@ -20,6 +21,7 @@ export default function App() {
 					<Route path="/bookingProce" element={<BookingProce />} />
 					<Route path="/reserveStatus" element={<ReserveStatus />} />
 					<Route path="/homeAd" element={<HomeAd />} />
+					<Route path="/team" element={<Team />} />
 				</Route>
 			</Routes>
 		</div>

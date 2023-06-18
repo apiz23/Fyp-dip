@@ -4,12 +4,6 @@ import { collection, getDocs } from "firebase/firestore";
 import "./style/Forms_Equipment.scss";
 
 export default function Forms_Equipment() {
-	const handleChangeLocalStorage = (event) => {
-		const name = event.target.name;
-		const value = event.target.value;
-		localStorage.setItem(name, value);
-	};
-
 	const items = [
 		{ label: "Rostrum", id: "Rostrum", name: "rostrum", number: 10 },
 		{
@@ -48,6 +42,13 @@ export default function Forms_Equipment() {
 
 	const [equip, setEquip] = useState([]);
 	const [booker, setBooker] = useState([]);
+	const [sessionData, setSessionData] = useState({});
+
+	const handleChangeLocalStorage = (event) => {
+		const name = event.target.name;
+		const value = event.target.value;
+		localStorage.setItem(name, value);
+	};
 
 	useEffect(() => {
 		const getBooker = async () => {
@@ -83,8 +84,6 @@ export default function Forms_Equipment() {
 		};
 		getEquipment();
 	}, []);
-
-	const [sessionData, setSessionData] = useState({});
 
 	useEffect(() => {
 		const sessionStorageKeys = Object.keys(sessionStorage);
@@ -127,12 +126,10 @@ export default function Forms_Equipment() {
 		}
 	};
 
-	console.log(booker)
-
 	return (
 		<>
-			<div className="card" id="card-equipment">
-				<div className="card-header text-center">Equipment</div>
+			<div className="card bg-dark rounded" id="card-equipment">
+				<div className="card-header bg-dark text-center text-light">Equipment</div>
 				<div className="card-body" id="card-body-equipment">
 					{items.map((item, index) => {
 						if (index % 2 === 0) {
@@ -140,7 +137,7 @@ export default function Forms_Equipment() {
 								<div className="row my-3" key={index}>
 									<div className="col col-lg-6">
 										<h5>
-											Max = {item.name}
+											Max =
 											<span className="mx-2 text-danger">
 												{booker.some(
 													(book) =>

@@ -167,8 +167,8 @@ export default function FormsSpace() {
 
 	return (
 		<>
-			<div className="card" id="card-space">
-				<div className="card-header text-center">Space</div>
+			<div className="card bg-dark rounded" id="card-space">
+				<div className="card-header bg-dark text-center text-light">Space</div>
 				<div className="card-body" id="card-body-space">
 					{rooms.map((room, index) => {
 						if (index % 2 === 0) {

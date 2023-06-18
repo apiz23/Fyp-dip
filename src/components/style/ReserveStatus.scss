@@ -16,6 +16,13 @@
 			background-color: rgb(51, 51, 255);
 		}
 	}
+
+	#fileBtn {
+		background-color: rgb(107, 202, 107);
+		&:hover {
+			background-color: rgb(107, 202, 107);
+		}
+	}
 }
 #cardStatus {
 	box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,

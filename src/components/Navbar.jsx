@@ -77,17 +77,30 @@ export default function Navbar() {
 						<ul className="navbar-nav">
 							<li className="nav-item">
 								<a className={home}>
-									<Link to="/home"> Home</Link>
+									<Link className="mx-2" to="/home">
+										Home
+									</Link>
 								</a>
 							</li>
 							<li className="nav-item">
 								<a className={booking}>
-									<Link to="/booking">Booking</Link>
+									<Link className="mx-2" to="/booking">
+										Booking
+									</Link>
 								</a>
 							</li>
 							<li className="nav-item">
 								<a className={bookingProce}>
-									<Link to="/bookingProce">Booking Procedure</Link>
+									<Link className="mx-2" to="/bookingProce">
+										Booking Procedure
+									</Link>
+								</a>
+							</li>
+							<li className="nav-item">
+								<a className={bookingProce}>
+									<Link className="mx-2" to="/team">
+										Team
+									</Link>
 								</a>
 							</li>
 						</ul>
@@ -141,9 +154,9 @@ export default function Navbar() {
 				</div>
 			</nav>
 			<div
-				className={`offcanvas offcanvas-start ${
+				className={`offcanvas offcanvas-end ${
 					showOffcanvas ? "show" : ""
-				} bg-dark text-white`}
+				} text-white`}
 				tabIndex="-1"
 				id="offcanvasExample"
 				aria-labelledby="offcanvasExampleLabel"
@@ -172,7 +185,7 @@ export default function Navbar() {
 							</div>
 						</div>
 						<div className="detailsRow p-4">
-							<div className="col col-md p-3 bg-warning text-dark">
+							<div className="col col-md p-3 text-light" id="profileDetails">
 								{user.map((u) => {
 									return u.username == username ? (
 										<>

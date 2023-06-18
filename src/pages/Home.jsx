@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Link, Route, Router } from "react-router-dom";
+import { Route, Router } from "react-router-dom";
 import Booking from "./Booking";
 import BookingProce from "./BookingProce";
 import ReserveStatus from "../components/ReserveStatus";
@@ -26,10 +26,12 @@ export default function Home() {
 
 	return (
 		<>
-			<section className="homeSec w-100">
+			<section className="homeSec">
 				<Navbar />
 				<div className="title">
-					<h1 class="display-1 mt-5">Welcome</h1>
+					<h1 className="display-2 mt-5">Welcome</h1>
+					<h1 className="display-3">To</h1>
+					<h1 className="display-4">SPACE AND EQUIPMENT BOOKING SYSTEM</h1>
 				</div>
 				<div className="container mt-5 col-md-10">
 					<div className="row">
@@ -38,7 +40,7 @@ export default function Home() {
 						</div>
 					</div>
 					<div className="row my-3 d-flex justify-content-center">
-						<div className="col col-md-10">
+						<div className="col col-md">
 							<div class="card mb-3">
 								<div class="row g-0">
 									<div class="col-md-8">
@@ -61,7 +63,7 @@ export default function Home() {
 						</div>
 					</div>
 					<div className="row my-3 d-flex justify-content-center">
-						<div className="col col-lg-10">
+						<div className="col col-md">
 							<div className="card mb-3">
 								<div className="row g-0">
 									<div className="col-md-8">
@@ -85,9 +87,7 @@ export default function Home() {
 					</div>
 				</div>
 			</section>
-			<div className="row">
-				<Footer />
-			</div>
+			<Footer />
 		</>
 	);
 }

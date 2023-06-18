@@ -1,9 +1,9 @@
-import { React, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { db } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
-import "./style/Login.scss";
 import logo from "../Assets/uthm-favicon/android-chrome-192x192.png";
+import "./style/Login.scss";
 
 export default function Login() {
 	const navigate = useNavigate();
@@ -173,7 +173,7 @@ export default function Login() {
 									<p className="mt-3 text-primary-emphasis">
 										Only <strong>UTHM students</strong> with active status are
 										allowed to login to this system. For any enquiries, please
-										click here to contact us
+										click here to <strong>contact us</strong>
 									</p>
 								</form>
 							</div>

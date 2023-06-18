@@ -1,9 +1,10 @@
-@import url(http://fonts.googleapis.com/css?family=Roboto+Slab|Rubik|Inter|Open+Sans:400italic,700italic,400,700);
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab|Rubik|Inter|Cinzel|Open+Sans:400italic,700italic,400,700);
 
 $roboto-slab: "Roboto Slab", serif;
 $open-sans: "Open Sans", sans-serif;
 $inter: "Inter", sans-serif;
 $rubik: "Rubik", serif;
+$cinzel: "Cinzel", sans-serif;
 
 $color_1: white;
 $background-color_1: rgb(53, 206, 117);
@@ -11,18 +12,24 @@ $background-color_2: rgb(255, 253, 253);
 
 .homeSec {
 	height: fit-content;
-	background: linear-gradient(
-		45deg,
-		rgba(193, 220, 247, 1) 0%,
-		rgba(21, 37, 88, 1) 100%
-	);
+	background-size: cover; /* Scale the background image to cover the entire section */
+	background-repeat: no-repeat;
+	background-image: url("../../Assets/stackedPeakBg.svg");
+	// background-color: rgb(217, 217, 217);
 }
 
 .title {
 	font-family: $rubik;
 	text-align: center;
 	text-transform: uppercase;
-	color: white;
+	color: black;
+	h1 {
+		letter-spacing:.1em;
+		font-family: $cinzel;
+		font-weight: 600;
+		// color: rgb(49, 71, 115);
+		color: rgb(255, 255, 255);
+	}
 }
 
 .card {

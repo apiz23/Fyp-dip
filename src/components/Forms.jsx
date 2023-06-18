@@ -1,15 +1,18 @@
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { storage } from "../firebase-config";
 import "./style/Forms.scss";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function Forms() {
 	const [fileUpload, setFileUpload] = useState(null);
 	const [fileList, setFileList] = useState([]);
 	const fileUploadRef = ref(storage, "files");
 
-	const [selectedDate, setSelectedDate] = useState("");
 	const [minDate, setMinDate] = useState("");
+	const [startDate, setStartDate] = useState(new Date());
+	const [startDateEnd, setStartDateEnd] = useState(new Date());
 
 	useEffect(() => {
 		const today = new Date();
@@ -36,16 +39,6 @@ export default function Forms() {
 		});
 	};
 
-	useEffect(() => {
-		listAll(fileUploadRef).then((response) => {
-			response.items.forEach((item) => {
-				getDownloadURL(item).then((url) => {
-					setFileList((prev) => [...prev, url]);
-				});
-			});
-		});
-	});
-
 	return (
 		<>
 			<form>
@@ -64,7 +57,7 @@ export default function Forms() {
 					<input
 						type="text"
 						className="form-control"
-						id="purpose"
+						id="floatingPurpose"
 						name="purposeBook"
 						placeholder="text"
 						onChange={(event) => handleChange(event)}
@@ -94,59 +87,96 @@ export default function Forms() {
 					/>
 					<label for="floatingNumPeople">Number of participants</label>
 				</div>
-				<div className="date">
-					<p className="h3 my-3">Date Start</p>
-					<div classNameName="dateStart mb-6 d-flex">
-						<label for="dateStart" className="form-label">
-							Date
-						</label>
-						<input
-							type="date"
-							className="form-control"
-							id="date"
-							name="dateStart"
-							min={minDate}
-							onChange={(event) => handleChange(event)}
-						/>
-						<label for="timeStart" className="form-label">
-							Time
-						</label>
-						<input
-							type="time"
-							className="form-control"
-							id="time"
-							name="timeStart"
-							onChange={(event) => handleChange(event)}
-						/>
+				<div className="date my-3">
+					<p className="h3 mt-3">Date Start</p>
+					<div className="row text-light">
+						<div className="col col-md-6 my-3 d-flex align-items-center">
+							<label for="dateStart" className="form-label text-light">
+								Date
+							</label>
+							<input
+								type="date"
+								className="form-control"
+								id="dateStart"
+								name="dateStart"
+								min={minDate}
+								onChange={(event) => handleChange(event)}
+							/>
+						</div>
+						<div className="col col-md-6 d-flex align-items-center">
+							<label for="timeStart" className="form-label text-light">
+								Time
+							</label>
+							<div className="row">
+								<DatePicker
+									selected={startDate}
+									onChange={(date) => {
+										const selectedTime = date.toLocaleTimeString([], {
+											hour: "2-digit",
+											minute: "2-digit",
+											hour12: false,
+										});
+										setStartDate(date);
+										localStorage.setItem("timeStart", selectedTime);
+										sessionStorage.setItem("timeStart", selectedTime);
+									}}
+									showTimeSelect
+									showTimeSelectOnly
+									timeIntervals={15}
+									timeCaption="Time"
+									dateFormat="H:mm"
+									className="timeStart"
+								/>
+							</div>
+						</div>
 					</div>
-					<p className="h3 my-3">Date End</p>
-					<div classNameName="dateEnd mb-6 d-flex">
-						<label for="dateEnd" className="form-label">
-							Date
-						</label>
-						<input
-							type="date"
-							className="form-control"
-							id="date"
-							name="dateEnd"
-							min={minDate}
-							onChange={(event) => handleChange(event)}
-						/>
-						<label for="timeEnd" className="form-label">
-							Time
-						</label>
-						<input
-							type="time"
-							className="form-control"
-							id="time"
-							name="timeEnd"
-							onChange={(event) => handleChange(event)}
-						/>
+
+					<p className="h3 mt-3">Date End</p>
+					<div className="row ">
+						<div className="col col-md-6 my-3 d-flex align-items-center">
+							<label htmlFor="dateEnd" className="form-label text-light">
+								Date
+							</label>
+							<input
+								type="date"
+								className="form-control"
+								id="dateEnd"
+								name="dateEnd"
+								min={minDate}
+								onChange={(event) => handleChange(event)}
+							/>
+						</div>
+						<div className="col col-md-6 d-flex align-items-center">
+							<label htmlFor="timeEnd" className="form-label text-light">
+								Time
+							</label>
+							<div className="row">
+								<DatePicker
+									selected={startDateEnd}
+									onChange={(date) => {
+										const selectedTime = date.toLocaleTimeString([], {
+											hour: "2-digit",
+											minute: "2-digit",
+											hour12: false,
+										});
+										setStartDateEnd(date);
+										localStorage.setItem("timeEnd", selectedTime);
+										sessionStorage.setItem("timeEnd", selectedTime);
+									}}
+									showTimeSelect
+									showTimeSelectOnly
+									timeIntervals={15}
+									timeCaption="Time"
+									dateFormat="H:mm"
+									className="timeEnd"
+								/>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div className="row mt-3">
-					<div className="col col-md-6 ">
-						<div class="input-group mb-3">
+					<div className="col col-md">
+						<div class="input-group">
 							<input
 								type="file"
 								class="form-control"

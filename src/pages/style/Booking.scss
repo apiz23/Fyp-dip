@@ -1,14 +1,24 @@
 $background-color_1: rgb(173, 173, 173);
 
-.bookingSection{
-	background-color: black;
+.bookingSection {
+	// background-color: rgb(217, 217, 217);
+	height: fit-content;
+	background-size:cover;
+	background-repeat: no-repeat;
+	background-image: url("../../Assets/stackedWaveBgBook.svg");
 	color: white;
 }
 
 #card {
 	width: 80%;
-	background-color: rgb(116, 147, 169);
+	color: white;
+	border-radius: 5px;
+	background-color: rgb(0, 0, 0);
+	label{
+		color: black;
+	}
 }
+
 .row {
 	.btn {
 		margin: 20px;
@@ -39,13 +49,13 @@ $background-color_1: rgb(173, 173, 173);
 	margin: 30px;
 }
 
-#btnSubmit{
+#btnSubmit {
 	font-size: larger;
 }
 
-#btnBack{
-	color: white;
-	:hover{
-		color: greenyellow;
+#btnBack {
+	color: rgb(0, 0, 0);
+	:hover {
+		color: rgb(0, 82, 234);
 	}
 }

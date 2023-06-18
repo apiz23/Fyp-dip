@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import "./style/Booking.scss";
 import Forms from "../components/Forms";
 import FormsSpace from "../components/Forms_Space";
 import FormsEquipment from "../components/Forms_Equipment";
 import { db } from "../firebase-config";
-import { collection, addDoc, setDoc, doc } from "firebase/firestore";
+import { collection, setDoc, doc } from "firebase/firestore";
+import "./style/Booking.scss";
 
 export default function Booking() {
 	const [radioValue, setRadioValue] = useState("");
@@ -51,93 +51,92 @@ export default function Booking() {
 
 				{formPage === 0 ? (
 					<>
-						<div className="row">
-							<div className="col col-mx-2 d-flex justify-content-center">
-								<button
-									type="button"
-									className="btn btn-danger"
-									data-bs-toggle="modal"
-									data-bs-target="#staticBackdrop"
-								>
-									Instruction
-								</button>
-
-								<div
-									className="modal fade"
-									id="staticBackdrop"
-									data-bs-backdrop="static"
-									data-bs-keyboard="false"
-									tabindex="-1"
-									aria-labelledby="staticBackdropLabel"
-									aria-hidden="true"
-								>
-									<div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-										<div className="modal-content ">
-											<div className="modal-header">
-												<h1
-													className="modal-title fs-5"
-													id="staticBackdropLabel"
-												>
-													Instruction
-												</h1>
+						<div className="p-3">
+							<div className="row ">
+								<div className="col d-flex justify-content-center">
+									<button
+										type="button"
+										className="btn btn-danger"
+										data-bs-toggle="modal"
+										data-bs-target="#staticBackdrop"
+									>
+										Instruction
+									</button>
+									<div
+										className="modal fade"
+										id="staticBackdrop"
+										data-bs-backdrop="static"
+										data-bs-keyboard="false"
+										tabindex="-1"
+										aria-labelledby="staticBackdropLabel"
+										aria-hidden="true"
+									>
+										<div className="modal-dialog modal-dialog-centered ">
+											<div className="modal-content m-3">
+												<div className="modal-header">
+													<h1
+														className="modal-title fs-5"
+														id="staticBackdropLabel"
+													>
+														Instruction
+													</h1>
+													<button
+														type="button"
+														className="btn-close"
+														data-bs-dismiss="modal"
+														aria-label="Close"
+													></button>
+												</div>
+												<div className="modal-body">
+													<ul class="list-group list-group-flush">
+														<li class="list-group-item">
+															Borang ini adalah sah untuk tempahan penggunaan
+															ruang dan peralatan di bawah penyeliaan Pejabat
+															Pentadbiran Kampus Pagoh
+														</li>
+														<li class="list-group-item">
+															Pemohon hanya perlu mengisi BAHAGIAN (A) sahaja
+														</li>
+													</ul>
+												</div>
+												<div className="modal-footer">
+													<button
+														type="button"
+														className="btn btn-secondary"
+														data-bs-dismiss="modal"
+													>
+														Close
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row d-flex justify-content-center">
+									<div class="col-md-10">
+										<div className="card mx-auto" id="card">
+											<div className="card-header bg-dark text-center">
+												<strong>Section A</strong>
+											</div>
+											<div className="card-body">
+												<Forms />
+											</div>
+										</div>
+										<div className="row">
+											<div className="col d-flex justify-content-center">
 												<button
 													type="button"
-													className="btn-close"
-													data-bs-dismiss="modal"
-													aria-label="Close"
-												></button>
-											</div>
-											<div className="modal-body">
-												<ul class="list-group list-group-flush">
-													<li class="list-group-item">
-														Borang ini adalah sah untuk tempahan penggunaan
-														ruang dan peralatan di bawah penyeliaan Pejabat
-														Pentadbiran Kampus Pagoh
-													</li>
-													<li class="list-group-item">
-														Pemohon hanya perlu mengisi BAHAGIAN (A) sahaja
-													</li>
-												</ul>
-											</div>
-											<div className="modal-footer">
-												<button
-													type="button"
-													className="btn btn-secondary"
-													data-bs-dismiss="modal"
+													className="btn btn-primary"
+													onClick={() => {
+														handleChangeFormPage(1);
+													}}
 												>
-													Close
+													Next Page
 												</button>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-1"></div>
-								<div class="col-md-10">
-									<div className="card mx-auto" id="card">
-										<div className="card-header text-center">
-											<strong>Section A</strong>
-										</div>
-										<div className="card-body">
-											<Forms />
-										</div>
-									</div>
-									<div className="row">
-										<div className="col d-flex justify-content-center">
-											<button
-												type="button"
-												className="btn btn-primary"
-												onClick={() => {
-													handleChangeFormPage(1);
-												}}
-											>
-												Next Page
-											</button>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-1"></div>
 							</div>
 						</div>
 					</>
@@ -145,8 +144,8 @@ export default function Booking() {
 
 				{formPage === 1 ? (
 					<>
-						<div className="row justify-content-center">
-							<div className="col col-md-8 d-flex">
+						<div className="row d-flex justify-content-center w-100">
+							<div className="col col-md d-flex justify-content-center">
 								<button
 									className="btn mt-4"
 									id="btnBack"
@@ -165,7 +164,7 @@ export default function Booking() {
 										<path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
 									</svg>
 								</button>
-								<div className="radios mt-3">
+								<div className="radios mt-3 text-dark">
 									<div class="form-check form-check-inline">
 										<input
 											class="form-check-input"
@@ -196,50 +195,54 @@ export default function Booking() {
 									</div>
 								</div>
 							</div>
-						</div>
-						{radioValue === "option1" ? (
-							<>
-								<div className="row mx-1">
-									<div class="col-md-2"></div>
-									<div class="col-md-8">
-										<FormsSpace />
+							{radioValue === "option1" ? (
+								<>
+									<div className="row mx-1 d-flex justify-content-center">
+										<div class="col-md-8">
+											<FormsSpace />
+										</div>
 									</div>
-									<div class="col-md-2"></div>
-								</div>
-								<div className="row mx-1">
-									<div class="col-md-2"></div>
+									<div className="row mx-1 d-flex justify-content-center">
+										<div class="col-md-8">
+											<FormsEquipment />
+										</div>
+									</div>
+								</>
+							) : (
+								<div className="row my-3 mx-1 d-flex justify-content-center">
 									<div class="col-md-8">
 										<FormsEquipment />
 									</div>
-									<div class="col-md-2"></div>
 								</div>
-							</>
-						) : (
-							<div className="row my-3 mx-1">
-								<div class="col-md-2"></div>
-								<div class="col-md-8">
-									<FormsEquipment />
+							)}
+							<div className="row">
+								<div className="col d-flex justify-content-center">
+									<button
+										className="btn btn-danger p-3"
+										id="btnSubmit"
+										onClick={() => {
+											createReservation();
+										}}
+									>
+										<span className="me-3">Submit</span>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="25"
+											height="25"
+											fill="currentColor"
+											class="bi bi-send"
+											viewBox="0 0 16 16"
+										>
+											<path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z" />
+										</svg>
+									</button>
 								</div>
-								<div class="col-md-2"></div>
-							</div>
-						)}
-						<div className="row">
-							<div className="col d-flex justify-content-center">
-								<button
-									className="btn btn-danger"
-									id="btnSubmit"
-									onClick={() => {
-										createReservation();
-									}}
-								>
-									submit
-								</button>
 							</div>
 						</div>
 					</>
 				) : null}
+				<Footer />
 			</section>
-			<Footer />
 		</>
 	);
 }
