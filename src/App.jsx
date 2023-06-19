@@ -9,6 +9,8 @@ import ReserveStatus from "./components/ReserveStatus";
 import ProtectedRoute from "./Routes/ProtectedRoute";
 import HomeAd from "./Admin/Pages/Home";
 import Team from "./pages/Team";
+import SpacePage from "./Admin/Pages/SpacePage";
+import EquipPage from "./Admin/Pages/EquipPage";
 
 export default function App() {
 	return (
@@ -22,6 +24,9 @@ export default function App() {
 					<Route path="/reserveStatus" element={<ReserveStatus />} />
 					<Route path="/homeAd" element={<HomeAd />} />
 					<Route path="/team" element={<Team />} />
+					<Route path="/homeAdmin" element={<HomeAd />} />
+					<Route path="/spaceAdmin" element={<SpacePage />} />
+					<Route path="/equipAdmin" element={<EquipPage />} />
 				</Route>
 			</Routes>
 		</div>

@@ -1,9 +1,9 @@
-import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useState, useEffect } from "react";
 import { storage } from "../firebase-config";
-import "./style/Forms.scss";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import "./style/Forms.scss";
 
 export default function Forms() {
 	const [fileUpload, setFileUpload] = useState(null);
@@ -35,13 +35,13 @@ export default function Forms() {
 		uploadBytes(fileRef, fileUpload).then((snapshot) => {
 			getDownloadURL(snapshot.ref).then((url) => {
 				setFileList((prev) => [...prev, url]);
-			});
+			}); 
 		});
 	};
 
 	return (
 		<>
-			<form>
+			<form className="needs-validation" required>
 				<div className="form-floating mb-3">
 					<input
 						type="text"
@@ -61,6 +61,7 @@ export default function Forms() {
 						name="purposeBook"
 						placeholder="text"
 						onChange={(event) => handleChange(event)}
+						required
 					/>
 					<label for="floatingPurpose">Purpose of Booking</label>
 				</div>
@@ -104,7 +105,7 @@ export default function Forms() {
 							/>
 						</div>
 						<div className="col col-md-6 d-flex align-items-center">
-							<label for="timeStart" className="form-label text-light">
+							<label for="timeStart" className="form-label text-light me-3">
 								Time
 							</label>
 							<div className="row">
@@ -147,7 +148,7 @@ export default function Forms() {
 							/>
 						</div>
 						<div className="col col-md-6 d-flex align-items-center">
-							<label htmlFor="timeEnd" className="form-label text-light">
+							<label htmlFor="timeEnd" className="form-label text-light me-3">
 								Time
 							</label>
 							<div className="row">

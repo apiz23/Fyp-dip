@@ -5,7 +5,7 @@ import Forms from "../components/Forms";
 import FormsSpace from "../components/Forms_Space";
 import FormsEquipment from "../components/Forms_Equipment";
 import { db } from "../firebase-config";
-import { collection, setDoc, doc } from "firebase/firestore";
+import { collection, setDoc, doc,writeBatch } from "firebase/firestore";
 import "./style/Booking.scss";
 
 export default function Booking() {
@@ -34,18 +34,23 @@ export default function Booking() {
 	};
 
 	const bookingCollectionRef = collection(db, "booking-users");
+	const historyCollectionRef = collection(db, "history");
 	async function createReservation() {
 		try {
 			const arr = getAllLocalStorageData();
 			const id = sessionStorage.getItem("username");
-			const ref = doc(bookingCollectionRef, id);
-			await setDoc(ref, arr);
+			const bookingRef = doc(bookingCollectionRef, id);
+			const historyRef = doc(historyCollectionRef, id);
+
+			const batch = writeBatch(db);
+			batch.set(bookingRef, arr);
+			batch.set(historyRef, arr);
+
+			await batch.commit();
 		} catch (error) {
 			console.error(error);
 		}
 	}
-
-	const username = sessionStorage.getItem("username");
 
 	const [showAlert, setShowAlert] = useState(false);
 
@@ -55,7 +60,7 @@ export default function Booking() {
 
 	const wrapperFunction = () => {
 		handleButtonClick();
-		// createReservation();
+		createReservation();
 	};
 	return (
 		<>

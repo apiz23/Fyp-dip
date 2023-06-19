@@ -28,37 +28,41 @@ export default function SpaceDoc() {
 
 	return (
 		<>
-			<thead>
-				<tr>
-					<th scope="col">No</th>
-					<th scope="col">Room Name</th>
-					<th scope="col">Status</th>
-					<th scope="col">Action</th>
-				</tr>
-			</thead>
-			{space.map((space, index) => {
-				return (
-					<tbody>
+			<div class="table-responsive p-3">
+				<table class="table">
+					<thead>
 						<tr>
-							<th scope="row">{index + 1}</th>
-							<td>{space.id}</td>
-							<td>{space.availability ? "Available" : "Unavailable"}</td>
-							<td>
-								<button
-									className="button-28"
-									role="button"
-									id={space.id}
-									onClick={() => {
-										updateSpace(space.id, space.availability);
-									}}
-								>
-									update
-								</button>
-							</td>
+							<th scope="col">No</th>
+							<th scope="col">Room Name</th>
+							<th scope="col">Status</th>
+							<th scope="col">Action</th>
 						</tr>
-					</tbody>
-				);
-			})}
+					</thead>
+					{space.map((space, index) => {
+						return (
+							<tbody>
+								<tr>
+									<th scope="row">{index + 1}</th>
+									<td>{space.id}</td>
+									<td>{space.availability ? "Available" : "Unavailable"}</td>
+									<td>
+										<button
+											className="button-28"
+											role="button"
+											id={space.id}
+											onClick={() => {
+												updateSpace(space.id, space.availability);
+											}}
+										>
+											update
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						);
+					})}
+				</table>
+			</div>
 		</>
 	);
 }
