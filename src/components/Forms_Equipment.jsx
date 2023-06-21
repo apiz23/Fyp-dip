@@ -120,7 +120,8 @@ export default function Forms_Equipment() {
 				inputEndDate <= dataEndDate &&
 				inputStartDate <= inputEndDate) ||
 			(inputStartDate >= dataStartDate && inputStartDate <= dataEndDate) ||
-			(inputEndDate >= dataStartDate && inputEndDate <= dataEndDate)
+			(inputEndDate >= dataStartDate && inputEndDate <= dataEndDate) ||
+			(inputStartDate <= dataStartDate && inputEndDate >= dataEndDate)
 		) {
 			return "inside";
 		} else {
@@ -156,9 +157,10 @@ export default function Forms_Equipment() {
 															sessionData.timeEnd
 														) === "inside"
 												)
-													? equip.find(
-															(equipment) => equipment.id === item.name
-													  )?.value
+													? item.number -
+													  booker.find((book) =>
+															book.hasOwnProperty(item.label)
+													  )?.[item.label]
 													: item.number}
 											</span>
 										</h5>
@@ -184,9 +186,10 @@ export default function Forms_Equipment() {
 																sessionData.timeEnd
 															) === "inside"
 													)
-														? equip.find(
-																(equipment) => equipment.id === item.name
-														  )?.value || item.number
+														? item.number -
+														  booker.find((book) =>
+																book.hasOwnProperty(item.label)
+														  )?.[item.label]
 														: item.number
 												}
 												onChange={(event) => handleChangeLocalStorage(event)}
@@ -214,10 +217,10 @@ export default function Forms_Equipment() {
 																sessionData.timeEnd
 															) === "inside"
 													)
-														? equip.find(
-																(equipment) =>
-																	equipment.id === items[index + 1].name
-														  )?.value
+														? items[index + 1].number -
+														  booker.find((book) =>
+																book.hasOwnProperty(item.label)
+														  )?.[item.label]
 														: items[index + 1].number}
 												</span>
 											</h5>
@@ -242,10 +245,10 @@ export default function Forms_Equipment() {
 																	sessionData.timeEnd
 																) === "inside"
 														)
-															? equip.find(
-																	(equipment) =>
-																		equipment.id === items[index + 1].name
-															  )?.value
+															? items[index + 1].number -
+															  booker.find((book) =>
+																	book.hasOwnProperty(item.label)
+															  )?.[item.label]
 															: items[index + 1].number
 													}
 													onChange={(event) => handleChangeLocalStorage(event)}

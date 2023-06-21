@@ -1,12 +1,20 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Route, Router } from "react-router-dom";
 import Booking from "./Booking";
 import BookingProce from "./BookingProce";
 import ReserveStatus from "../components/ReserveStatus";
-import "./style/Home.scss";
-import pic from "../Assets/pic.jpeg";
+import { db } from "../firebase-config";
+import {
+	collection,
+	getDocs,
+	where,
+	query,
+	doc,
+	deleteDoc,
+} from "firebase/firestore";
+import "./style/Home.scss"
 
 export default function Home() {
 	<Router>
@@ -23,6 +31,54 @@ export default function Home() {
 			window.onbeforeunload = null;
 		};
 	}, []);
+
+	const [expiredDocumentIds, setExpiredDocumentIds] = useState([]);
+
+	useEffect(() => {
+		const fetchExpiredDocuments = async () => {
+			const currentTime = new Date();
+
+			const q = query(collection(db, "booking-users"));
+
+			try {
+				const querySnapshot = await getDocs(q);
+				const documentIds = [];
+
+				querySnapshot.forEach((doc) => {
+					const timeEnd = doc.data().timeEnd;
+					const dateEnd = doc.data().dateEnd;
+					const combinedTimestamp = new Date(`${dateEnd} ${timeEnd}`);
+
+					if (combinedTimestamp <= currentTime) {
+						documentIds.push(doc.id);
+					}
+				});
+
+				setExpiredDocumentIds(documentIds);
+			} catch (error) {
+				console.error("Error fetching expired documents:", error);
+			}
+		};
+
+		fetchExpiredDocuments();
+	}, []);
+
+	// useEffect(() => {
+	// 	const deleteExpiredDocuments = async () => {
+	// 		try {
+	// 			const deletionPromises = expiredDocumentIds.map((documentId) =>
+	// 				deleteDoc(doc(db, "booking-users", documentId))
+	// 			);
+
+	// 			await Promise.all(deletionPromises);
+	// 			console.log("Expired documents deleted successfully");
+	// 		} catch (error) {
+	// 			console.error("Error deleting expired documents:", error);
+	// 		}
+	// 	};
+
+	// 	deleteExpiredDocuments();
+	// }, [expiredDocumentIds]);
 
 	return (
 		<>

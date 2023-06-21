@@ -1,7 +1,14 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { db } from "../firebase-config";
-import { collection, getDocs } from "firebase/firestore";
+import {
+	collection,
+	getDocs,
+	where,
+	query,
+	doc,
+	deleteDoc,
+} from "firebase/firestore";
 import logo from "../Assets/uthm-favicon/android-chrome-192x192.png";
 import "./style/Login.scss";
 

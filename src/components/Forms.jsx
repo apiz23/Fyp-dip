@@ -191,6 +191,7 @@ export default function Forms() {
 								for="inputFile"
 								className="input-group-text bg-warning text-black"
 								onClick={uploadFile}
+								required
 							>
 								Upload
 							</button>

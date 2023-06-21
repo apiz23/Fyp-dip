@@ -1,26 +1,137 @@
-import "./style/Home.scss";
-import { useState } from "react";
+import "./style/HomeAd.scss";
+import { useState, useEffect } from "react";
 import Booker from "../components/BookerDoc";
-import SpaceDoc from "../components/SpaceDoc";
-import EquipmentDoc from "../components/EquipmentDoc";
 import NavbarAd from "../components/NavbarAd";
+import { db } from "../../firebase-config";
+import {
+	collection,
+	getDocs,
+	getDoc,
+	query,
+	doc,
+	deleteDoc,
+	updateDoc,
+} from "firebase/firestore";
 
 export default function HomeAd() {
-	const [selectOutput, setSelectedOutput] = useState(0);
-
-	const handleOutput = (x) => {
-		setSelectedOutput(x);
-	};
-
 	const buttonData = [
 		{ label: "Bookers", value: 0 },
 		{ label: "Space", value: 1 },
 		{ label: "Equipment", value: 2 },
 	];
 
+	const [expiredDocumentIds, setExpiredDocumentIds] = useState([]);
+	const [expiredDocumentFields, setExpiredDocumentFields] = useState([]);
+
+	useEffect(() => {
+		const fetchExpiredDocuments = async () => {
+			const currentTime = new Date();
+			const q = query(collection(db, "booking-users"));
+
+			try {
+				const querySnapshot = await getDocs(q);
+				const documentIds = [];
+				const documentFields = [];
+
+				querySnapshot.forEach((doc) => {
+					const timeEnd = doc.data().timeEnd;
+					const dateEnd = doc.data().dateEnd;
+					const combinedTimestamp = new Date(`${dateEnd} ${timeEnd}`);
+
+					if (combinedTimestamp <= currentTime) {
+						documentIds.push(doc.id);
+						documentFields.push(doc.data());
+					}
+				});
+
+				setExpiredDocumentIds(documentIds);
+				setExpiredDocumentFields(documentFields);
+			} catch (error) {
+				console.error("Error fetching expired documents:", error);
+			}
+		};
+
+		fetchExpiredDocuments();
+	}, []);
+
+	const filteredDocuments = expiredDocumentFields.map((document) => {
+		const filteredFields = Object.entries(document).filter(([key]) => {
+			return (
+				key.toLowerCase().includes("banquet chairs") ||
+				key.toLowerCase().includes("examination table") ||
+				key.toLowerCase().includes("plastic chairs") ||
+				key.toLowerCase().includes("multipurpose table") ||
+				key.toLowerCase().includes("rostrum") ||
+				key.toLowerCase().includes("platform") ||
+				key.toLowerCase().includes("round table") ||
+				key.toLowerCase().includes("seminar table")
+			);
+		});
+
+		const formattedFields = filteredFields.reduce((acc, [key, value]) => {
+			const formattedKey = key.toLowerCase().replace(/ /g, "-");
+			return { ...acc, [formattedKey]: value };
+		}, {});
+
+		return formattedFields;
+	});
+
+	useEffect(() => {
+		const updateDocuments = async () => {
+			try {
+				const updatePromises = filteredDocuments.map((document) => {
+					const updateFields = Object.entries(document).map(([key, value]) => {
+						const fieldName = key.toLowerCase().replace(/ /g, "-");
+						const fieldRef = doc(db, "equipment", fieldName);
+						const equipmentNumber = parseInt(value);
+
+						return getDoc(fieldRef)
+							.then((docSnapshot) => {
+								if (docSnapshot.exists()) {
+									const currentNumber = parseInt(docSnapshot.data().number);
+									const updatedNumber = currentNumber + equipmentNumber;
+
+									return updateDoc(fieldRef, {
+										number: updatedNumber,
+									});
+								}
+							})
+							.catch((error) => {
+								console.error("Error fetching equipment document:", error);
+							});
+					});
+					return Promise.all(updateFields);
+				});
+				await Promise.all(updatePromises);
+				console.log("Documents updated successfully");
+			} catch (error) {
+				console.error("Error updating documents:", error);
+			}
+		};
+
+		updateDocuments();
+	}, [filteredDocuments]);
+
+	useEffect(() => {
+		const deleteExpiredDocuments = async () => {
+			try {
+				const deletionPromises = expiredDocumentIds.map((documentId) =>
+					deleteDoc(doc(db, "booking-users", documentId))
+				);
+
+				await Promise.all(deletionPromises);
+				console.log("Expired documents deleted successfully");
+			} catch (error) {
+				console.error("Error deleting expired documents:", error);
+			}
+		};
+
+		deleteExpiredDocuments();
+	}, [expiredDocumentIds]);
+
 	return (
 		<>
-			<section className="homeSec">
+			<section className="homeSecAd">
 				<NavbarAd />
 				<div className="container text-center">
 					<p className="display-3">Admin Page</p>
@@ -29,27 +140,6 @@ export default function HomeAd() {
 							<div className="col">
 								<Booker />
 							</div>
-							{/* <div className="col col-sm-2 mx-auto">
-								{buttonData.map((button) => (
-									<button
-										key={button.value}
-										type="button"
-										className="btn btn-primary btn-lg"
-										onClick={() => handleOutput(button.value)}
-									>
-										{button.label}
-									</button>
-								))}
-							</div>
-							<div className="col col-sm-10">
-								<div class="table-responsive p-3">
-									<table className="table table-bordered table-hover text-dark">
-										{selectOutput === 0 && <Booker />}
-										{selectOutput === 1 && <SpaceDoc />}
-										{selectOutput === 2 && <EquipmentDoc />}
-									</table>
-								</div>
-							</div> */}
 						</div>
 					</div>
 				</div>

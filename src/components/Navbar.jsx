@@ -219,14 +219,14 @@ export default function Navbar() {
 								)}
 							</div>
 						</div>
-						<div className="detailsRow p-4">
+						<div className="detailsRow p-4">	
 							<div className="col col-md p-3 text-light" id="profileDetails">
 								{user.map((u) => {
 									return u.username == username ? (
 										<>
 											<label>Name:</label>
 											<br />
-											<strong>{username}</strong>
+											<strong>{u.name}</strong>
 											<br />
 											<label className="mt-3">Email:</label>
 											<br />

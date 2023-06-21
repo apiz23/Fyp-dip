@@ -125,7 +125,8 @@ export default function FormsSpace() {
 				inputEndDate <= dataEndDate &&
 				inputStartDate <= inputEndDate) ||
 			(inputStartDate >= dataStartDate && inputStartDate <= dataEndDate) ||
-			(inputEndDate >= dataStartDate && inputEndDate <= dataEndDate)
+			(inputEndDate >= dataStartDate && inputEndDate <= dataEndDate) ||
+			(inputStartDate <= dataStartDate && inputEndDate >= dataEndDate)
 		) {
 			return "inside";
 		} else {

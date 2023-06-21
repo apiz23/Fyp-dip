@@ -89,9 +89,10 @@ export default function Booker() {
 	};
 
 	const wrapperFX = (id) => {
-		checkSpaceOptionField(id);
-		updateBookerEquipment(id);
+		// checkSpaceOptionField(id);
+		// updateBookerEquipment(id);
 		updateStatus(id);
+		sendEmail(id);
 	};
 
 	const [selectedBookId, setSelectedBookId] = useState(null);
@@ -117,20 +118,20 @@ export default function Booker() {
 		}
 	};
 
-	// Initialize Email.js
 	useEffect(() => {
 		emailjs.init("RJYPtCeKGZ9btOiV7");
 	}, []);
 
-	// Function to send the email
-	const sendEmail = () => {
+	const sendEmail = (id) => {
+		const toEmail = `${id}@student.uthm.edu.my`;
+
 		const templateParams = {
-			to_email: "fariez4600@gmail.com", // Replace with the recipient's email address
-			from_name: "Hafizuddin", // Replace with your name
-			message: "Hello, this is the email content.", // Replace with the email message
+			to_email: toEmail,
+			from_name: "Hafizuddin",
+			message: "Hello, this is the email content.",
 		};
 
-		emailjs.send("service_96cl52c", "template_7mg6uhn", templateParams).then(
+		emailjs.send("service_7nsdum6", "template_7mg6uhn", templateParams).then(
 			(result) => {
 				console.log(result.text);
 			},
@@ -156,15 +157,15 @@ export default function Booker() {
 					<tbody>
 						{booker.map((book, index) => {
 							return (
-								<tr>
+								<tr key={book.id}>
 									<th scope="row">{index + 1}</th>
 									<td>{book.id}</td>
 									<td>
-										{book.radioBtn == "option1"
+										{book.radioBtn === "option1"
 											? "Space & Equipment"
 											: "Equipment"}
 									</td>
-									<td>{book.status == 1 ? "Approved" : "Pending"}</td>
+									<td>{book.status === 1 ? "Approved" : "Pending"}</td>
 									<td>
 										<button
 											type="button"

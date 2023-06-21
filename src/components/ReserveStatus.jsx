@@ -1,11 +1,12 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { db, storage } from "../firebase-config";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, where, deleteDoc } from "firebase/firestore";
 import { getDownloadURL, listAll, ref } from "firebase/storage";
 import "./style/ReserveStatus.scss";
 
 export default function ReserveStatus() {
+	
 	const id = sessionStorage.getItem("username");
 
 	const [booker, setBooker] = useState([]);
