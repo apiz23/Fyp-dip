@@ -5,44 +5,42 @@ import "./style/Forms_Equipment.scss";
 
 export default function Forms_Equipment() {
 	const items = [
-		{ label: "Rostrum", id: "Rostrum", name: "rostrum", number: 10 },
+		{ label: "Rostrum", id: "Rostrum", name: "rostrum" },
 		{
 			label: "Banquet Chairs",
 			id: "BanquetChairs",
 			name: "banquet-chairs",
-			number: 10,
 		},
 		{
 			label: "Plastic Chairs",
 			id: "PlasticChairs",
 			name: "plastic-chairs",
-			number: 10,
 		},
-		{ label: "Round Table", id: "RoundTable", name: "round-table", number: 10 },
+		{ label: "Round Table", id: "RoundTable", name: "round-table" },
 		{
 			label: "Seminar Table",
 			id: "SeminarTable",
 			name: "seminar-table",
-			number: 10,
 		},
-		{ label: "Platform", id: "Platform", name: "platform", number: 10 },
+		{ label: "Platform", id: "Platform", name: "platform" },
 		{
 			label: "Multipurpose Table",
 			id: "MultipurposeTable",
 			name: "multipurpose-table",
-			number: 10,
 		},
 		{
 			label: "Examination Table",
 			id: "ExaminationTable",
 			name: "examination-table",
-			number: 10,
 		},
 	];
 
 	const [equip, setEquip] = useState([]);
 	const [booker, setBooker] = useState([]);
 	const [sessionData, setSessionData] = useState({});
+	const [bookerIds, setBookerIds] = useState([]);
+	const [matchingBookerId, setMatchingBookerId] = useState(null);
+	const [matchingBookerFields, setMatchingBookerFields] = useState([]);
 
 	const handleChangeLocalStorage = (event) => {
 		const name = event.target.name;
@@ -53,27 +51,15 @@ export default function Forms_Equipment() {
 	useEffect(() => {
 		const getBooker = async () => {
 			const data = await getDocs(collection(db, "booking-users"));
+			const ids = data.docs.map((doc) => doc.id);
+			setBookerIds(ids);
 			setBooker(
-				data.docs.map((docs) => ({
-					...docs.data(),
-					id: docs.id,
+				data.docs.map((doc) => ({
+					...doc.data(),
+					id: doc.id,
 				}))
 			);
 		};
-		getBooker();
-	}, []);
-
-	const newArray = booker.map((item) => {
-		const newObj = {};
-		Object.keys(item).forEach((key) => {
-			const value = item[key];
-			const newKey = key.replace(/\s+/g, "");
-			newObj[newKey] = value;
-		});
-		return newObj;
-	});
-
-	useEffect(() => {
 		const getEquipment = async () => {
 			const data = await getDocs(collection(db, "equipment"));
 			const equipmentData = data.docs.map((doc) => ({
@@ -82,10 +68,7 @@ export default function Forms_Equipment() {
 			}));
 			setEquip(equipmentData);
 		};
-		getEquipment();
-	}, []);
 
-	useEffect(() => {
 		const sessionStorageKeys = Object.keys(sessionStorage);
 		const selectedKeys = ["dateStart", "dateEnd", "timeStart", "timeEnd"];
 
@@ -97,7 +80,56 @@ export default function Forms_Equipment() {
 		});
 
 		setSessionData(sessionDataObject);
+		getEquipment();
+		getBooker();
 	}, []);
+
+	useEffect(() => {
+		const sessionData = {
+			dateStart: sessionStorage.getItem("dateStart"),
+			dateEnd: sessionStorage.getItem("dateEnd"),
+			timeStart: sessionStorage.getItem("timeStart"),
+			timeEnd: sessionStorage.getItem("timeEnd"),
+		};
+
+		const matchingBooker = booker.find(
+			(book) =>
+				compareDateTime(
+					book.dateStart,
+					book.dateEnd,
+					book.timeStart,
+					book.timeEnd,
+					sessionData.dateStart,
+					sessionData.dateEnd,
+					sessionData.timeStart,
+					sessionData.timeEnd
+				) === "inside"
+		);
+
+		if (matchingBooker) {
+			setMatchingBookerId(matchingBooker.id);
+
+			const matchingFields = Object.entries(matchingBooker)
+				.filter(([key]) =>
+					[
+						"Rostrum",
+						"Banquet Chairs",
+						"Plastic Chairs",
+						"Round Table",
+						"Seminar Table",
+						"Platform",
+						"Multipurpose Table",
+						"Examination Table",
+					].includes(key)
+				)
+				.map(([key, value]) => ({ label: key, value }));
+
+			setMatchingBookerFields(matchingFields);
+		} else {
+			setMatchingBookerId(null);
+			setMatchingBookerFields([]);
+		}
+	}, [booker]);
 
 	const compareDateTime = (
 		startDate,
@@ -107,7 +139,8 @@ export default function Forms_Equipment() {
 		enteredDateStart,
 		enteredDateEnd,
 		enteredTimeStart,
-		enteredTimeEnd
+		enteredTimeEnd,
+		id
 	) => {
 		const dataStartDate = new Date(`${startDate}T${startTime}:00`);
 		const dataEndDate = new Date(`${endDate}T${endTime}:00`);
@@ -144,24 +177,14 @@ export default function Forms_Equipment() {
 										<h5>
 											Max =
 											<span className="mx-2 text-danger">
-												{booker.some(
-													(book) =>
-														compareDateTime(
-															book.dateStart,
-															book.dateEnd,
-															book.timeStart,
-															book.timeEnd,
-															sessionData.dateStart,
-															sessionData.dateEnd,
-															sessionData.timeStart,
-															sessionData.timeEnd
-														) === "inside"
+												{matchingBookerFields.some(
+													(f) => f.label === item.label
 												)
-													? item.number -
-													  booker.find((book) =>
-															book.hasOwnProperty(item.label)
-													  )?.[item.label]
-													: item.number}
+													? equip.find((e) => e.id === item.name)?.value -
+													  matchingBookerFields.find(
+															(f) => f.label === item.label
+													  )?.value
+													: equip.find((e) => e.id === item.name)?.value}
 											</span>
 										</h5>
 
@@ -173,24 +196,14 @@ export default function Forms_Equipment() {
 												placeholder="number"
 												name={item.label}
 												max={
-													booker.some(
-														(book) =>
-															compareDateTime(
-																book.dateStart,
-																book.dateEnd,
-																book.timeStart,
-																book.timeEnd,
-																sessionData.dateStart,
-																sessionData.dateEnd,
-																sessionData.timeStart,
-																sessionData.timeEnd
-															) === "inside"
+													matchingBookerFields.some(
+														(f) => f.label === item.label
 													)
-														? item.number -
-														  booker.find((book) =>
-																book.hasOwnProperty(item.label)
-														  )?.[item.label]
-														: item.number
+														? equip.find((e) => e.id === item.name)?.value -
+														  matchingBookerFields.find(
+																(f) => f.label === item.label
+														  )?.value
+														: equip.find((e) => e.id === item.name)?.value
 												}
 												onChange={(event) => handleChangeLocalStorage(event)}
 											/>
@@ -204,24 +217,16 @@ export default function Forms_Equipment() {
 											<h5>
 												Max =
 												<span className="mx-2 text-danger">
-													{booker.some(
-														(book) =>
-															compareDateTime(
-																book.dateStart,
-																book.dateEnd,
-																book.timeStart,
-																book.timeEnd,
-																sessionData.dateStart,
-																sessionData.dateEnd,
-																sessionData.timeStart,
-																sessionData.timeEnd
-															) === "inside"
+													{matchingBookerFields.some(
+														(f) => f.label === items[index + 1].label
 													)
-														? items[index + 1].number -
-														  booker.find((book) =>
-																book.hasOwnProperty(item.label)
-														  )?.[item.label]
-														: items[index + 1].number}
+														? equip.find((e) => e.id === items[index + 1].name)
+																?.value -
+														  matchingBookerFields.find(
+																(f) => f.label === items[index + 1].label
+														  )?.value
+														: equip.find((e) => e.id === items[index + 1].name)
+																?.value}
 												</span>
 											</h5>
 											<div className="form-floating mb-3">
@@ -232,24 +237,18 @@ export default function Forms_Equipment() {
 													name={items[index + 1].label}
 													placeholder="number"
 													max={
-														booker.some(
-															(book) =>
-																compareDateTime(
-																	book.dateStart,
-																	book.dateEnd,
-																	book.timeStart,
-																	book.timeEnd,
-																	sessionData.dateStart,
-																	sessionData.dateEnd,
-																	sessionData.timeStart,
-																	sessionData.timeEnd
-																) === "inside"
+														matchingBookerFields.some(
+															(f) => f.label === items[index + 1].label
 														)
-															? items[index + 1].number -
-															  booker.find((book) =>
-																	book.hasOwnProperty(item.label)
-															  )?.[item.label]
-															: items[index + 1].number
+															? equip.find(
+																	(e) => e.id === items[index + 1].name
+															  )?.value -
+															  matchingBookerFields.find(
+																	(f) => f.label === items[index + 1].label
+															  )?.value
+															: equip.find(
+																	(e) => e.id === items[index + 1].name
+															  )?.value
 													}
 													onChange={(event) => handleChangeLocalStorage(event)}
 												/>
@@ -263,27 +262,6 @@ export default function Forms_Equipment() {
 							);
 						}
 					})}
-
-					<div className="row my-3">
-						<div className="col col-md">
-							<div class="input-group">
-								<span class="input-group-text">Others Equipment</span>
-								<input
-									type="text"
-									aria-label="First name"
-									placeholder="Name"
-									class="form-control"
-								/>
-								<input
-									type="number"
-									aria-label="Last name"
-									placeholder="Number"
-									min="0"
-									class="form-control"
-								/>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
 		</>

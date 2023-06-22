@@ -1,6 +1,13 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab|Inter|Open+Sans:400italic,700italic,400,700);
+
+$roboto-slab: "Roboto Slab", serif;
+$open-sans: "Open Sans", sans-serif;
+$inter: "inter", sans-serif;
+
 .equipPageSec{
 	height: fit-content;
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-image: url("../../../Assets/bgAdmin.svg");
+	font-family: $inter;
 }

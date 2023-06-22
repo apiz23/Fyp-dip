@@ -5,7 +5,7 @@ import Forms from "../components/Forms";
 import FormsSpace from "../components/Forms_Space";
 import FormsEquipment from "../components/Forms_Equipment";
 import { db } from "../firebase-config";
-import { collection, setDoc, doc, writeBatch } from "firebase/firestore";
+import { collection, doc, writeBatch } from "firebase/firestore";
 import "./style/Booking.scss";
 
 export default function Booking() {
@@ -14,12 +14,6 @@ export default function Booking() {
 	const handleRadioChange = (event) => {
 		setRadioValue(event.target.value);
 		localStorage.setItem(event.target.name, event.target.value);
-	};
-
-	const [formPage, setFormPage] = useState(0);
-
-	const handleChangeFormPage = (page) => {
-		setFormPage(page);
 	};
 
 	const getAllLocalStorageData = () => {
@@ -66,7 +60,7 @@ export default function Booking() {
 		<>
 			<section className="bookingSection">
 				<Navbar />
-				<div className="p-3">
+				<div className="container">
 					<div className="row ">
 						<div className="col d-flex justify-content-center">
 							<button
@@ -125,7 +119,7 @@ export default function Booking() {
 							</div>
 						</div>
 						<div className="row d-flex justify-content-center">
-							<div className="col-md-10">
+							<div className="col-md">
 								<div className="card mx-auto" id="card">
 									<div className="card-header bg-dark text-center">
 										<strong>Section A</strong>
@@ -240,7 +234,6 @@ export default function Booking() {
 						</div>
 					</div>
 				</div>
-
 				<Footer />
 			</section>
 		</>

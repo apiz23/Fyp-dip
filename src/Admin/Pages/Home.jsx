@@ -12,13 +12,9 @@ import {
 	deleteDoc,
 	updateDoc,
 } from "firebase/firestore";
+import FooterAd from "../components/FooterAd";
 
 export default function HomeAd() {
-	const buttonData = [
-		{ label: "Bookers", value: 0 },
-		{ label: "Space", value: 1 },
-		{ label: "Equipment", value: 2 },
-	];
 
 	const [expiredDocumentIds, setExpiredDocumentIds] = useState([]);
 	const [expiredDocumentFields, setExpiredDocumentFields] = useState([]);
@@ -131,9 +127,9 @@ export default function HomeAd() {
 
 	return (
 		<>
-			<section className="homeSecAd">
+			<section className="homeSecAd vh-100">
 				<NavbarAd />
-				<div className="container text-center">
+				<div className="container text-center text-light">
 					<p className="display-3">Admin Page</p>
 					<div className="col m-1">
 						<div className="row">
@@ -144,6 +140,7 @@ export default function HomeAd() {
 					</div>
 				</div>
 			</section>
+			<FooterAd />
 		</>
 	);
 }

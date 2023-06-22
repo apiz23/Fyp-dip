@@ -1,12 +1,13 @@
 import React from "react";
+import FooterAd from "../components/FooterAd";
 import NavbarAd from "../components/NavbarAd";
 import SpaceDoc from "../components/SpaceDoc";
-import "./style/Space.scss"
+import "./style/Space.scss";
 
 export default function SpacePage() {
 	return (
 		<>
-			<section className="spacePageSec">
+			<section className="spacePageSec text-light">
 				<NavbarAd />
 				<div className="container text-center">
 					<p className="display-3">Space List</p>
@@ -19,6 +20,7 @@ export default function SpacePage() {
 					</div>
 				</div>
 			</section>
+			<FooterAd />
 		</>
 	);
 }

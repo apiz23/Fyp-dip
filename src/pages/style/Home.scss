@@ -12,14 +12,14 @@ $background-color_2: rgb(255, 253, 253);
 
 .homeSec {
 	height: fit-content;
-	background-size: cover; /* Scale the background image to cover the entire section */
+	background-size: cover;
 	background-repeat: no-repeat;
-	background-image: url("../../Assets/lowBg.svg");
+	background-image: url("../../Assets/team/layeredPeakBg3.svg");
 	// background-color: rgb(217, 217, 217);
 }
 
 .title {
-	font-family: $rubik;
+	font-family: $inter;
 	text-align: center;
 	text-transform: uppercase;
 	color: black;

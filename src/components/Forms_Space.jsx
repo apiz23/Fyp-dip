@@ -44,41 +44,13 @@ export default function FormsSpace() {
 
 	const [space, setSpace] = useState([]);
 	const [booker, setBooker] = useState([]);
+	const [sessionData, setSessionData] = useState({});
 
 	const handleChange = (event) => {
 		const name = event.target.name;
 		const value = event.target.value;
 		localStorage.setItem(name, value);
 	};
-
-	const [sessionData, setSessionData] = useState({});
-
-	useEffect(() => {
-		const sessionStorageKeys = Object.keys(sessionStorage);
-		const selectedKeys = ["dateStart", "dateEnd", "timeStart", "timeEnd"];
-
-		const sessionDataObject = {};
-		selectedKeys.forEach((key) => {
-			if (sessionStorageKeys.includes(key)) {
-				sessionDataObject[key] = sessionStorage.getItem(key);
-			}
-		});
-
-		setSessionData(sessionDataObject);
-	}, []);
-
-	useEffect(() => {
-		const getBooker = async () => {
-			const data = await getDocs(collection(db, "booking-users"));
-			setBooker(
-				data.docs.map((docs) => ({
-					...docs.data(),
-					id: docs.id,
-				}))
-			);
-		};
-		getBooker();
-	}, []);
 
 	useEffect(() => {
 		const getSpaces = async () => {
@@ -101,7 +73,29 @@ export default function FormsSpace() {
 			});
 			setSpace(updatedSpace);
 		};
+
+		const getBooker = async () => {
+			const data = await getDocs(collection(db, "booking-users"));
+			setBooker(
+				data.docs.map((docs) => ({
+					...docs.data(),
+					id: docs.id,
+				}))
+			);
+		};
+
+		const sessionStorageKeys = Object.keys(sessionStorage);
+		const selectedKeys = ["dateStart", "dateEnd", "timeStart", "timeEnd"];
+
+		const sessionDataObject = {};
+		selectedKeys.forEach((key) => {
+			if (sessionStorageKeys.includes(key)) {
+				sessionDataObject[key] = sessionStorage.getItem(key);
+			}
+		});
+		getBooker();
 		getSpaces();
+		setSessionData(sessionDataObject);
 	}, []);
 
 	const compareDateTime = (

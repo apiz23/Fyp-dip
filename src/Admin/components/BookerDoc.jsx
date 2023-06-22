@@ -89,10 +89,8 @@ export default function Booker() {
 	};
 
 	const wrapperFX = (id) => {
-		// checkSpaceOptionField(id);
-		// updateBookerEquipment(id);
 		updateStatus(id);
-		sendEmail(id);
+		// sendEmail(id);
 	};
 
 	const [selectedBookId, setSelectedBookId] = useState(null);
@@ -127,7 +125,7 @@ export default function Booker() {
 
 		const templateParams = {
 			to_email: toEmail,
-			from_name: "Hafizuddin",
+			from_name: "Admin Space & Equipment UTHM",
 			message: "Hello, this is the email content.",
 		};
 
@@ -143,8 +141,8 @@ export default function Booker() {
 
 	return (
 		<>
-			<div class="table-responsive p-3">
-				<table class="table">
+			<div className="table-responsive p-3 text-light">
+				<table className="table text-light">
 					<thead>
 						<tr>
 							<th scope="col">No</th>

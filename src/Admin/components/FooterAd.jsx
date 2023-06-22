@@ -1,7 +1,7 @@
 import React from "react";
-import "./style/Footer.scss";
+import "./style/FooterAd.scss"
 
-export default function Footer() {
+export default function FooterAd() {
 	return (
 		<>
 			<footer className="text-light p-5">

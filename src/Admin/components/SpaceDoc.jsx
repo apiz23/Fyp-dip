@@ -29,7 +29,7 @@ export default function SpaceDoc() {
 	return (
 		<>
 			<div class="table-responsive p-3">
-				<table class="table">
+				<table class="table text-light">
 					<thead>
 						<tr>
 							<th scope="col">No</th>

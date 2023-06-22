@@ -20,7 +20,7 @@ export default function Navbar() {
 
 	const handleClearLocalStorage = () => {
 		localStorage.clear();
-		sessionStorage.removeItem("loggedIn");
+		sessionStorage.clear();
 	};
 
 	const [user, setUser] = useState([]);

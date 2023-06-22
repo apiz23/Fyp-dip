@@ -9,7 +9,6 @@ export default function Forms() {
 	const [fileUpload, setFileUpload] = useState(null);
 	const [fileList, setFileList] = useState([]);
 	const fileUploadRef = ref(storage, "files");
-
 	const [minDate, setMinDate] = useState("");
 	const [startDate, setStartDate] = useState(new Date());
 	const [startDateEnd, setStartDateEnd] = useState(new Date());
@@ -35,7 +34,7 @@ export default function Forms() {
 		uploadBytes(fileRef, fileUpload).then((snapshot) => {
 			getDownloadURL(snapshot.ref).then((url) => {
 				setFileList((prev) => [...prev, url]);
-			}); 
+			});
 		});
 	};
 
@@ -177,6 +176,29 @@ export default function Forms() {
 				</div>
 				<div className="row mt-3">
 					<div className="col col-md">
+						<div
+							className="alert alert-warning alert-dismissible fade show"
+							role="alert"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="25"
+								height="25"
+								fill="currentColor"
+								className="bi bi-exclamation-circle me-2"
+								viewBox="0 0 16 16"
+							>
+								<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+								<path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+							</svg>
+							Please Click the button Upload after confirming the file !
+							<button
+								type="button"
+								class="btn-close"
+								data-bs-dismiss="alert"
+								aria-label="Close"
+							></button>
+						</div>
 						<div class="input-group">
 							<input
 								type="file"

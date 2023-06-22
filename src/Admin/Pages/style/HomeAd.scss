@@ -1,3 +1,9 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab|Inter|Open+Sans:400italic,700italic,400,700);
+
+$roboto-slab: "Roboto Slab", serif;
+$open-sans: "Open Sans", sans-serif;
+$inter: "inter", sans-serif;
+
 .btn-group.d-flex > .btn {
 	margin-right: 0;
 }
@@ -8,7 +14,7 @@
 	border: 2px solid #1a1a1a;
 	border-radius: 15px;
 	box-sizing: border-box;
-	color: #3b3b3b;
+	color: #ffffff;
 	cursor: pointer;
 	display: inline-block;
 	font-family: Roobert, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
@@ -37,8 +43,8 @@
 
 .button-28:hover {
 	color: #fff;
-	background-color: #1a1a1a;
-	box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+	background-color: #16e940;
+	box-shadow: rgba(4, 255, 175, 0.614) 0 8px 15px;
 	transform: translateY(-2px);
 }
 
@@ -47,13 +53,14 @@
 	transform: translateY(0);
 }
 
-.modal-body{
+.modal-body {
 	font-size: larger;
 }
 
-.homeSecAd{
+.homeSecAd {
 	height: fit-content;
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-image: url("../../../Assets/bgAdmin.svg");
+	font-family: $inter;
 }
