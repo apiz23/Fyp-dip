@@ -125,8 +125,8 @@ export default function Booker() {
 
 		const templateParams = {
 			to_email: toEmail,
-			from_name: "Admin Space & Equipment UTHM",
-			message: "Hello, this is the email content.",
+			from_name: "Admin",
+			message: "Congratulation, your Booking have been approved.",
 		};
 
 		emailjs.send("service_7nsdum6", "template_7mg6uhn", templateParams).then(
