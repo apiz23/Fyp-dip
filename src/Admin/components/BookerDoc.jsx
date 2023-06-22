@@ -120,16 +120,13 @@ export default function Booker() {
 		emailjs.init("RJYPtCeKGZ9btOiV7");
 	}, []);
 
-	const sendEmail = (id, status, award) => {
-		const convertedStatus = JSON.parse(status);
-		const convertedAward = JSON.parse(award);
-
+	const sendEmail = (id,s,a) => {
 		const templateParams = {
 			to_email: id,
-			award: convertedAward,
-			status: convertedStatus,
+			award: a,
+			status: s,
 			from_name: "Admin",
-			message: "Congratulations, your booking has been approved.",
+			message: "Congratulation, your Booking have been approved.",
 		};
 
 		emailjs.send("service_7nsdum6", "template_7mg6uhn", templateParams).then(
@@ -282,7 +279,7 @@ export default function Booker() {
 											type="button"
 											class="btn btn-success"
 											onClick={() => {
-												wrapperFX(book.id, "Approved", "Congratulation");
+												wrapperFX(book.id,"Approved","Congratulation");
 											}}
 										>
 											<svg
