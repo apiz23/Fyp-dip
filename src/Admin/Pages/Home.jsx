@@ -15,7 +15,6 @@ import {
 import FooterAd from "../components/FooterAd";
 
 export default function HomeAd() {
-
 	const [expiredDocumentIds, setExpiredDocumentIds] = useState([]);
 	const [expiredDocumentFields, setExpiredDocumentFields] = useState([]);
 
@@ -139,8 +138,8 @@ export default function HomeAd() {
 						</div>
 					</div>
 				</div>
+				<FooterAd />
 			</section>
-			<FooterAd />
 		</>
 	);
 }
