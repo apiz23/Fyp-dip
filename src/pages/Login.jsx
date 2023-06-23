@@ -4,7 +4,7 @@ import { db } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 import logo from "../Assets/uthm-favicon/android-chrome-192x192.png";
 import "./style/Login.scss";
-// import Loader from "../components/Loader";
+import Loader from "../components/Loader";
 
 export default function Login() {
 	const navigate = useNavigate();
@@ -12,13 +12,13 @@ export default function Login() {
 	const [radioCheck, setRadioCheck] = useState("stdStaff");
 	const [errors, setErrors] = useState({});
 	const [values, setValues] = useState({ username: "", password: "" });
-	// const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState(true);
 
-	// useEffect(() => {
-	// 	setTimeout(() => {
-	// 		setIsLoading(false);
-	// 	}, 2000);
-	// }, []);
+	useEffect(() => {
+		setTimeout(() => {
+			setIsLoading(false);
+		}, 2000);
+	}, []);
 
 	useEffect(() => {
 		const getLogin = async () => {
@@ -96,7 +96,7 @@ export default function Login() {
 	return (
 		<section className="loginSec">
 			<div>
-				{/* {isLoading ? <Loader /> : null} */}
+				{isLoading ? <Loader /> : null}
 				<div className="container py-5 h-100">
 					<div className="row d-flex justify-content-center align-items-center">
 						<div className="col-12 col-md-8 col-lg-6 col-xl-5">
