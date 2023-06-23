@@ -46,7 +46,12 @@ export default function Login() {
 
 	const handleChange = (event) => {
 		const { name, value } = event.target;
-		const capitalizedValue = value.toUpperCase();
+		let capitalizedValue = value;
+
+		if (name === "username") {
+			capitalizedValue = value.toUpperCase();
+		}
+
 		setValues({ ...values, [name]: capitalizedValue });
 	};
 
