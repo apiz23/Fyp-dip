@@ -9,8 +9,8 @@ export default function SpacePage() {
 		<>
 			<section className="spacePageSec text-light">
 				<NavbarAd />
-				<div className="container text-center">
-					<p className="display-3">Space List</p>
+				<div className="container ">
+					<p className="display-3 text-center">Space List</p>
 					<div className="col m-1">
 						<div className="row">
 							<div className="col col-md">

@@ -4,7 +4,7 @@ import "./style/Footer.scss";
 export default function Footer() {
 	return (
 		<>
-			<footer className="text-light p-5">
+			<footer className="text-light p-5 mt-5">
 				<div className="footerContainer">
 					<div className="row">
 						<div className="col d-flex justify-content-center">

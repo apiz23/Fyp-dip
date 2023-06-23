@@ -16,6 +16,7 @@ $background-color_2: rgb(255, 253, 253);
 	background-repeat: no-repeat;
 	background-image: url("../../Assets/team/layeredPeakBg3.svg");
 	// background-color: rgb(217, 217, 217);
+	animation: fadeCenter 2s ease 0s 1 normal none;
 }
 
 .title {
@@ -23,8 +24,8 @@ $background-color_2: rgb(255, 253, 253);
 	text-align: center;
 	text-transform: uppercase;
 	color: black;
+	animation: fadeCenter 2s ease 0s 1 normal none;
 	h1 {
-		letter-spacing:.1em;
 		font-family: $cinzel;
 		font-weight: 600;
 		// color: rgb(49, 71, 115);
@@ -40,4 +41,14 @@ $background-color_2: rgb(255, 253, 253);
 
 #svgLogOut {
 	margin: 10px;
+}
+
+@keyframes fadeCenter {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
 }

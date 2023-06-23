@@ -2,7 +2,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import hafiz from "../Assets/team/hafiz.png";
 import fariez from "../Assets/team/fariezNew.png";
-import alysha from "../Assets/team/alyshaNew.png";
+import alysha from "../Assets/team/alysha.png";
 import "./style/Team.scss";
 
 export default function Team() {

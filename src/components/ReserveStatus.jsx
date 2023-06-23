@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { db, storage } from "../firebase-config";
-import { collection, getDocs, where, deleteDoc } from "firebase/firestore";
+import { collection, getDocs, where, deleteDoc, doc } from "firebase/firestore";
 import { getDownloadURL, listAll, ref } from "firebase/storage";
 import "./style/ReserveStatus.scss";
 import { Link } from "react-router-dom";
@@ -9,6 +9,7 @@ export default function ReserveStatus() {
 	const id = sessionStorage.getItem("username");
 	const [booker, setBooker] = useState([]);
 	const bookingCollectionRef = collection(db, "booking-users");
+
 	useEffect(() => {
 		const getBooker = async () => {
 			const data = await getDocs(bookingCollectionRef);
@@ -21,6 +22,12 @@ export default function ReserveStatus() {
 		};
 		getBooker();
 	}, []);
+
+	const deleteBooking = async (id) => {
+		const bookerDoc = doc(db, "booking-users", id);
+		await deleteDoc(bookerDoc);
+		window.location.reload();
+	};
 
 	const filteredBooker = booker.filter((book) => book.id === id);
 
@@ -70,94 +77,122 @@ export default function ReserveStatus() {
 												</td>
 												<td>{book.status === 1 ? "Approved" : "Pending"}</td>
 												<td>
-													<button
-														type="button"
-														id="viewBtn"
-														class="btn btn-primary"
-														data-bs-toggle="modal"
-														data-bs-target="#exampleModal"
-													>
-														<svg
-															xmlns="http://www.w3.org/2000/svg"
-															width="25"
-															height="25"
-															fill="currentColor"
-															class="bi bi-list-task"
-															viewBox="0 0 16 16"
-														>
-															<path
-																fill-rule="evenodd"
-																d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5H2zM3 3H2v1h1V3z"
-															/>
-															<path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9z" />
-															<path
-																fill-rule="evenodd"
-																d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7zM2 7h1v1H2V7zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5H2zm1 .5H2v1h1v-1z"
-															/>
-														</svg>
-													</button>
-
 													<div
-														class="modal fade"
-														id="exampleModal"
-														tabindex="-1"
-														aria-labelledby="exampleModalLabel"
-														aria-hidden="true"
+														class="btn-group"
+														role="group"
+														aria-label="Basic example"
 													>
-														<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-															<div class="modal-content">
-																<div class="modal-header">
-																	<h1
-																		class="modal-title fs-5 text-dark"
-																		id="exampleModalLabel"
-																	>
-																		Details
-																	</h1>
-																	<button
-																		type="button"
-																		class="btn-close"
-																		data-bs-dismiss="modal"
-																		aria-label="Close"
-																	></button>
-																</div>
-																<div class="modal-body text-dark">
-																	{Object.entries(book).map(([key, value]) => (
-																		<p key={key}>
-																			<strong>{key}:</strong> {value}
-																		</p>
-																	))}
-																</div>
-																<div class="modal-footer">
-																	<button
-																		type="button"
-																		class="btn btn-secondary"
-																		data-bs-dismiss="modal"
-																	>
-																		Close
-																	</button>
+														<button
+															type="button"
+															id="viewBtn"
+															class="btn btn-primary"
+															data-bs-toggle="modal"
+															data-bs-target="#exampleModal"
+														>
+															<svg
+																xmlns="http://www.w3.org/2000/svg"
+																width="25"
+																height="25"
+																fill="currentColor"
+																class="bi bi-list-task"
+																viewBox="0 0 16 16"
+															>
+																<path
+																	fill-rule="evenodd"
+																	d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5H2zM3 3H2v1h1V3z"
+																/>
+																<path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9z" />
+																<path
+																	fill-rule="evenodd"
+																	d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7zM2 7h1v1H2V7zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5H2zm1 .5H2v1h1v-1z"
+																/>
+															</svg>
+														</button>
+
+														<div
+															class="modal fade"
+															id="exampleModal"
+															tabindex="-1"
+															aria-labelledby="exampleModalLabel"
+															aria-hidden="true"
+														>
+															<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+																<div class="modal-content">
+																	<div class="modal-header">
+																		<h1
+																			class="modal-title fs-5 text-dark"
+																			id="exampleModalLabel"
+																		>
+																			Details
+																		</h1>
+																		<button
+																			type="button"
+																			class="btn-close"
+																			data-bs-dismiss="modal"
+																			aria-label="Close"
+																		></button>
+																	</div>
+																	<div class="modal-body text-dark">
+																		{Object.entries(book).map(
+																			([key, value]) => (
+																				<p key={key}>
+																					<strong>{key}:</strong> {value}
+																				</p>
+																			)
+																		)}
+																	</div>
+																	<div class="modal-footer">
+																		<button
+																			type="button"
+																			class="btn btn-secondary"
+																			data-bs-dismiss="modal"
+																		>
+																			Close
+																		</button>
+																	</div>
 																</div>
 															</div>
 														</div>
-													</div>
-													<button
-														class="btn"
-														id="fileBtn"
-														onClick={() => {
-															handleDownload(book.id);
-														}}
-													>
-														<svg
-															xmlns="http://www.w3.org/2000/svg"
-															width="25"
-															height="25"
-															fill="currentColor"
-															class="bi bi-download"
-															viewBox="0 0 16 16"
+														<button
+															class="btn"
+															id="fileBtn"
+															onClick={() => {
+																handleDownload(book.id);
+															}}
 														>
-															<path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
-															<path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
-														</svg>
-													</button>
+															<svg
+																xmlns="http://www.w3.org/2000/svg"
+																width="25"
+																height="25"
+																fill="currentColor"
+																class="bi bi-download"
+																viewBox="0 0 16 16"
+															>
+																<path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+																<path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+															</svg>
+														</button>
+														<button
+															type="button"
+															class="btn btn-danger"
+															id="deleteBtn"
+															onClick={() => {
+																deleteBooking(book.id);
+															}}
+														>
+															<svg
+																xmlns="http://www.w3.org/2000/svg"
+																width="20"
+																height="20"
+																fill="currentColor"
+																class="bi bi-trash"
+																viewBox="0 0 16 16"
+															>
+																<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+																<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+															</svg>
+														</button>
+													</div>
 												</td>
 											</tr>
 										))}

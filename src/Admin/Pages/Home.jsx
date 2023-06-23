@@ -2,7 +2,8 @@ import "./style/HomeAd.scss";
 import { useState, useEffect } from "react";
 import Booker from "../components/BookerDoc";
 import NavbarAd from "../components/NavbarAd";
-import { db } from "../../firebase-config";
+import { db, storage } from "../../firebase-config";
+import { deleteObject, ref, getStorage, listAll } from "firebase/storage";
 import {
 	collection,
 	getDocs,
@@ -17,37 +18,6 @@ import FooterAd from "../components/FooterAd";
 export default function HomeAd() {
 	const [expiredDocumentIds, setExpiredDocumentIds] = useState([]);
 	const [expiredDocumentFields, setExpiredDocumentFields] = useState([]);
-
-	useEffect(() => {
-		const fetchExpiredDocuments = async () => {
-			const currentTime = new Date();
-			const q = query(collection(db, "booking-users"));
-
-			try {
-				const querySnapshot = await getDocs(q);
-				const documentIds = [];
-				const documentFields = [];
-
-				querySnapshot.forEach((doc) => {
-					const timeEnd = doc.data().timeEnd;
-					const dateEnd = doc.data().dateEnd;
-					const combinedTimestamp = new Date(`${dateEnd} ${timeEnd}`);
-
-					if (combinedTimestamp <= currentTime) {
-						documentIds.push(doc.id);
-						documentFields.push(doc.data());
-					}
-				});
-
-				setExpiredDocumentIds(documentIds);
-				setExpiredDocumentFields(documentFields);
-			} catch (error) {
-				console.error("Error fetching expired documents:", error);
-			}
-		};
-
-		fetchExpiredDocuments();
-	}, []);
 
 	const filteredDocuments = expiredDocumentFields.map((document) => {
 		const filteredFields = Object.entries(document).filter(([key]) => {
@@ -108,28 +78,60 @@ export default function HomeAd() {
 	}, [filteredDocuments]);
 
 	useEffect(() => {
+		const fetchExpiredDocuments = async () => {
+			const currentTime = new Date();
+			const q = query(collection(db, "booking-users"));
+
+			try {
+				const querySnapshot = await getDocs(q);
+				const documentIds = [];
+				const documentFields = [];
+
+				querySnapshot.forEach((doc) => {
+					const timeEnd = doc.data().timeEnd;
+					const dateEnd = doc.data().dateEnd;
+					const combinedTimestamp = new Date(`${dateEnd} ${timeEnd}`);
+
+					if (combinedTimestamp <= currentTime) {
+						documentIds.push(doc.id);
+						documentFields.push(doc.data());
+					}
+				});
+
+				setExpiredDocumentIds(documentIds);
+				setExpiredDocumentFields(documentFields);
+			} catch (error) {
+				console.error("Error fetching expired documents:", error);
+			}
+		};
+
+		fetchExpiredDocuments();
+	}, []);
+
+	useEffect(() => {
 		const deleteExpiredDocuments = async () => {
 			try {
-				const deletionPromises = expiredDocumentIds.map((documentId) =>
-					deleteDoc(doc(db, "booking-users", documentId))
-				);
+				const deletionPromises = expiredDocumentIds.map(async (documentId) => {
+					await deleteDoc(doc(db, "booking-users", documentId));
+				});
 
 				await Promise.all(deletionPromises);
-				console.log("Expired documents deleted successfully");
+				console.log(
+					"Expired documents and corresponding folders deleted successfully"
+				);
 			} catch (error) {
-				console.error("Error deleting expired documents:", error);
+				console.error("Error deleting expired documents and folders:", error);
 			}
 		};
 
 		deleteExpiredDocuments();
 	}, [expiredDocumentIds]);
-
 	return (
 		<>
 			<section className="homeSecAd vh-100">
 				<NavbarAd />
-				<div className="container text-center text-light">
-					<p className="display-3">Admin Page</p>
+				<div className="container text-light">
+					<p className="display-3 text-center">Admin Page</p>
 					<div className="col m-1">
 						<div className="row">
 							<div className="col">

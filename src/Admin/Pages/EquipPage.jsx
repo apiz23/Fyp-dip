@@ -7,18 +7,20 @@ import "./style/Equipment.scss";
 export default function EquipPage() {
 	return (
 		<>
-			<section className="equipPageSec text-light">
+			<section className="equipPageSec text-light vh-100">
 				<NavbarAd />
-				<p className="display-3 text-center">Equipment List</p>
 				<div className="container">
-					<div className="row">
-						<div className="col col-md ">
-							<EquipmentDoc />
+					<p className="display-3 text-center">Equipment List</p>
+					<div className="container">
+						<div className="row">
+							<div className="col col-md ">
+								<EquipmentDoc />
+							</div>
 						</div>
 					</div>
 				</div>
+				<FooterAd />
 			</section>
-			<FooterAd />
 		</>
 	);
 }

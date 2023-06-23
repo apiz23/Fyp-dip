@@ -165,10 +165,18 @@ export default function Forms_Equipment() {
 	return (
 		<>
 			<div className="card bg-dark rounded" id="card-equipment">
-				<div className="card-header bg-dark text-center text-light">
+				<div className="card-header bg-dark text-center text-li">
 					Equipment
 				</div>
-				<div className="card-body" id="card-body-equipment">
+				<div
+					className="card-body"
+					id="card-body-equipment"
+					style={{
+						background: "rgb(204,207,210)",
+						background:
+							"radial-gradient(circle, rgba(204,207,210,1) 0%, rgba(90,107,177,1) 100%)",
+					}}
+				>
 					{items.map((item, index) => {
 						if (index % 2 === 0) {
 							return (
@@ -176,7 +184,7 @@ export default function Forms_Equipment() {
 									<div className="col col-lg-6">
 										<h5>
 											Max =
-											<span className="mx-2 text-danger">
+											<span className="mx-2 text-warning">
 												{matchingBookerFields.some(
 													(f) => f.label === item.label
 												)

@@ -132,7 +132,15 @@ export default function FormsSpace() {
 		<>
 			<div className="card bg-dark rounded" id="card-space">
 				<div className="card-header bg-dark text-center text-light">Space</div>
-				<div className="card-body" id="card-body-space">
+				<div
+					className="card-body"
+					id="card-body-space"
+					style={{
+						background: "rgb(204,207,210)",
+						background:
+							"radial-gradient(circle, rgba(204,207,210,1) 0%, rgba(90,107,177,1) 100%)",
+					}}
+				>
 					{rooms.map((room, index) => {
 						if (index % 2 === 0) {
 							return (
