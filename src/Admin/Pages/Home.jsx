@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import Booker from "../components/BookerDoc";
 import NavbarAd from "../components/NavbarAd";
 import { db, storage } from "../../firebase-config";
-import { deleteObject, ref, getStorage, listAll } from "firebase/storage";
 import {
 	collection,
 	getDocs,
@@ -128,15 +127,13 @@ export default function HomeAd() {
 	}, [expiredDocumentIds]);
 	return (
 		<>
-			<section className="homeSecAd vh-100">
+			<section className="homeSecAd">
 				<NavbarAd />
 				<div className="container text-light">
 					<p className="display-3 text-center">Admin Page</p>
-					<div className="col m-1">
-						<div className="row">
-							<div className="col">
-								<Booker />
-							</div>
+					<div className="row">
+						<div className="col col-md">
+							<Booker />
 						</div>
 					</div>
 				</div>

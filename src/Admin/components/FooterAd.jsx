@@ -4,7 +4,7 @@ import "./style/FooterAd.scss"
 export default function FooterAd() {
 	return (
 		<>
-			<footer className="text-light p-5">
+			<footer className="footerAd text-light p-5">
 				<div className="footerContainer">
 					<div className="row">
 						<div className="col d-flex justify-content-center">

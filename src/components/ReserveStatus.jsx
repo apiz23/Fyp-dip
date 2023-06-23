@@ -75,7 +75,13 @@ export default function ReserveStatus() {
 														? "Space & Equipment"
 														: "Equipment"}
 												</td>
-												<td>{book.status === 1 ? "Approved" : "Pending"}</td>
+												<td>
+													{book.status === 1
+														? "Approved"
+														: book.status === 2
+														? "Rejected"
+														: "Pending"}
+												</td>
 												<td>
 													<div
 														class="btn-group"
