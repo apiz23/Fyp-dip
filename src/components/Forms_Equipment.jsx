@@ -41,6 +41,7 @@ export default function Forms_Equipment() {
 	const [bookerIds, setBookerIds] = useState([]);
 	const [matchingBookerId, setMatchingBookerId] = useState(null);
 	const [matchingBookerFields, setMatchingBookerFields] = useState([]);
+	const [rangeValue, setRangeValue] = useState("");
 
 	const handleChangeLocalStorage = (event) => {
 		const name = event.target.name;
@@ -120,6 +121,7 @@ export default function Forms_Equipment() {
 						"Platform",
 						"Multipurpose Table",
 						"Examination Table",
+						"status",
 					].includes(key)
 				)
 				.map(([key, value]) => ({ label: key, value }));
@@ -139,7 +141,7 @@ export default function Forms_Equipment() {
 		enteredDateStart,
 		enteredDateEnd,
 		enteredTimeStart,
-		enteredTimeEnd,
+		enteredTimeEnd
 	) => {
 		const dataStartDate = new Date(`${startDate}T${startTime}:00`);
 		const dataEndDate = new Date(`${endDate}T${endTime}:00`);
@@ -160,7 +162,7 @@ export default function Forms_Equipment() {
 			return "outside";
 		}
 	};
- 
+
 	return (
 		<>
 			<div className="card bg-dark rounded" id="card-equipment">
@@ -181,68 +183,53 @@ export default function Forms_Equipment() {
 							return (
 								<div className="row my-3" key={index}>
 									<div className="col col-lg-6">
-										<h5>
-											Max =
-											<span className="mx-2 text-warning">
-												{matchingBookerFields.some(
-													(f) => f.label === item.label
-												)
-													? equip.find((e) => e.id === item.name)?.value -
-													  matchingBookerFields.find(
-															(f) => f.label === item.label
-													  )?.value
-													: equip.find((e) => e.id === item.name)?.value}
-											</span>
-										</h5>
-
-										<div className="form-floating mb-3">
+										<div className=" mb-3">
+											<label htmlFor={`floating${item.label}`}>
+												{item.label}
+											</label>
 											<input
-												type="number"
-												className="form-control"
+												type="range"
+												className="form-range"
 												min="0"
-												placeholder="number"
 												name={item.label}
 												max={
 													matchingBookerFields.some(
 														(f) => f.label === item.label
 													)
 														? equip.find((e) => e.id === item.name)?.value -
-														  matchingBookerFields.find(
-																(f) => f.label === item.label
-														  )?.value
+																matchingBookerFields.find(
+																	(f) => f.label === item.label
+																)?.value >=
+														  0
+															? equip.find((e) => e.id === item.name)?.value -
+															  matchingBookerFields.find(
+																	(f) => f.label === item.label
+															  )?.value
+															: 0
 														: equip.find((e) => e.id === item.name)?.value
 												}
-												onChange={(event) => handleChangeLocalStorage(event)}
+												value={localStorage.getItem(item.label) || rangeValue}
+												onChange={(event) => {
+													const { name, value } = event.target;
+													handleChangeLocalStorage(event);
+													setRangeValue(value);
+													localStorage.setItem(name, value);
+												}}
 											/>
-											<label htmlFor={`floating${item.label}`}>
-												{item.label}
-											</label>
 										</div>
+										<p>Value: {localStorage.getItem(item.label)}</p>
 									</div>
 									{items[index + 1] && (
 										<div className="col col-lg-6">
-											<h5>
-												Max =
-												<span className="mx-2 text-danger">
-													{matchingBookerFields.some(
-														(f) => f.label === items[index + 1].label
-													)
-														? equip.find((e) => e.id === items[index + 1].name)
-																?.value -
-														  matchingBookerFields.find(
-																(f) => f.label === items[index + 1].label
-														  )?.value
-														: equip.find((e) => e.id === items[index + 1].name)
-																?.value}
-												</span>
-											</h5>
-											<div className="form-floating mb-3">
+											<div className="mb-3">
+												<label htmlFor={`floating${items[index + 1].label}`}>
+													{items[index + 1].label}
+												</label>
 												<input
-													type="number"
-													className="form-control"
+													type="range"
+													className="form-range"
 													min="0"
 													name={items[index + 1].label}
-													placeholder="number"
 													max={
 														matchingBookerFields.some(
 															(f) => f.label === items[index + 1].label
@@ -250,19 +237,36 @@ export default function Forms_Equipment() {
 															? equip.find(
 																	(e) => e.id === items[index + 1].name
 															  )?.value -
-															  matchingBookerFields.find(
-																	(f) => f.label === items[index + 1].label
-															  )?.value
+																	matchingBookerFields.find(
+																		(f) => f.label === items[index + 1].label
+																	)?.value >=
+															  0
+																? equip.find(
+																		(e) => e.id === items[index + 1].name
+																  )?.value -
+																  matchingBookerFields.find(
+																		(f) => f.label === items[index + 1].label
+																  )?.value
+																: 0
 															: equip.find(
 																	(e) => e.id === items[index + 1].name
 															  )?.value
 													}
-													onChange={(event) => handleChangeLocalStorage(event)}
+													value={
+														localStorage.getItem(items[index + 1].label) ||
+														rangeValue
+													}
+													onChange={(event) => {
+														const { name, value } = event.target;
+														handleChangeLocalStorage(event);
+														setRangeValue(value);
+														localStorage.setItem(name, value);
+													}}
 												/>
-												<label htmlFor={`floating${items[index + 1].label}`}>
-													{items[index + 1].label}
-												</label>
 											</div>
+											<p>
+												Value: {localStorage.getItem(items[index + 1].label)}
+											</p>
 										</div>
 									)}
 								</div>

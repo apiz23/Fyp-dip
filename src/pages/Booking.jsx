@@ -254,7 +254,7 @@ export default function Booking() {
 						</div>
 					)}
 					<div className="row">
-						<div className="col d-flex justify-content-center flex-column align-items-center">
+						<div className="col d-flex justify-content-center text-center flex-column align-items-center">
 							<div className="checkbox-wrapper-46">
 								<input
 									className="inp-cbx"
