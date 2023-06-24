@@ -2,7 +2,7 @@ import "./style/HomeAd.scss";
 import { useState, useEffect } from "react";
 import Booker from "../components/BookerDoc";
 import NavbarAd from "../components/NavbarAd";
-import { db, storage } from "../../firebase-config";
+import { db } from "../../firebase-config";
 import {
 	collection,
 	getDocs,
@@ -13,10 +13,18 @@ import {
 	updateDoc,
 } from "firebase/firestore";
 import FooterAd from "../components/FooterAd";
+import Loader from "../../components/Loader";
 
 export default function HomeAd() {
 	const [expiredDocumentIds, setExpiredDocumentIds] = useState([]);
 	const [expiredDocumentFields, setExpiredDocumentFields] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setIsLoading(false);
+		}, 2000);
+	}, []);
 
 	const filteredDocuments = expiredDocumentFields.map((document) => {
 		const filteredFields = Object.entries(document).filter(([key]) => {
@@ -128,6 +136,7 @@ export default function HomeAd() {
 	return (
 		<>
 			<section className="homeSecAd">
+				{isLoading ? <Loader /> : null}
 				<NavbarAd />
 				<div className="container text-light">
 					<p className="display-3 text-center">Admin Page</p>
