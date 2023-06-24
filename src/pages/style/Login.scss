@@ -17,7 +17,7 @@ $border-bottom-color_1: #008080;
 	height: 100vh;
 	background-image: url("../../Assets//stackedPeakBg.svg");
 	background-size: cover;
-  background-repeat: no-repeat;
+	background-repeat: no-repeat;
 	animation: fadeCenter 1s ease-in 0s 1 normal forwards;
 }
 
@@ -173,5 +173,30 @@ a {
 	100% {
 		opacity: 1;
 		transform: translateX(0);
+	}
+}
+
+.divLoader {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgb(49, 71, 115);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	z-index: 9999;
+
+	img {
+		height: 100px;
+		margin-bottom: 16px;
+		animation: myAnim 500ms ease 0s 1 normal forwards;
+	}
+
+	.spinner {
+		width: 5rem;
+		height: 5rem;
 	}
 }
