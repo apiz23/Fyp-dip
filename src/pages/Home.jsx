@@ -9,12 +9,21 @@ import BookingProce from "./BookingProce";
 import ReserveStatus from "../components/ReserveStatus";
 import "./style/Home.scss";
 import logo from "../Assets/uthm-favicon/android-chrome-192x192.png";
+import Loader from "../components/Loader";
 
 export default function Home() {
 	<Router>
 		<Route path="booking" element={<Booking />} />
 		<Route path="bookingProce" element={<BookingProce />} />
 	</Router>;
+
+	const [isLoading, setIsLoading] = useState(true);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setIsLoading(false);
+		}, 2000);
+	}, []);
 
 	useEffect(() => {
 		const clearLocalStorage = () => {
@@ -77,6 +86,7 @@ export default function Home() {
 	return (
 		<>
 			<section className="homeSec">
+				{isLoading ? <Loader /> : null}
 				<Navbar />
 				<div className="container mt-3 col-md-10">
 					<div className="title my-3">
