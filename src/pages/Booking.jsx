@@ -61,6 +61,9 @@ export default function Booking() {
 	const historyCollectionRef = collection(db, "history");
 	async function createReservation() {
 		try {
+			const currentDate = new Date();
+			const currentTime = currentDate.toLocaleString();
+			localStorage.setItem("timeBook", currentTime);
 			const arr = getAllLocalStorageData();
 			const id = sessionStorage.getItem("username");
 			const bookingRef = doc(bookingCollectionRef, id);

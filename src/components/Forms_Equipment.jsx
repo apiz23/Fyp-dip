@@ -140,7 +140,6 @@ export default function Forms_Equipment() {
 		enteredDateEnd,
 		enteredTimeStart,
 		enteredTimeEnd,
-		id
 	) => {
 		const dataStartDate = new Date(`${startDate}T${startTime}:00`);
 		const dataEndDate = new Date(`${endDate}T${endTime}:00`);
@@ -161,7 +160,7 @@ export default function Forms_Equipment() {
 			return "outside";
 		}
 	};
-
+ 
 	return (
 		<>
 			<div className="card bg-dark rounded" id="card-equipment">

@@ -2,22 +2,36 @@ import emailjs from "emailjs-com";
 import { useState, useEffect } from "react";
 import { db, storage } from "../../firebase-config";
 import { getDownloadURL, listAll, ref } from "firebase/storage";
-import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
+import {
+	collection,
+	getDocs,
+	doc,
+	updateDoc,
+	query,
+	orderBy,
+} from "firebase/firestore";
 
 export default function Booker() {
 	const [booker, setBooker] = useState([]);
 
 	useEffect(() => {
-		const getBooker = async () => {
-			const data = await getDocs(collection(db, "booking-users"));
-			setBooker(
-				data.docs.map((docs) => ({
-					...docs.data(),
-					id: docs.id,
-				}))
-			);
+		const fetchBooker = async () => {
+			const q = query(collection(db, "booking-users"), orderBy("timeBook"));
+			const querySnapshot = await getDocs(q);
+
+			const fetchedBooker = querySnapshot.docs.map((doc) => {
+				const data = doc.data();
+				const bookDate = new Date(data.bookDate); 
+
+				return {
+					...data,
+					bookDate: bookDate.toLocaleString(),
+				};
+			});
+			setBooker(fetchedBooker);
 		};
-		getBooker();
+
+		fetchBooker();
 	}, []);
 
 	const updateStatusReject = async (id) => {
@@ -106,6 +120,7 @@ export default function Booker() {
 						<tr>
 							<th scope="col">No</th>
 							<th scope="col">Booking ID</th>
+							<th scope="col">Booking Date</th>
 							<th scope="col">Category</th>
 							<th scope="col">Status</th>
 							<th scope="col">Action</th>
@@ -113,10 +128,12 @@ export default function Booker() {
 					</thead>
 					<tbody>
 						{booker.map((book, index) => {
+
 							return (
 								<tr key={book.id}>
 									<th scope="row">{index + 1}</th>
 									<td>{book.id}</td>
+									<td>{book.timeBook}</td>
 									<td>
 										{book.radioBtn === "option1"
 											? "Space & Equipment"
