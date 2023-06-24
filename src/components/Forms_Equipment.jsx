@@ -165,7 +165,7 @@ export default function Forms_Equipment() {
 	return (
 		<>
 			<div className="card bg-dark rounded" id="card-equipment">
-				<div className="card-header bg-dark text-center text-li">
+				<div className="card-header bg-dark text-center text-light">
 					Equipment
 				</div>
 				<div
