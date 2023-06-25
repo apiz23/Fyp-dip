@@ -7,9 +7,9 @@ import Footer from "../components/Footer";
 import Booking from "./Booking";
 import BookingProce from "./BookingProce";
 import ReserveStatus from "../components/ReserveStatus";
-import "./style/Home.scss";
 import logo from "../Assets/uthm-favicon/android-chrome-192x192.png";
 import Loader from "../components/Loader";
+import "./style/Home.scss";
 
 export default function Home() {
 	<Router>
@@ -40,23 +40,18 @@ export default function Home() {
 	useEffect(() => {
 		const fetchExpiredDocuments = async () => {
 			const currentTime = new Date();
-
 			const q = query(collection(db, "booking-users"));
-
 			try {
 				const querySnapshot = await getDocs(q);
 				const documentIds = [];
-
 				querySnapshot.forEach((doc) => {
 					const timeEnd = doc.data().timeEnd;
 					const dateEnd = doc.data().dateEnd;
 					const combinedTimestamp = new Date(`${dateEnd} ${timeEnd}`);
-
 					if (combinedTimestamp <= currentTime) {
 						documentIds.push(doc.id);
 					}
 				});
-
 				setExpiredDocumentIds(documentIds);
 			} catch (error) {
 				console.error("Error fetching expired documents:", error);
@@ -72,9 +67,7 @@ export default function Home() {
 				const deletionPromises = expiredDocumentIds.map((documentId) =>
 					deleteDoc(doc(db, "booking-users", documentId))
 				);
-
 				await Promise.all(deletionPromises);
-				console.log("Expired documents deleted successfully");
 			} catch (error) {
 				console.error("Error deleting expired documents:", error);
 			}

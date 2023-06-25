@@ -183,7 +183,7 @@ export default function Forms_Equipment() {
 							return (
 								<div className="row my-3" key={index}>
 									<div className="col col-lg-6">
-										<div className=" mb-3">
+										<div className="mb-3">
 											<label htmlFor={`floating${item.label}`}>
 												{item.label}
 											</label>

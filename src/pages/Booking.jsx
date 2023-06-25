@@ -199,7 +199,7 @@ export default function Booking() {
 						<div className="radios mt-3 text-dark">
 							<div className="form-check form-check-inline">
 								<input
-									className="form-check-input"
+									className="form-check-input mx-3"
 									type="radio"
 									name="radioBtn"
 									id="rdb1"
@@ -216,7 +216,7 @@ export default function Booking() {
 							</div>
 							<div className="form-check form-check-inline">
 								<input
-									className="form-check-input"
+									className="form-check-input mx-3"
 									type="radio"
 									name="radioBtn"
 									id="rdb2"
