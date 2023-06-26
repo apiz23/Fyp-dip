@@ -10,6 +10,7 @@ import ReserveStatus from "../components/ReserveStatus";
 import logo from "../Assets/uthm-favicon/android-chrome-192x192.png";
 import Loader from "../components/Loader";
 import "./style/Home.scss";
+import History from "../components/History";
 
 export default function Home() {
 	<Router>
@@ -18,6 +19,12 @@ export default function Home() {
 	</Router>;
 
 	const [isLoading, setIsLoading] = useState(true);
+	const [expiredDocumentIds, setExpiredDocumentIds] = useState([]);
+	const [selectedOption, setSelectedOption] = useState("1");
+
+	const handleOptionChange = (event) => {
+		setSelectedOption(event.target.value);
+	};
 
 	useEffect(() => {
 		setTimeout(() => {
@@ -34,8 +41,6 @@ export default function Home() {
 			window.onbeforeunload = null;
 		};
 	}, []);
-
-	const [expiredDocumentIds, setExpiredDocumentIds] = useState([]);
 
 	useEffect(() => {
 		const fetchExpiredDocuments = async () => {
@@ -100,8 +105,21 @@ export default function Home() {
 						</div>
 					</div>
 					<div className="row">
+						<div className="col col-md ms-5">
+							<select
+								className="form-select"
+								aria-label="Default select example"
+								value={selectedOption}
+								onChange={handleOptionChange}
+							>
+								<option value="1">Reserve Status</option>
+								<option value="2">History</option>
+							</select>
+						</div>
+					</div>
+					<div className="row">
 						<div className="col col-md">
-							<ReserveStatus />
+							{selectedOption === "1" ? <ReserveStatus /> : <History />}
 						</div>
 					</div>
 					<div className="row">

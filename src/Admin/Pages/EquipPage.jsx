@@ -19,7 +19,6 @@ export default function EquipPage() {
 						</div>
 					</div>
 				</div>
-				<FooterAd />
 			</section>
 		</>
 	);

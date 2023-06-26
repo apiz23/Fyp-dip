@@ -15,8 +15,17 @@ $background-color_2: rgb(255, 253, 253);
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-image: url("../../Assets/team/layeredPeakBg3.svg");
-	// background-color: rgb(217, 217, 217);
 	animation: fadeCenter 2s ease 0s 1 normal none;
+	font-family: $inter;
+	.tableHistory {
+		box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+			rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+	}
+	.col {
+		select {
+			width: fit-content;
+		}
+	}
 }
 
 .title {
@@ -28,7 +37,6 @@ $background-color_2: rgb(255, 253, 253);
 	h1 {
 		font-family: $cinzel;
 		font-weight: 600;
-		// color: rgb(49, 71, 115);
 		color: rgb(255, 255, 255);
 	}
 }

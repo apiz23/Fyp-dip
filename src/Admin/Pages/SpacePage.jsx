@@ -20,7 +20,6 @@ export default function SpacePage() {
 					</div>
 				</div>
 			</section>
-			<FooterAd />
 		</>
 	);
 }

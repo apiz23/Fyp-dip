@@ -14,11 +14,17 @@ import {
 } from "firebase/firestore";
 import FooterAd from "../components/FooterAd";
 import Loader from "../../components/Loader";
+import HistoryAd from "../components/HistoryAd";
 
 export default function HomeAd() {
 	const [expiredDocumentIds, setExpiredDocumentIds] = useState([]);
 	const [expiredDocumentFields, setExpiredDocumentFields] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
+	const [selectedOption, setSelectedOption] = useState("1");
+
+	const handleOptionChange = (event) => {
+		setSelectedOption(event.target.value);
+	};
 
 	useEffect(() => {
 		setTimeout(() => {
@@ -133,6 +139,7 @@ export default function HomeAd() {
 
 		deleteExpiredDocuments();
 	}, [expiredDocumentIds]);
+
 	return (
 		<>
 			<section className="homeSecAd">
@@ -141,12 +148,24 @@ export default function HomeAd() {
 				<div className="container text-light">
 					<p className="display-3 text-center">Admin Page</p>
 					<div className="row">
+						<div className="col col-md ms-5">
+							<select
+								className="form-select"
+								aria-label="Default select example"
+								value={selectedOption}
+								onChange={handleOptionChange}
+							>
+								<option value="1">Reserve Status</option>
+								<option value="2">History</option>
+							</select>
+						</div>
+					</div>
+					<div className="row">
 						<div className="col col-md">
-							<Booker />
+							{selectedOption === "1" ? <Booker /> : <HistoryAd />}
 						</div>
 					</div>
 				</div>
-				<FooterAd />
 			</section>
 		</>
 	);

@@ -58,9 +58,26 @@ $inter: "inter", sans-serif;
 }
 
 .homeSecAd {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 	height: fit-content;
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-image: url("../../../Assets/bgAdmin.svg");
 	font-family: $inter;
+
+	.col {
+		select {
+			width: fit-content;
+		}
+	}
+}
+
+.container {
+	flex: 1;
+}
+
+.FooterAd {
+	margin-top: auto;
 }

@@ -46,8 +46,8 @@ export default function Booking() {
 		});
 	};
 
-	const getAllLocalStorageData = () => {
-		var localStorageDataObj = { status: 0 };
+	const getAllLocalStorageData = (id) => {
+		var localStorageDataObj = { status: 0,id: id };
 
 		for (var i = 0; i < localStorage.length; i++) {
 			var key = localStorage.key(i);
@@ -64,10 +64,10 @@ export default function Booking() {
 			const currentDate = new Date();
 			const currentTime = currentDate.toLocaleString();
 			localStorage.setItem("timeBook", currentTime);
-			const arr = getAllLocalStorageData();
 			const id = sessionStorage.getItem("username");
+			const arr = getAllLocalStorageData(id);
 			const bookingRef = doc(bookingCollectionRef, id);
-			const historyRef = doc(historyCollectionRef, id);
+			const historyRef = doc(historyCollectionRef);
 
 			const batch = writeBatch(db);
 			batch.set(bookingRef, arr);
