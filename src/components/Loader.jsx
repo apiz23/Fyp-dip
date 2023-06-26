@@ -1,16 +1,11 @@
 import React from "react";
 import "./style/Loader.scss";
+import logo from "../Assets/uthm-favicon/android-chrome-512x512.png";
 
 export default function Loader() {
 	return (
 		<div className="divLoader">
-			<div
-				className="spinner spinner-border text-light"
-				role="status"
-				style={{ width: "5rem", height: "5rem" }}
-			>
-				<span className="visually-hidden">Loading...</span>
-			</div>
+			<img src={logo} alt="" />
 		</div>
 	);
 }

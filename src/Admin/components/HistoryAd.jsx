@@ -1,26 +1,29 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { db } from "../../firebase-config";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import "./style/HistoryAd.scss";
 
 export default function HistoryAd() {
 	const [history, setHistory] = useState([]);
 
 	useEffect(() => {
-		const getHistory = async () => {
-			const data = await getDocs(collection(db, "history"));
-			const ids = data.docs.map((doc) => doc.id);
-			setHistory(
-				data.docs.map((doc) => ({
-					...doc.data(),
-					id: doc.id,
-				}))
-			);
+		const fetchBooker = async () => {
+			const q = query(collection(db, "history"), orderBy("timeBook", "desc"));
+			const querySnapshot = await getDocs(q);
+
+			const fetchedBooker = querySnapshot.docs.map((doc) => {
+				const data = doc.data();
+				return {
+					...data,
+				};
+			});
+			setHistory(fetchedBooker);
 		};
-		getHistory();
+
+		fetchBooker();
 	}, []);
 
-	console.log(history);
 	return (
 		<>
 			<div className="row my-3">
@@ -45,25 +48,36 @@ export default function HistoryAd() {
 											<td scope="row">{h.id}</td>
 											<td scope="row">{h.timeBook}</td>
 											<td>
-												{h.radioButton === "option1"
+												{h.radioBtn === "option1"
 													? "Space & Equipment"
 													: "Equipment"}
 											</td>
-											<td>
+											<td
+												style={{
+													backgroundColor:
+														h.status === 1
+															? "green"
+															: h.status === 2
+															? "red"
+															: "grey",
+												}}
+											>
 												{h.status === 1
 													? "Approved"
 													: h.status === 2
 													? "Rejected"
 													: "Pending"}
 											</td>
-											<td>
+											<td className="tdSpecial">
 												<ol>
-													{Object.entries(h).map(([key, value]) => (
-														<li key={key}>
-															<strong>{key}: </strong>
-															{value}
-														</li>
-													))}
+													{Object.entries(h)
+														.sort(([key1], [key2]) => key1.localeCompare(key2))
+														.map(([key, value]) => (
+															<li key={key}>
+																<strong>{key}: </strong>
+																{value}
+															</li>
+														))}
 												</ol>
 											</td>
 										</tr>

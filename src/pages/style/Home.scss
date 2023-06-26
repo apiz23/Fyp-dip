@@ -33,12 +33,15 @@ $background-color_2: rgb(255, 253, 253);
 	text-align: center;
 	text-transform: uppercase;
 	color: black;
-	animation: fadeCenter 2s ease 0s 1 normal none;
 	h1 {
 		font-family: $cinzel;
 		font-weight: 600;
 		color: rgb(255, 255, 255);
 	}
+}
+
+.title, .col {
+	animation: fadeBack 2s ease 2s 1 normal forwards;
 }
 
 .card {
@@ -58,5 +61,43 @@ $background-color_2: rgb(255, 253, 253);
 
 	100% {
 		opacity: 1;
+	}
+}
+
+@keyframes slideTop {
+	0% {
+		opacity: 0;
+		transform: translateY(-250px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes swingTop {
+	0% {
+		opacity: 0;
+		transform: rotateX(-100deg);
+		transform-origin: top;
+	}
+
+	100% {
+		opacity: 1;
+		transform: rotateX(0deg);
+		transform-origin: top;
+	}
+}
+
+@keyframes fadeBack {
+	0% {
+		opacity: 0;
+		transform: translateX(-50px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateX(0);
 	}
 }

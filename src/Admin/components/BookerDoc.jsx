@@ -13,19 +13,38 @@ import {
 
 export default function Booker() {
 	const [booker, setBooker] = useState([]);
+	const [history, setHistory] = useState([]);
+	const [historyIds, setHistoryIds] = useState([]);
+
+	useEffect(() => {
+		const getHistory = async () => {
+			const data = await getDocs(collection(db, "history"));
+			const historyData = data.docs.map((doc) => ({
+				...doc.data(),
+				id: doc.id,
+			}));
+			setHistory(historyData);
+			setHistoryIds(data.docs.map((doc) => doc.id));
+		};
+
+		getHistory();
+	}, []);
+
+	const filterHistoryByTimeBook = (timeBook) => {
+		const filteredHistory = history.filter((doc) => doc.timeBook === timeBook);
+		const filteredIds = filteredHistory.map((doc) => doc.id);
+		setHistory(filteredHistory);
+		return filteredIds;
+	};
 
 	useEffect(() => {
 		const fetchBooker = async () => {
 			const q = query(collection(db, "booking-users"), orderBy("timeBook"));
 			const querySnapshot = await getDocs(q);
-
 			const fetchedBooker = querySnapshot.docs.map((doc) => {
 				const data = doc.data();
-				const bookDate = new Date(data.timeBook); 
-
 				return {
 					...data,
-					bookDate: bookDate.toLocaleString(),
 				};
 			});
 			setBooker(fetchedBooker);
@@ -34,31 +53,24 @@ export default function Booker() {
 		fetchBooker();
 	}, []);
 
-	const updateStatusReject = async (id) => {
+	const updateStatusReject = async (id, time) => {
+		const idHistory = filterHistoryByTimeBook(time);
+		console.log(idHistory);
 		const book = doc(db, "booking-users", id);
+		const history = doc(db, "history", idHistory[0]);
 		const newField = { status: 2 };
 		await updateDoc(book, newField);
+		await updateDoc(history, newField);
 		window.location.reload();
 	};
 
 	const updateStatus = async (id) => {
 		const equipDoc = doc(db, "booking-users", id);
-		const otherCollectionDoc = doc(db, "history", id);
+		const historyDoc = doc(db, "history", id);
 		const newField = { status: 1 };
 		await updateDoc(equipDoc, newField);
-		await updateDoc(otherCollectionDoc, newField);
+		await updateDoc(historyDoc, newField);
 		window.location.reload();
-	};
-
-	const checkSpaceOptionField = async (documentId) => {
-		const document = booker.find((book) => book.id === documentId);
-		const hasSpaceOption = document && document.spaceOption;
-		if (hasSpaceOption) {
-			const convertedString = hasSpaceOption.toLowerCase().replace(/\s+/g, "-");
-			const equipDoc = doc(db, "space", convertedString);
-			const newField = { availability: false, status: 1 };
-			await updateDoc(equipDoc, newField);
-		}
 	};
 
 	const wrapperFX = (id, status, award, message) => {
@@ -128,7 +140,6 @@ export default function Booker() {
 					</thead>
 					<tbody>
 						{booker.map((book, index) => {
-
 							return (
 								<tr key={book.id}>
 									<th scope="row">{index + 1}</th>
@@ -139,13 +150,23 @@ export default function Booker() {
 											? "Space & Equipment"
 											: "Equipment"}
 									</td>
-									<td>
+									<td
+										style={{
+											backgroundColor:
+												book.status === 1
+													? "green"
+													: book.status === 2
+													? "red"
+													: "grey",
+										}}
+									>
 										{book.status === 1
 											? "Approved"
 											: book.status === 2
 											? "Rejected"
 											: "Pending"}
 									</td>
+
 									<td>
 										<div
 											class="btn-group"
@@ -196,19 +217,19 @@ export default function Booker() {
 														</div>
 														<div class="modal-body">
 															{selectedBookId === book.id && (
-																<ol class="list-group list-group-numbered">
-																	{Object.entries(book).map(([key, value]) => {
-																		if (key !== "id") {
-																			return (
-																				<li class="list-group-item" key={key}>
-																					{key.charAt(0).toUpperCase() +
-																						key.slice(1)}
-																					: {value}
-																				</li>
-																			);
-																		}
-																		return null;
-																	})}
+																<ol>
+																	{Object.entries(book)
+																		.filter(([key]) => key !== "id")
+																		.sort(([key1], [key2]) =>
+																			key1.localeCompare(key2)
+																		)
+																		.map(([key, value]) => (
+																			<li key={key}>
+																				{key.charAt(0).toUpperCase() +
+																					key.slice(1)}
+																				: {value}
+																			</li>
+																		))}
 																</ol>
 															)}
 														</div>
@@ -274,7 +295,7 @@ export default function Booker() {
 												type="button"
 												className="btn btn-danger"
 												onClick={() => {
-													updateStatusReject(book.id);
+													updateStatusReject(book.id, book.timeBook);
 												}}
 											>
 												<svg
