@@ -26,6 +26,16 @@ $background-color_2: rgb(255, 253, 253);
 			width: fit-content;
 		}
 	}
+	.title {
+		animation: slideTop 1s ease 0s 1 normal forwards;
+	}
+	.row .form-select,
+	.row #selectedOption {
+		animation: fadeCenter 1s ease 0s 1 normal forwards;
+	}
+	.row .card {
+		animation: slideBottom 1s ease 0s 1 normal forwards;
+	}
 }
 
 .title {
@@ -38,10 +48,6 @@ $background-color_2: rgb(255, 253, 253);
 		font-weight: 600;
 		color: rgb(255, 255, 255);
 	}
-}
-
-.title, .col {
-	animation: fadeBack 2s ease 2s 1 normal forwards;
 }
 
 .card {
@@ -90,7 +96,7 @@ $background-color_2: rgb(255, 253, 253);
 	}
 }
 
-@keyframes fadeBack {
+@keyframes slideLeft {
 	0% {
 		opacity: 0;
 		transform: translateX(-50px);
@@ -99,5 +105,29 @@ $background-color_2: rgb(255, 253, 253);
 	100% {
 		opacity: 1;
 		transform: translateX(0);
+	}
+}
+
+@keyframes slideRight {
+	0% {
+		opacity: 0;
+		transform: translateX(250px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes slideBottom {
+	0% {
+		opacity: 0;
+		transform: translateY(250px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(0);
 	}
 }

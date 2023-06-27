@@ -18,19 +18,19 @@ export default function Home() {
 		<Route path="bookingProce" element={<BookingProce />} />
 	</Router>;
 
-	const [isLoading, setIsLoading] = useState(true);
-	const [expiredDocumentIds, setExpiredDocumentIds] = useState([]);
-	const [selectedOption, setSelectedOption] = useState("1");
+const [expiredDocumentIds, setExpiredDocumentIds] = useState([]);
+const [selectedOption, setSelectedOption] = useState("1");
 
-	const handleOptionChange = (event) => {
-		setSelectedOption(event.target.value);
-	};
+const handleOptionChange = (event) => {
+	setSelectedOption(event.target.value);
+};
 
-	useEffect(() => {
-		setTimeout(() => {
-			setIsLoading(false);
-		}, 2000);
-	}, []);
+// const [isLoading, setIsLoading] = useState(true);
+// 	useEffect(() => {
+// 		setTimeout(() => {
+// 			setIsLoading(false);
+// 		}, 2000);
+// 	}, []);
 
 	useEffect(() => {
 		const clearLocalStorage = () => {
@@ -84,7 +84,7 @@ export default function Home() {
 	return (
 		<>
 			<section className="homeSec">
-				{isLoading ? <Loader /> : null}
+				{/* {isLoading ? <Loader /> : null} */}
 				<Navbar />
 				<div className="container mt-3 col-md-10">
 					<div className="title my-5">
@@ -118,7 +118,7 @@ export default function Home() {
 						</div>
 					</div>
 					<div className="row">
-						<div className="col col-md">
+						<div className="col col-md" id="selectedOption">
 							{selectedOption === "1" ? <ReserveStatus /> : <History />}
 						</div>
 					</div>

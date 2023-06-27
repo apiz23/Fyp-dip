@@ -4,6 +4,7 @@ import { db } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 import logo from "../Assets/uthm-favicon/android-chrome-192x192.png";
 import "./style/Login.scss";
+import Loader from "../components/Loader";
 
 export default function Login() {
 	const navigate = useNavigate();
@@ -11,7 +12,6 @@ export default function Login() {
 	const [radioCheck, setRadioCheck] = useState("stdStaff");
 	const [errors, setErrors] = useState({});
 	const [values, setValues] = useState({ username: "", password: "" });
-
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
@@ -96,15 +96,16 @@ export default function Login() {
 	return (
 		<section className="loginSec">
 			{isLoading ? (
-				<div className="divLoader">
-					<div
-						className="spinner spinner-border text-light"
-						role="status"
-						style={{ width: "5rem", height: "5rem" }}
-					>
-						<span className="visually-hidden">Loading...</span>
-					</div>
-				</div>
+				// <div className="divLoader">
+				// 	<div
+				// 		className="spinner spinner-border text-light"
+				// 		role="status"
+				// 		style={{ width: "5rem", height: "5rem" }}
+				// 	>
+				// 		<span className="visually-hidden">Loading...</span>
+				// 	</div>
+				// </div>
+				<Loader />
 			) : null}
 
 			<div className="container py-5 h-100">
