@@ -1,4 +1,4 @@
-import React from "react";
+import FooterAd from "../components/FooterAd";
 import NavbarAd from "../components/NavbarAd";
 import SpaceDoc from "../components/SpaceDoc";
 import "./style/Space.scss";
@@ -18,6 +18,7 @@ export default function SpacePage() {
 						</div>
 					</div>
 				</div>
+				<FooterAd />
 			</section>
 		</>
 	);
