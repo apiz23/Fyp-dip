@@ -1,0 +1,74 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab|Inter|Open+Sans:400italic,700italic,400,700);
+
+$roboto-slab: "Roboto Slab", serif;
+$open-sans: "Open Sans", sans-serif;
+$inter: "inter", sans-serif;
+
+.divLoader2 {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: rgb(49, 71, 115);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	z-index: 9999;
+	width: 100vw;
+	height: 100vh;
+	font-family: $inter;
+
+	.spinner-border {
+		width: 5rem;
+		height: 5rem;
+	}
+
+	span {
+		margin-top: 16px;
+	}
+	p {
+		font-size: x-large;
+		animation: slideRight 1s ease 2s 1 normal forwards;
+		opacity: 0;
+	}
+
+	h2 {
+		opacity: 0;
+		animation: slideLeft 1s ease 1s 1 normal forwards;
+	}
+}
+
+@keyframes scaleBackwardCenter {
+	0% {
+		transform: scale(2);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes slideLeft {
+	0% {
+		opacity: 0;
+		transform: translateX(-250px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes slideRight {
+	0% {
+		opacity: 0;
+		transform: translateX(250px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}

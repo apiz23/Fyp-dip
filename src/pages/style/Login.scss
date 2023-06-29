@@ -19,6 +19,9 @@ $border-bottom-color_1: #008080;
 	background-size: cover;
 	background-repeat: no-repeat;
 	animation: fadeCenter 1s ease-in 0s 1 normal forwards;
+	.container {
+		animation: fadeForward 1s ease 2s 1 normal forwards;
+	}
 }
 
 .main-content {
@@ -173,6 +176,18 @@ a {
 	100% {
 		opacity: 1;
 		transform: translateX(0);
+	}
+}
+
+@keyframes fadeForward {
+	0% {
+		opacity: 0;
+		transform: scale(0.6);
+	}
+
+	100% {
+		opacity: 1;
+		transform: scale(1);
 	}
 }
 

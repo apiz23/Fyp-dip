@@ -3,6 +3,10 @@ import Navbar from "../components/Navbar";
 import hafiz from "../Assets/team/hafiz.png";
 import fariez from "../Assets/team/fariezNew.png";
 import alysha from "../Assets/team/alysha.png";
+import react from "../Assets/logo/react.png";
+import html from "../Assets/logo/html.png";
+import scss from "../Assets/logo/scss.png";
+import bootstrap from "../Assets/logo/bootstrap.png";
 import "./style/Team.scss";
 
 export default function Team() {
@@ -124,6 +128,27 @@ export default function Team() {
 										</figcaption>
 									</figure>
 								</div>
+							</div>
+						</div>
+						<div className="row d-flex justify-content-center m-5" id="devRow">
+							<h1 className="display-4 text-center m-5">
+								What components are utilized in the development of this system?
+							</h1>
+							<div className="col col-md-2">
+								<img src={react} alt="" className="img-fluid" />
+								<p className=" m-4 text-center">React JS</p>
+							</div>
+							<div className="col col-md-2">
+								<img src={html} alt="" className="img-fluid" />
+								<p className="m-4 text-center">HTML 5</p>
+							</div>
+							<div className="col col-md-2">
+								<img src={bootstrap} alt="" className="img-fluid" />
+								<p className="m-4 text-center">Bootstrap 5</p>
+							</div>
+							<div className="col col-md-2">
+								<img src={scss} alt="" className="img-fluid" />
+								<p className="m-4 text-center">SCSS	</p>
 							</div>
 						</div>
 					</div>

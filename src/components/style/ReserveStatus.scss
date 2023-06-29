@@ -38,4 +38,13 @@
 		border-radius: 10px;
 		background-color: aliceblue;
 	}
+
+	#detailsBody {
+		p {
+			text-align: left;
+		}
+	}
+	.accordion {
+		width: max-content;
+	}
 }

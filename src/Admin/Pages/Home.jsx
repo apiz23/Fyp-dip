@@ -26,12 +26,6 @@ export default function HomeAd() {
 		setSelectedOption(event.target.value);
 	};
 
-	useEffect(() => {
-		setTimeout(() => {
-			setIsLoading(false);
-		}, 2000);
-	}, []);
-
 	const filteredDocuments = expiredDocumentFields.map((document) => {
 		const filteredFields = Object.entries(document).filter(([key]) => {
 			return (
@@ -143,7 +137,6 @@ export default function HomeAd() {
 	return (
 		<>
 			<section className="homeSecAd">
-				{isLoading ? <Loader /> : null}
 				<NavbarAd />
 				<div className="container text-light">
 					<p className="display-3 text-center">Admin Page</p>

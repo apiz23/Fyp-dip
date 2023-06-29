@@ -82,83 +82,44 @@ export default function ReserveStatus() {
 														? "Rejected"
 														: "Pending"}
 												</td>
-												<td>
+												<td
+													className="d-flex justify-content-center"
+													style={{ display: "flex", alignItems: "center" }}
+												>
+													<div class="accordion" id="accordionExample">
+														<div class="accordion-item">
+															<h2 class="accordion-header">
+																<button
+																	className="accordion-button"
+																	type="button"
+																	data-bs-toggle="collapse"
+																	data-bs-target="#collapseOne"
+																	aria-expanded="true"
+																	aria-controls="collapseOne"
+																>
+																	Details
+																</button>
+															</h2>
+															<div
+																id="collapseOne"
+																class="accordion-collapse collapse "
+																data-bs-parent="#accordionExample"
+															>
+																<div class="accordion-body" id="detailsBody">
+																	{Object.entries(book).map(([key, value]) => (
+																		<p key={key}>
+																			<strong>{key}:</strong> {value}
+																		</p>
+																	))}
+																</div>
+															</div>
+														</div>
+													</div>
 													<div
 														class="btn-group"
 														role="group"
 														aria-label="Basic example"
 													>
-														<button
-															type="button"
-															id="viewBtn"
-															class="btn btn-primary"
-															data-bs-toggle="modal"
-															data-bs-target="#exampleModal"
-														>
-															<svg
-																xmlns="http://www.w3.org/2000/svg"
-																width="25"
-																height="25"
-																fill="currentColor"
-																class="bi bi-list-task"
-																viewBox="0 0 16 16"
-															>
-																<path
-																	fill-rule="evenodd"
-																	d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5H2zM3 3H2v1h1V3z"
-																/>
-																<path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9z" />
-																<path
-																	fill-rule="evenodd"
-																	d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7zM2 7h1v1H2V7zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5H2zm1 .5H2v1h1v-1z"
-																/>
-															</svg>
-														</button>
-
-														<div
-															class="modal fade"
-															id="exampleModal"
-															tabindex="-1"
-															aria-labelledby="exampleModalLabel"
-															aria-hidden="true"
-														>
-															<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-																<div class="modal-content">
-																	<div class="modal-header">
-																		<h1
-																			class="modal-title fs-5 text-dark"
-																			id="exampleModalLabel"
-																		>
-																			Details
-																		</h1>
-																		<button
-																			type="button"
-																			class="btn-close"
-																			data-bs-dismiss="modal"
-																			aria-label="Close"
-																		></button>
-																	</div>
-																	<div class="modal-body text-dark">
-																		{Object.entries(book).map(
-																			([key, value]) => (
-																				<p key={key}>
-																					<strong>{key}:</strong> {value}
-																				</p>
-																			)
-																		)}
-																	</div>
-																	<div class="modal-footer">
-																		<button
-																			type="button"
-																			class="btn btn-secondary"
-																			data-bs-dismiss="modal"
-																		>
-																			Close
-																		</button>
-																	</div>
-																</div>
-															</div>
-														</div>
 														<button
 															class="btn"
 															id="fileBtn"

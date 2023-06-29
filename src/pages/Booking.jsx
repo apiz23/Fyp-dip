@@ -1,30 +1,45 @@
 import { useState } from "react";
+import { db, storage } from "../firebase-config";
+import { collection, doc, writeBatch } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Forms from "../components/Forms";
 import FormsSpace from "../components/Forms_Space";
 import FormsEquipment from "../components/Forms_Equipment";
-import { db, storage } from "../firebase-config";
-import { collection, doc, writeBatch } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import "./style/Booking.scss";
+import Loader2 from "../components/Loader2";
 
 export default function Booking() {
-	const [radioValue, setRadioValue] = useState("option2");
+	const [radioValue, setRadioValue] = useState("");
 	const [fileUpload, setFileUpload] = useState(null);
 	const [fileList, setFileList] = useState([]);
 	const [showAlert, setShowAlert] = useState(false);
-
+	const [isLoading, setIsLoading] = useState(false);
 	const [checkboxChecked, setCheckboxChecked] = useState(false);
 
 	const handleCheckboxChange = () => {
 		setCheckboxChecked(!checkboxChecked);
 	};
 
+	const loading = () => {
+		return (
+			<div class="text-center">
+				<div class="spinner-border" role="status">
+					<span class="visually-hidden">Loading...</span>
+				</div>
+			</div>
+		);
+	};
+
 	const handleSubmit = () => {
 		if (checkboxChecked) {
+			setIsLoading(true);
 			wrapperFunction();
 			uploadFile();
+			setTimeout(() => {
+				setIsLoading(false);
+			}, 5500);
 		} else {
 			alert("Please check the checkbox before submitting.");
 		}
@@ -47,7 +62,7 @@ export default function Booking() {
 	};
 
 	const getAllLocalStorageData = (id) => {
-		var localStorageDataObj = { status: 0,id: id };
+		var localStorageDataObj = { status: 0, id: id };
 
 		for (var i = 0; i < localStorage.length; i++) {
 			var key = localStorage.key(i);
@@ -194,8 +209,17 @@ export default function Booking() {
 						</div>
 					</div>
 				</div>
-				<div className="row d-flex justify-content-center w-100">
-					<div className="col col-md d-flex justify-content-center">
+				<div
+					className="row d-flex justify-content-center w-100"
+					style={{ marginTop: "120px" }}
+				>
+					<h1 className="title2 display-5 text-center">
+						Please choose one of the following options:{" "}
+					</h1>
+					<div
+						className="col col-md d-flex justify-content-center"
+						id="colRadio"
+					>
 						<div className="radios mt-3 text-dark">
 							<div className="form-check form-check-inline">
 								<input
@@ -263,7 +287,11 @@ export default function Booking() {
 									checked={checkboxChecked}
 									onChange={handleCheckboxChange}
 								/>
-								<label className="cbx" for="cbx-46">
+								<label
+									className="cbx"
+									htmlFor="cbx-46"
+									style={{ fontSize: "larger" }}
+								>
 									<span>
 										<svg width={"12px"} height={"10px"} viewbox="0 0 12 10">
 											<polyline points="1.5 6 4.5 9 10.5 1"></polyline>
@@ -271,8 +299,11 @@ export default function Booking() {
 									</span>
 									<span>
 										Please make sure to check the checkbox to enable use to
-										store this <strong>Booking information</strong> in the
-										history database
+										store this{" "}
+										<strong className="text-warning">
+											Booking information
+										</strong>{" "}
+										in the history database
 									</span>
 								</label>
 							</div>
@@ -290,7 +321,7 @@ export default function Booking() {
 											<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
 											<path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
 										</svg>
-										Your Booking have been placed and have been Email
+										Your Booking have been placed
 									</div>
 								</>
 							)}
@@ -316,6 +347,7 @@ export default function Booking() {
 				</div>
 				<Footer />
 			</section>
+			{isLoading ? <Loader2 /> : null}
 		</>
 	);
 }
