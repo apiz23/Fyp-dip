@@ -1,6 +1,5 @@
 import React from "react";
 import EquipmentDoc from "../components/EquipmentDoc";
-import FooterAd from "../components/FooterAd";
 import NavbarAd from "../components/NavbarAd";
 import "./style/Equipment.scss";
 

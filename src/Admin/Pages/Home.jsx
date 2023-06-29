@@ -12,9 +12,9 @@ import {
 	deleteDoc,
 	updateDoc,
 } from "firebase/firestore";
-import FooterAd from "../components/FooterAd";
 import Loader from "../../components/Loader";
 import HistoryAd from "../components/HistoryAd";
+import FooterAd from "../components/FooterAd";
 
 export default function HomeAd() {
 	const [expiredDocumentIds, setExpiredDocumentIds] = useState([]);
