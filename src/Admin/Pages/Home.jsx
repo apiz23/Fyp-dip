@@ -159,6 +159,7 @@ export default function HomeAd() {
 						</div>
 					</div>
 				</div>
+				<FooterAd />
 			</section>
 		</>
 	);
