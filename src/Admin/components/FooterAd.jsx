@@ -2,18 +2,22 @@ import React from "react";
 
 export default function FooterAd() {
 	return (
-		<>
+		<div
+			style={{
+				boxShadow:
+					"rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px 3px, rgba(0, 0, 0, 0.2) 0px 3px 0px inset",
+			}}
+		>
 			<div
 				className="text-center p-3"
 				style={{
-					background: "#5a6bb1",
-					boxShadow:
-						"rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;",
+					color: "white",
+					backgroundColor: "rgb(49, 71, 115)",
 				}}
 			>
 				UTHM
 				<span
-					className="ms-2 text-dark"
+					className="ms-2 text-light"
 					style={{
 						fontWeight: "bold",
 					}}
@@ -21,6 +25,6 @@ export default function FooterAd() {
 					Admin Page
 				</span>
 			</div>
-		</>
+		</div>
 	);
 }
