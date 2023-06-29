@@ -9,6 +9,8 @@ import {
 	updateDoc,
 	query,
 	orderBy,
+	getDoc,
+	addDoc,
 } from "firebase/firestore";
 
 export default function Booker() {
@@ -66,11 +68,23 @@ export default function Booker() {
 
 	const updateStatus = async (id) => {
 		const equipDoc = doc(db, "booking-users", id);
-		const historyDoc = doc(db, "history", id);
-		const newField = { status: 1 };
-		await updateDoc(equipDoc, newField);
-		await updateDoc(historyDoc, newField);
-		window.location.reload();
+		const equipSnapshot = await getDoc(equipDoc);
+
+		if (equipSnapshot.exists()) {
+			const equipData = equipSnapshot.data();
+			const fieldArray = Object.keys(equipData).reduce((obj, key) => {
+				obj[key] = equipData[key];
+				return obj;
+			}, {});
+			fieldArray.status = 1;
+			const historyCollection = collection(db, "history");
+			await addDoc(historyCollection, fieldArray);
+			const newField = { status: 1 };
+			await updateDoc(equipDoc, newField);
+			window.location.reload();
+		} else {
+			console.log("Document does not exist.");
+		}
 	};
 
 	const wrapperFX = (id, status, award, message) => {

@@ -7,8 +7,8 @@ import Footer from "../components/Footer";
 import Forms from "../components/Forms";
 import FormsSpace from "../components/Forms_Space";
 import FormsEquipment from "../components/Forms_Equipment";
-import "./style/Booking.scss";
 import Loader2 from "../components/Loader2";
+import "./style/Booking.scss";
 
 export default function Booking() {
 	const [radioValue, setRadioValue] = useState("");
@@ -86,7 +86,7 @@ export default function Booking() {
 
 			const batch = writeBatch(db);
 			batch.set(bookingRef, arr);
-			batch.set(historyRef, arr);
+			// batch.set(historyRef, arr);
 
 			await batch.commit();
 		} catch (error) {
