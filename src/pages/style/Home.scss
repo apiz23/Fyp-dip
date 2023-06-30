@@ -25,6 +25,9 @@ $background-color_2: rgb(255, 253, 253);
 		select {
 			width: fit-content;
 		}
+		img {
+			box-shadow: rgba(7, 7, 7, 0.45) 0px 35px 15px -30px;
+		}
 	}
 	.title {
 		animation: slideTop 1s ease 0s 1 normal forwards;

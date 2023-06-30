@@ -1,4 +1,3 @@
-import React from "react";
 import "./style/Footer.scss";
 
 export default function Footer() {
@@ -12,7 +11,7 @@ export default function Footer() {
 						</div>
 					</div>
 					<div className="text-center my-3">
-						<p>&copy; 2023 My Website. All Rights Reserved.</p>
+						<p>&copy; Student & Staff of UTHM</p>
 					</div>
 				</div>
 			</footer>

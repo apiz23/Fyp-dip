@@ -22,6 +22,10 @@ $rubik: "Rubik", serif;
 			font-size: larger;
 		}
 	}
+	#descTitle {
+		opacity: 0;
+		animation: slideRight 1s ease 0s 1 normal forwards;
+	}
 
 	#devRow {
 		font-family: $inter;
