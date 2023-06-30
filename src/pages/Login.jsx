@@ -3,8 +3,8 @@ import { useNavigate } from "react-router";
 import { db } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 import logo from "../Assets/uthm-favicon/android-chrome-192x192.png";
-import "./style/Login.scss";
 import Loader from "../components/Loader";
+import "./style/Login.scss";
 
 export default function Login() {
 	const navigate = useNavigate();
@@ -95,18 +95,7 @@ export default function Login() {
 
 	return (
 		<section className="loginSec">
-			{isLoading ? (
-				// <div className="divLoader">
-				// 	<div
-				// 		className="spinner spinner-border text-light"
-				// 		role="status"
-				// 		style={{ width: "5rem", height: "5rem" }}
-				// 	>
-				// 		<span className="visually-hidden">Loading...</span>
-				// 	</div>
-				// </div>
-				<Loader />
-			) : null}
+			{isLoading ? <Loader /> : null}
 			<div className="container py-5 h-100">
 				<div className="row d-flex justify-content-center align-items-center">
 					<div className="col-12 col-md-8 col-lg-6 col-xl-5">

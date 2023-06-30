@@ -3,6 +3,7 @@ import { db } from "../../firebase-config";
 import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
 
 export default function EquipmentDoc() {
+	const [inputValue, setInputValue] = useState("");
 	const [equipment, setEquipment] = useState([]);
 
 	useEffect(() => {
@@ -25,7 +26,6 @@ export default function EquipmentDoc() {
 		window.location.reload();
 	};
 
-	const [inputValue, setInputValue] = useState("");
 	const handleInputChange = (event) => {
 		setInputValue(event.target.value);
 	};
