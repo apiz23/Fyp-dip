@@ -11,6 +11,9 @@
     "firebase": "^9.22.0",
     "flowbite": "^1.6.5",
     "flowbite-react": "^0.4.7",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.5.29",
     "nodemailer": "^6.9.3",
     "react": "^18.2.0",
     "react-datepicker": "^4.13.0",
@@ -20,6 +23,7 @@
     "react-router-dom": "^6.12.1",
     "react-scripts": "5.0.1",
     "react-spinners": "^0.13.8",
+    "react-to-print": "^2.14.13",
     "sass": "^1.62.0",
     "web-vitals": "^2.1.4"
   },
