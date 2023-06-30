@@ -90,6 +90,7 @@ export default function Booker() {
 	const wrapperFX = (id, status, award, message) => {
 		updateStatus(id);
 		sendEmail(id, status, award, message);
+		
 	};
 
 	const [selectedBookId, setSelectedBookId] = useState(null);

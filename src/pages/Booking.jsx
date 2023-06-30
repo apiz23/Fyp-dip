@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import { db, storage } from "../firebase-config";
 import { collection, doc, writeBatch } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -17,6 +18,7 @@ export default function Booking() {
 	const [showAlert, setShowAlert] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [checkboxChecked, setCheckboxChecked] = useState(false);
+	const navigate = useNavigate();
 
 	const handleCheckboxChange = () => {
 		setCheckboxChecked(!checkboxChecked);
@@ -40,6 +42,7 @@ export default function Booking() {
 			setTimeout(() => {
 				setIsLoading(false);
 			}, 5500);
+			navigate("/home");
 		} else {
 			alert("Please check the checkbox before submitting.");
 		}
