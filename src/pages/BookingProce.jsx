@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import "./style/BookingProce.scss";
+import tutorial from "../Assets/Video/video-manual.mp4";
 
 export default function BookingProce() {
 	return (
@@ -24,22 +25,17 @@ export default function BookingProce() {
 				<div className="container vh-100">
 					<div className="row my-5 d-flex justify-content-center">
 						<div className="col col-md-8">
-							<div class="ratio ratio-16x9">
-								<iframe
-									width="560"
-									height="315"
-									src="https://www.youtube.com/embed/HMqhXxH5-RQ"
-									title="YouTube video player"
-									frameborder="1"
-									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-									allowfullscreen
-								/>
+							<div className="ratio ratio-16x9">
+								<video width="100%" height="100%" controls>
+									<source src={tutorial} type="video/mp4" />
+									Your browser does not support the video tag.
+								</video>
 							</div>
 						</div>
 					</div>
 				</div>
 			</section>
-				<Footer />
+			<Footer />
 		</>
 	);
 }
