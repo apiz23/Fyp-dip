@@ -46,7 +46,12 @@ export default function Booking() {
 	const uploadFile = () => {
 		if (fileUpload == null) return;
 		const id = sessionStorage.getItem("username");
-		const fileRef = ref(storage, `${id}/${fileUpload.name}`);
+		const currentDate = new Date();
+		const currentTime = currentDate.toLocaleString();
+		localStorage.setItem("timeBook", currentTime);
+		const time = localStorage.getItem("timeBook");
+		const formattedTime = time.replace(/[/:, ]|AM|PM/g, "");
+		const fileRef = ref(storage, `${id}/${formattedTime}`);
 		uploadBytes(fileRef, fileUpload).then((snapshot) => {
 			getDownloadURL(snapshot.ref).then((url) => {
 				setFileList((prev) => [...prev, url]);

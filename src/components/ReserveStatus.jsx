@@ -22,6 +22,7 @@ export default function ReserveStatus() {
 		};
 		getBooker();
 	}, []);
+	const filteredBooker = booker.filter((book) => book.id === id);
 
 	const deleteBooking = async (id) => {
 		const bookerDoc = doc(db, "booking-users", id);
@@ -29,19 +30,24 @@ export default function ReserveStatus() {
 		window.location.reload();
 	};
 
-	const filteredBooker = booker.filter((book) => book.id === id);
-
 	const handleDownload = async (bookId) => {
 		try {
+			const timeBookField = filteredBooker.find(({ timeBook }) => timeBook);
+			const formattedTime = timeBookField.timeBook.replace(/[/:, ]|AM|PM/g, "");
+
 			const storageRef = ref(storage, `${bookId}`);
 			const fileList = await listAll(storageRef);
 
-			if (fileList.items.length > 0) {
-				const fileRef = fileList.items[0];
+			const matchingFiles = fileList.items.filter((fileRef) =>
+				fileRef.name.startsWith(formattedTime)
+			);
+
+			if (matchingFiles.length > 0) {
+				const fileRef = matchingFiles[0];
 				const url = await getDownloadURL(fileRef);
 				window.open(url, "_blank");
 			} else {
-				console.error("No files found in the folder");
+				console.error("No matching files found in the folder");
 			}
 		} catch (error) {
 			console.error("Error downloading file:", error);

@@ -90,7 +90,6 @@ export default function Booker() {
 	const wrapperFX = (id, status, award, message) => {
 		updateStatus(id);
 		sendEmail(id, status, award, message);
-		
 	};
 
 	const [selectedBookId, setSelectedBookId] = useState(null);
@@ -99,17 +98,22 @@ export default function Booker() {
 		setSelectedBookId(bookId);
 	};
 
-	const handleDownload = async (bookId) => {
+	const handleDownload = async (bookId, time) => {
 		try {
+			const formattedTime = time.replace(/[/:, ]|AM|PM/g, "");
 			const storageRef = ref(storage, `${bookId}`);
 			const fileList = await listAll(storageRef);
 
-			if (fileList.items.length > 0) {
-				const fileRef = fileList.items[0];
+			const matchingFiles = fileList.items.filter((fileRef) =>
+				fileRef.name.startsWith(formattedTime)
+			);
+
+			if (matchingFiles.length > 0) {
+				const fileRef = matchingFiles[0];
 				const url = await getDownloadURL(fileRef);
 				window.open(url, "_blank");
 			} else {
-				console.error("No files found in the folder");
+				console.error("No matching files found in the folder");
 			}
 		} catch (error) {
 			console.error("Error downloading file:", error);
@@ -264,7 +268,7 @@ export default function Booker() {
 												type="button"
 												class="btn btn-warning"
 												onClick={() => {
-													handleDownload(book.id);
+													handleDownload(book.id, book.timeBook);
 												}}
 											>
 												<svg
