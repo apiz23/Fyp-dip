@@ -61,7 +61,16 @@ export default function History() {
 													? "Space & Equipment"
 													: "Equipment"}
 											</td>
-											<td>
+											<td
+												style={{
+													backgroundColor:
+														h.status === 1
+															? "green"
+															: h.status === 2
+															? "red"
+															: "grey",
+												}}
+											>
 												{h.status === 1
 													? "Approved"
 													: h.status === 2
