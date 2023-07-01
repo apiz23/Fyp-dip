@@ -24,16 +24,6 @@ export default function Booking() {
 		setCheckboxChecked(!checkboxChecked);
 	};
 
-	const loading = () => {
-		return (
-			<div class="text-center">
-				<div class="spinner-border" role="status">
-					<span class="visually-hidden">Loading...</span>
-				</div>
-			</div>
-		);
-	};
-
 	const handleSubmit = () => {
 		if (checkboxChecked) {
 			setIsLoading(true);
@@ -41,8 +31,8 @@ export default function Booking() {
 			uploadFile();
 			setTimeout(() => {
 				setIsLoading(false);
+				navigate("/home");
 			}, 5500);
-			navigate("/home");
 		} else {
 			alert("Please check the checkbox before submitting.");
 		}
@@ -76,7 +66,6 @@ export default function Booking() {
 	};
 
 	const bookingCollectionRef = collection(db, "booking-users");
-	const historyCollectionRef = collection(db, "history");
 	async function createReservation() {
 		try {
 			const currentDate = new Date();
@@ -85,11 +74,9 @@ export default function Booking() {
 			const id = sessionStorage.getItem("username");
 			const arr = getAllLocalStorageData(id);
 			const bookingRef = doc(bookingCollectionRef, id);
-			const historyRef = doc(historyCollectionRef);
 
 			const batch = writeBatch(db);
 			batch.set(bookingRef, arr);
-			// batch.set(historyRef, arr);
 
 			await batch.commit();
 		} catch (error) {
@@ -126,10 +113,10 @@ export default function Booking() {
 										width="20"
 										height="20"
 										fill="currentColor"
-										class="bi bi-chat-quote-fill"
+										class="bi bi-exclamation-triangle-fill"
 										viewBox="0 0 16 16"
 									>
-										<path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM7.194 6.766a1.688 1.688 0 0 0-.227-.272 1.467 1.467 0 0 0-.469-.324l-.008-.004A1.785 1.785 0 0 0 5.734 6C4.776 6 4 6.746 4 7.667c0 .92.776 1.666 1.734 1.666.343 0 .662-.095.931-.26-.137.389-.39.804-.81 1.22a.405.405 0 0 0 .011.59c.173.16.447.155.614-.01 1.334-1.329 1.37-2.758.941-3.706a2.461 2.461 0 0 0-.227-.4zM11 9.073c-.136.389-.39.804-.81 1.22a.405.405 0 0 0 .012.59c.172.16.446.155.613-.01 1.334-1.329 1.37-2.758.942-3.706a2.466 2.466 0 0 0-.228-.4 1.686 1.686 0 0 0-.227-.273 1.466 1.466 0 0 0-.469-.324l-.008-.004A1.785 1.785 0 0 0 10.07 6c-.957 0-1.734.746-1.734 1.667 0 .92.777 1.666 1.734 1.666.343 0 .662-.095.931-.26z" />
+										<path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
 									</svg>
 									<span class="visually-hidden">unread messages</span>
 								</span>
@@ -159,12 +146,16 @@ export default function Booking() {
 										<div className="modal-body">
 											<ul className="list-group list-group-flush">
 												<li className="list-group-item">
-													Borang ini adalah sah untuk tempahan penggunaan ruang
-													dan peralatan di bawah penyeliaan Pejabat Pentadbiran
-													Kampus Pagoh
+													This form is valid for space use reservations and
+													equipment under the supervision of the Administrative
+													Office Pagoh Campus.
 												</li>
 												<li className="list-group-item">
-													Pemohon hanya perlu mengisi BAHAGIAN (A) sahaja
+													Applicants only need to fill in all of Section (A).
+												</li>
+												<li className="list-group-item">
+													Applicants must upload the program approval paperwork
+													from the superior.
 												</li>
 											</ul>
 										</div>
@@ -301,12 +292,15 @@ export default function Booking() {
 										</svg>
 									</span>
 									<span>
-										Please make sure to check the checkbox to enable use to
-										store this{" "}
+										Please make sure to check the checkbox and{" "}
 										<strong className="text-warning">
-											Booking information
+											upload the important file
 										</strong>{" "}
-										in the history database
+										to enable us to store this{" "}
+										<strong className="text-warning">
+											booking information
+										</strong>{" "}
+										in the history database.
 									</span>
 								</label>
 							</div>

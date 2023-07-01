@@ -1,36 +1,21 @@
 import { useState, useEffect } from "react";
 import { db } from "../firebase-config";
-import { Link, Route, Router } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { collection, getDocs, query, deleteDoc, doc } from "firebase/firestore";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import Booking from "./Booking";
-import BookingProce from "./BookingProce";
+import History from "../components/History";
 import ReserveStatus from "../components/ReserveStatus";
 import logo from "../Assets/uthm-favicon/android-chrome-192x192.png";
-import Loader from "../components/Loader";
 import "./style/Home.scss";
-import History from "../components/History";
 
 export default function Home() {
-	<Router>
-		<Route path="booking" element={<Booking />} />
-		<Route path="bookingProce" element={<BookingProce />} />
-	</Router>;
-
 	const [expiredDocumentIds, setExpiredDocumentIds] = useState([]);
 	const [selectedOption, setSelectedOption] = useState("1");
 
 	const handleOptionChange = (event) => {
 		setSelectedOption(event.target.value);
 	};
-
-	// const [isLoading, setIsLoading] = useState(true);
-	// useEffect(() => {
-	// 	setTimeout(() => {
-	// 		setIsLoading(false);
-	// 	}, 2000);
-	// }, []);
 
 	useEffect(() => {
 		const clearLocalStorage = () => {
@@ -84,7 +69,6 @@ export default function Home() {
 	return (
 		<>
 			<section className="homeSec">
-				{/* {isLoading ? <Loader /> : null} */}
 				<Navbar />
 				<div className="container mt-3 col-md-10">
 					<div className="title my-5">
