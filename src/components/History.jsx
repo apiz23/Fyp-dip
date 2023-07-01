@@ -61,10 +61,19 @@ export default function History() {
 													? "Space & Equipment"
 													: "Equipment"}
 											</td>
-											<td>
-												{h.status === 1
+											<td
+												style={{
+													backgroundColor:
+														book.status === 1
+															? "green"
+															: book.status === 2
+															? "red"
+															: "grey",
+												}}
+											>
+												{book.status === 1
 													? "Approved"
-													: h.status === 2
+													: book.status === 2
 													? "Rejected"
 													: "Pending"}
 											</td>

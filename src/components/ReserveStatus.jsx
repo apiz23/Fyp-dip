@@ -75,16 +75,7 @@ export default function ReserveStatus() {
 														? "Space & Equipment"
 														: "Equipment"}
 												</td>
-												<td
-													style={{
-														backgroundColor:
-															book.status === 1
-																? "green"
-																: book.status === 2
-																? "red"
-																: "grey",
-													}}
-												>
+												<td>
 													{book.status === 1
 														? "Approved"
 														: book.status === 2
