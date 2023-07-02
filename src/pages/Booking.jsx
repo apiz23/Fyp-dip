@@ -156,11 +156,17 @@ export default function Booking() {
 													Office Pagoh Campus.
 												</li>
 												<li className="list-group-item">
-													Applicants only need to fill in all of Section (A).
+													Applicants must need to fill in all input in{" "}
+													<strong>Section (A)</strong>.
 												</li>
 												<li className="list-group-item">
-													Applicants must upload the program approval paperwork
+													Applicants must upload the{" "}
+													<strong>program approval paperwork </strong>
 													from the superior.
+												</li>
+												<li className="list-group-item">
+													Advise for applicants to upload only{" "}
+													<strong>one file</strong>.
 												</li>
 											</ul>
 										</div>
