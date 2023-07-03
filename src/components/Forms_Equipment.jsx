@@ -34,7 +34,7 @@ export default function Forms_Equipment() {
 			name: "examination-table",
 		},
 	];
-
+	
 	const [equip, setEquip] = useState([]);
 	const [booker, setBooker] = useState([]);
 	const [sessionData, setSessionData] = useState({});

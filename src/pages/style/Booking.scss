@@ -13,6 +13,9 @@ $background-color_1: rgb(173, 173, 173);
 	background-image: url("../../Assets/stackedWaveBgBook.svg");
 	color: white;
 	font-family: $inter;
+	.container {
+		animation: slideLeft 1s ease 0s 1 normal forwards;
+	}
 }
 
 #card {
@@ -150,6 +153,18 @@ $background-color_1: rgb(173, 173, 173);
 @keyframes wave-46 {
 	50% {
 		transform: scale(0.9);
+	}
+}
+
+@keyframes slideLeft {
+	0% {
+		opacity: 0;
+		transform: translateX(-250px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateX(0);
 	}
 }
 

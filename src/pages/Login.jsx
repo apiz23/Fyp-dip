@@ -189,7 +189,10 @@ export default function Login() {
 									<p className="mt-3 text-primary-emphasis">
 										Only <strong>UTHM students</strong> with active status are
 										allowed to login to this system. For any enquiries, please
-										click here to <strong>contact us</strong>
+										click here to{" "}
+										<strong>
+											<a className="text-primary" href="https://wa.link/xod6oh">contact us</a>
+										</strong>
 									</p>
 								</form>
 							</div>

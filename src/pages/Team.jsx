@@ -136,7 +136,7 @@ export default function Team() {
 							</h1>
 							<div className="col col-md-2">
 								<img src={react} alt="" className="img-fluid" />
-								<p className=" m-4 text-center">React JS</p>
+								<p className=" m-4 text-center">React JavaScript</p>
 							</div>
 							<div className="col col-md-2">
 								<img src={html} alt="" className="img-fluid" />

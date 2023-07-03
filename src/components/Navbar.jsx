@@ -207,7 +207,9 @@ export default function Navbar() {
 										width={250}
 									/>
 								) : (
-									<p>Loading image...</p>
+									<div class="spinner-border" role="status">
+										<span class="visually-hidden">Loading...</span>
+									</div>
 								)}
 							</div>
 						</div>

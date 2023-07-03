@@ -102,7 +102,7 @@ export default function Booking() {
 		<>
 			<section className="bookingSection">
 				<Navbar />
-				<div className="container-fluid" style={{ maxWidth: "1200px" }}>
+				<div className="container container-fluid" style={{ maxWidth: "1200px" }}>
 					<div className="row">
 						<div className="col d-flex justify-content-center">
 							<button
