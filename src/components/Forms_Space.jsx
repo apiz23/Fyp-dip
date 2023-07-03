@@ -46,6 +46,8 @@ export default function FormsSpace() {
 	const [booker, setBooker] = useState([]);
 	const [sessionData, setSessionData] = useState({});
 
+	console.log(space);
+
 	const handleChange = (event) => {
 		const name = event.target.name;
 		const value = event.target.value;
@@ -97,6 +99,8 @@ export default function FormsSpace() {
 		getSpaces();
 		setSessionData(sessionDataObject);
 	}, []);
+
+	console.log(booker);
 
 	const compareDateTime = (
 		startDate,
@@ -166,21 +170,30 @@ export default function FormsSpace() {
 													id="radio1"
 													value={room.title}
 													onChange={handleChange}
-													disabled={booker.some((book) =>
-														room.title === book.spaceOption &&
-														compareDateTime(
-															book.dateStart,
-															book.dateEnd,
-															book.timeStart,
-															book.timeEnd,
-															sessionData.dateStart,
-															sessionData.dateEnd,
-															sessionData.timeStart,
-															sessionData.timeEnd
-														) === "inside"
-															? true
-															: false
-													)}
+													disabled={
+														booker.some((book) =>
+															room.title === book.spaceOption &&
+															compareDateTime(
+																book.dateStart,
+																book.dateEnd,
+																book.timeStart,
+																book.timeEnd,
+																sessionData.dateStart,
+																sessionData.dateEnd,
+																sessionData.timeStart,
+																sessionData.timeEnd
+															) === "inside"
+																? true
+																: false
+														) ||
+														space.some(
+															(s) =>
+																room.title
+																	.toLowerCase()
+																	.replace(/\s+/g, "-") === s.id &&
+																s.availability === "no"
+														)
+													}
 												/>
 												<label class="form-check-label" for="radio1">
 													{room.title}
@@ -211,21 +224,30 @@ export default function FormsSpace() {
 														id={`radio${index + 1}`}
 														value={rooms[index + 1].title}
 														onChange={handleChange}
-														disabled={booker.some((book) =>
-															rooms[index + 1].title === book.spaceOption &&
-															compareDateTime(
-																book.dateStart,
-																book.dateEnd,
-																book.timeStart,
-																book.timeEnd,
-																sessionData.dateStart,
-																sessionData.dateEnd,
-																sessionData.timeStart,
-																sessionData.timeEnd
-															) === "inside"
-																? true
-																: false
-														)}
+														disabled={
+															booker.some((book) =>
+																rooms[index + 1].title === book.spaceOption &&
+																compareDateTime(
+																	book.dateStart,
+																	book.dateEnd,
+																	book.timeStart,
+																	book.timeEnd,
+																	sessionData.dateStart,
+																	sessionData.dateEnd,
+																	sessionData.timeStart,
+																	sessionData.timeEnd
+																) === "inside"
+																	? true
+																	: false
+															) ||
+															space.some(
+																(s) =>
+																	rooms[index + 1].title
+																		.toLowerCase()
+																		.replace(/\s+/g, "-") === s.id &&
+																	s.availability === "no"
+															)
+														}
 													/>
 													<label
 														className="form-check-label"

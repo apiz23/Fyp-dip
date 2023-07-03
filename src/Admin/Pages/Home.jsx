@@ -75,7 +75,6 @@ export default function HomeAd() {
 					return Promise.all(updateFields);
 				});
 				await Promise.all(updatePromises);
-				console.log("Documents updated successfully");
 			} catch (error) {
 				console.error("Error updating documents:", error);
 			}
@@ -123,9 +122,6 @@ export default function HomeAd() {
 				});
 
 				await Promise.all(deletionPromises);
-				console.log(
-					"Expired documents and corresponding folders deleted successfully"
-				);
 			} catch (error) {
 				console.error("Error deleting expired documents and folders:", error);
 			}

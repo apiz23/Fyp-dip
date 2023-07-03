@@ -1,9 +1,9 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import "./style/BookingProce.scss";
 import tutorial from "../Assets/Video/video-manual.mp4";
 import { storage } from "../../src/firebase-config";
 import { getDownloadURL, listAll, ref } from "firebase/storage";
+import "./style/BookingProce.scss";
 
 export default function BookingProce() {
 	const handleDownload = async () => {
