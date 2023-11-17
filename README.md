@@ -12,10 +12,10 @@ Check out the live demo: [Space and Equipment Booking System](https://space-equi
 
 ## Screenshots
 
-![Screenshot 1](https://github.com/apiz23/fyp-dip/public/imagesPub/0.png)  
+![Screenshot 1](https://github.com/apiz23/fyp-dip/blob/master/public/imagesPub/0.png)  
 *pic 1*
 
-![Screenshot 2](https://github.com/apiz23/fyp-dip/public/imagesPub/1.png)  
+![Screenshot 2](https://github.com/apiz23/fyp-dip/blob/master/public/imagesPub/1.png)  
 *pic 2*
 
 ## Features
