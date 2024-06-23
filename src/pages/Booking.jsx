@@ -97,45 +97,55 @@ export default function Booking() {
 		handleButtonClick();
 		createReservation();
 	};
+	const [show, setShow] = useState(false);
+
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
 
 	return (
 		<>
 			<section className="bookingSection">
 				<Navbar />
-				<div className="container container-fluid" style={{ maxWidth: "1200px" }}>
+				<div className="container-fluid vh-100" style={{ maxWidth: "1200px" }}>
 					<div className="row">
 						<div className="col d-flex justify-content-center">
 							<button
 								type="button"
 								className="btn btn-warning position-relative my-5"
-								data-bs-toggle="modal"
-								data-bs-target="#staticBackdrop"
+								onClick={handleShow}
 							>
 								Instruction
-								<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+								<span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										width="20"
 										height="20"
 										fill="currentColor"
-										class="bi bi-exclamation-triangle-fill"
+										className="bi bi-exclamation-triangle-fill"
 										viewBox="0 0 16 16"
 									>
 										<path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
 									</svg>
-									<span class="visually-hidden">unread messages</span>
+									<span className="visually-hidden">unread messages</span>
 								</span>
 							</button>
+
+							{show && (
+								<div
+									className="modal-backdrop fade show -z-10 h-full"
+								></div>
+							)}
+
 							<div
-								className="modal fade"
+								className={`modal fade ${show ? "show" : ""}`}
 								id="staticBackdrop"
-								data-bs-backdrop="static"
-								data-bs-keyboard="false"
-								tabindex="-1"
+								tabIndex={-1}
 								aria-labelledby="staticBackdropLabel"
 								aria-hidden="true"
+								style={{ display: show ? "block" : "none" }}
+								role="dialog"
 							>
-								<div className="modal-dialog modal-dialog-centered ">
+								<div className="modal-dialog modal-dialog-centered">
 									<div className="modal-content m-3">
 										<div className="modal-header">
 											<h1 className="modal-title fs-5" id="staticBackdropLabel">
@@ -144,29 +154,26 @@ export default function Booking() {
 											<button
 												type="button"
 												className="btn-close"
-												data-bs-dismiss="modal"
 												aria-label="Close"
+												onClick={handleClose}
 											></button>
 										</div>
 										<div className="modal-body">
 											<ul className="list-group list-group-flush">
 												<li className="list-group-item">
-													This form is valid for space use reservations and
-													equipment under the supervision of the Administrative
-													Office Pagoh Campus.
+													This form is valid for space use reservations and equipment under
+													the supervision of the Administrative Office Pagoh Campus.
 												</li>
 												<li className="list-group-item">
-													Applicants must need to fill in all input in{" "}
+													Applicants must need to fill in all input in
 													<strong>Section (A)</strong>.
 												</li>
 												<li className="list-group-item">
-													Applicants must upload the{" "}
-													<strong>program approval paperwork </strong>
-													from the superior.
+													Applicants must upload the
+													<strong>program approval paperwork</strong> from the superior.
 												</li>
 												<li className="list-group-item">
-													Advise for applicants to upload only{" "}
-													<strong>one file</strong>.
+													Advise for applicants to upload only <strong>one file</strong>.
 												</li>
 											</ul>
 										</div>
@@ -174,7 +181,7 @@ export default function Booking() {
 											<button
 												type="button"
 												className="btn btn-secondary"
-												data-bs-dismiss="modal"
+												onClick={handleClose}
 											>
 												Close
 											</button>
@@ -221,10 +228,7 @@ export default function Booking() {
 					<h1 className="title2 display-5 text-center">
 						Please choose one of the following options:{" "}
 					</h1>
-					<div
-						className="col col-md d-flex justify-content-center"
-						id="colRadio"
-					>
+					<div className="col col-md d-flex justify-content-center" id="colRadio">
 						<div className="radios mt-3 text-dark">
 							<div className="form-check form-check-inline">
 								<input
@@ -236,10 +240,7 @@ export default function Booking() {
 									checked={radioValue === "option1"}
 									onChange={handleRadioChange}
 								/>
-								<label
-									className="form-check-label text-light"
-									for="inlineRadio1"
-								>
+								<label className="form-check-label text-light" for="inlineRadio1">
 									Space & Equipment
 								</label>
 							</div>
@@ -253,10 +254,7 @@ export default function Booking() {
 									checked={radioValue === "option2"}
 									onChange={handleRadioChange}
 								/>
-								<label
-									className="form-check-label text-light"
-									for="inlineRadio2"
-								>
+								<label className="form-check-label text-light" for="inlineRadio2">
 									Equipment Only
 								</label>
 							</div>
@@ -292,11 +290,7 @@ export default function Booking() {
 									checked={checkboxChecked}
 									onChange={handleCheckboxChange}
 								/>
-								<label
-									className="cbx"
-									htmlFor="cbx-46"
-									style={{ fontSize: "larger" }}
-								>
+								<label className="cbx" htmlFor="cbx-46" style={{ fontSize: "larger" }}>
 									<span>
 										<svg width={"12px"} height={"10px"} viewbox="0 0 12 10">
 											<polyline points="1.5 6 4.5 9 10.5 1"></polyline>
@@ -304,14 +298,10 @@ export default function Booking() {
 									</span>
 									<span>
 										Please make sure to check the checkbox and{" "}
-										<strong className="text-warning">
-											upload the important file
-										</strong>{" "}
-										to enable us to store this{" "}
-										<strong className="text-warning">
-											booking information
-										</strong>{" "}
-										in the history database.
+										<strong className="text-warning">upload the important file</strong> to
+										enable us to store this{" "}
+										<strong className="text-warning">booking information</strong> in the
+										history database.
 									</span>
 								</label>
 							</div>

@@ -165,18 +165,12 @@ export default function Booker() {
 									<td>{book.id}</td>
 									<td>{book.timeBook}</td>
 									<td>
-										{book.radioBtn === "option1"
-											? "Space & Equipment"
-											: "Equipment"}
+										{book.radioBtn === "option1" ? "Space & Equipment" : "Equipment"}
 									</td>
 									<td
 										style={{
 											backgroundColor:
-												book.status === 1
-													? "green"
-													: book.status === 2
-													? "red"
-													: "grey",
+												book.status === 1 ? "green" : book.status === 2 ? "red" : "grey",
 										}}
 									>
 										{book.status === 1
@@ -221,10 +215,7 @@ export default function Booker() {
 												<div class="modal-dialog modal-dialog-scrollable">
 													<div class="modal-content">
 														<div class="modal-header">
-															<h1
-																class="modal-title fs-5"
-																id="exampleModalLabel"
-															>
+															<h1 class="modal-title fs-5" id="exampleModalLabel">
 																Details
 															</h1>
 															<button
@@ -239,14 +230,10 @@ export default function Booker() {
 																<ol>
 																	{Object.entries(book)
 																		.filter(([key]) => key !== "id")
-																		.sort(([key1], [key2]) =>
-																			key1.localeCompare(key2)
-																		)
+																		.sort(([key1], [key2]) => key1.localeCompare(key2))
 																		.map(([key, value]) => (
 																			<li key={key}>
-																				{key.charAt(0).toUpperCase() +
-																					key.slice(1)}
-																				: {value}
+																				{key.charAt(0).toUpperCase() + key.slice(1)}: {value}
 																			</li>
 																		))}
 																</ol>

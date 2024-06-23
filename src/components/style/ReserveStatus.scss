@@ -48,3 +48,11 @@
 		width: max-content;
 	}
 }
+
+.modal-backdrop {
+	z-index: 1040 !important;
+}
+
+.modal {
+	z-index: 1050 !important;
+}

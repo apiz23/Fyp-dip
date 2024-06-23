@@ -77,9 +77,7 @@ export default function ReserveStatus() {
 											<tr key={index}>
 												<td>{book.id}</td>
 												<td>
-													{book.radioBtn === "option1"
-														? "Space & Equipment"
-														: "Equipment"}
+													{book.radioBtn === "option1" ? "Space & Equipment" : "Equipment"}
 												</td>
 												<td>
 													{book.status === 1
@@ -121,11 +119,7 @@ export default function ReserveStatus() {
 															</div>
 														</div>
 													</div>
-													<div
-														class="btn-group"
-														role="group"
-														aria-label="Basic example"
-													>
+													<div class="btn-group" role="group" aria-label="Basic example">
 														<button
 															class="btn"
 															id="fileBtn"
@@ -175,10 +169,7 @@ export default function ReserveStatus() {
 										<div className="col col-md d-flex flex-column align-items-center justify-content-center">
 											<span className="mt-4 mx-3">No book yet</span>
 											<Link to="/booking">
-												<button
-													type="button"
-													className="btn btn-outline-primary"
-												>
+												<button type="button" className="btn btn-outline-primary">
 													<svg
 														xmlns="http://www.w3.org/2000/svg"
 														width="25"
